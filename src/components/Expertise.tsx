@@ -1,13 +1,12 @@
-import React from 'react';
 import { Box, Container, Heading, SimpleGrid, Text, Icon, VStack, HStack, Tag } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { 
-  FaReact, FaNodeJs, FaPython, FaJava, FaDocker, FaAws, 
+  FaReact, FaNodeJs, FaPython, FaJava, FaAws, 
   FaDatabase, FaGitAlt, FaBrain
 } from 'react-icons/fa';
 import { 
-  SiTypescript, SiJavascript, SiMongodb, SiPostgresql,
-  SiTensorflow, SiPytorch, SiScikitlearn, SiExpress
+  SiJavascript, SiMongodb, SiPostgresql,
+  SiPytorch, SiScikitlearn
 } from 'react-icons/si';
 
 const MotionBox = motion(Box);

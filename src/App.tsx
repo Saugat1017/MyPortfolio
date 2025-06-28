@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { ChakraProvider, Box, Container, theme as baseTheme, Spinner, Center } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from './components/Navigation';

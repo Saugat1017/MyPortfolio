@@ -1,8 +1,7 @@
-import React from 'react';
 import { Box, Container, Heading, SimpleGrid, Text, Tag, Icon, Button, VStack, HStack, Link } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaBrain, FaFileAlt, FaTasks, FaLock } from 'react-icons/fa';
-import { SiPython, SiReact, SiTensorflow, SiAmazon, SiNodedotjs } from 'react-icons/si';
+import { FaGithub, FaExternalLinkAlt, FaBrain, FaTasks, FaLock } from 'react-icons/fa';
+import { SiPython, SiReact, SiTensorflow } from 'react-icons/si';
 
 const MotionBox = motion(Box);
 

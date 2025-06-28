@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box, Container, Heading, VStack, HStack, Text, Link, Icon, Button, SimpleGrid } from '@chakra-ui/react';
+import { Box, Container, Heading, VStack, Text, Link, Icon, Button, SimpleGrid } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 

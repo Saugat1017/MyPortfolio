@@ -1,21 +1,10 @@
-import React from 'react';
-import { Box, Container, Heading, VStack, Text, SimpleGrid, useColorModeValue } from '@chakra-ui/react';
+import { Box, Container, Heading, VStack, Text, SimpleGrid } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
 const MotionBox = motion(Box);
 
 const journeyData = [
-  {
-    title: "Backend Engineer Intern",
-    organization: "Datalogz(StartUp)",
-    period: "May 2025 - Present ",
-    description: [
-      "enhancing BI metadata tracking and reducing stale data across platforms",
-      "deploy Python-based APIs, improving BI tool optimizing resource consumption",
-      "Created responsive user interfaces with React and TypeScript",
-      "Participated in code reviews and agile development processes"
-    ]
-  },
+  
   {
     title: "Bachelor of Science in Computer Science",
     organization: "University of Texas at Arlington",
