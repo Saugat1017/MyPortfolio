@@ -69,4 +69,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - [Chakra UI](https://chakra-ui.com/)
 - [Framer Motion](https://www.framer.com/motion/)
-- [React Icons](https://react-icons.github.io/react-icons/) 
+- [React Icons](https://react-icons.github.io/react-icons/)
