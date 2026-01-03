@@ -16,6 +16,10 @@ const Hero = () => {
     "Problem Solver"
   ];
 
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   // Typing animation effect
   useEffect(() => {
     const fullText = roles[currentRole];
@@ -104,7 +108,8 @@ const Hero = () => {
               <Text
                 fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
                 fontWeight="600"
-                color="#3b82f6"
+                bgGradient="linear(to-r, #3b82f6, #06b6d4)"
+                bgClip="text"
               >
                 {displayText}
                 <Box
@@ -112,7 +117,7 @@ const Hero = () => {
                   display="inline-block"
                   w="3px"
                   h="1em"
-                  bg="#3b82f6"
+                  bgGradient="linear(to-r, #3b82f6, #06b6d4)"
                   ml={2}
                   opacity={showCursor ? 1 : 0}
                   transition="opacity 0.3s"
@@ -154,6 +159,8 @@ const Hero = () => {
                   borderRadius="md"
                   fontSize="md"
                   fontWeight="600"
+                  onClick={scrollToContact}
+                  cursor="pointer"
                   _hover={{
                     bg: "#2563eb",
                     transform: "translateY(-2px)",
@@ -174,6 +181,8 @@ const Hero = () => {
                   borderRadius="md"
                   fontSize="md"
                   fontWeight="600"
+                  onClick={scrollToContact}
+                  cursor="pointer"
                   _hover={{
                     bg: "#3b82f6",
                     color: "white",
@@ -227,16 +236,16 @@ const Hero = () => {
                   h="45px"
                   borderRadius="50%"
                   border="2px solid"
-                  borderColor="#3b82f6"
+                  borderColor="#06b6d4"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
-                  color="#3b82f6"
+                  color="#06b6d4"
                   _hover={{
-                    bg: "#3b82f6",
+                    bg: "#06b6d4",
                     color: "white",
                     transform: "translateY(-3px)",
-                    boxShadow: "0 5px 15px rgba(59, 130, 246, 0.4)",
+                    boxShadow: "0 5px 15px rgba(6, 182, 212, 0.4)",
                   }}
                   transition="all 0.3s ease"
                 >
@@ -249,16 +258,16 @@ const Hero = () => {
                   h="45px"
                   borderRadius="50%"
                   border="2px solid"
-                  borderColor="#3b82f6"
+                  borderColor="#10b981"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
-                  color="#3b82f6"
+                  color="#10b981"
                   _hover={{
-                    bg: "#3b82f6",
+                    bg: "#10b981",
                     color: "white",
                     transform: "translateY(-3px)",
-                    boxShadow: "0 5px 15px rgba(59, 130, 246, 0.4)",
+                    boxShadow: "0 5px 15px rgba(16, 185, 129, 0.4)",
                   }}
                   transition="all 0.3s ease"
                 >
@@ -335,8 +344,8 @@ const Hero = () => {
                     top="25%"
                     w="3px"
                     h="100px"
-                    bg="#60a5fa"
-                    boxShadow="0 0 20px #60a5fa, 0 0 40px #60a5fa"
+                    bg="#06b6d4"
+                    boxShadow="0 0 20px #06b6d4, 0 0 40px #06b6d4"
                     animate={{
                       opacity: [0.5, 1, 0.5],
                     }}
@@ -354,8 +363,8 @@ const Hero = () => {
                     top="35%"
                     w="3px"
                     h="90px"
-                    bg="#3b82f6"
-                    boxShadow="0 0 20px #3b82f6, 0 0 40px #3b82f6"
+                    bg="#10b981"
+                    boxShadow="0 0 20px #10b981, 0 0 40px #10b981"
                     animate={{
                       opacity: [0.6, 1, 0.6],
                     }}
@@ -373,8 +382,8 @@ const Hero = () => {
                     top="40%"
                     w="60px"
                     h="2px"
-                    bg="#60a5fa"
-                    boxShadow="0 0 15px #60a5fa, 0 0 30px #60a5fa"
+                    bg="#ec4899"
+                    boxShadow="0 0 15px #ec4899, 0 0 30px #ec4899"
                     animate={{
                       opacity: [0.4, 1, 0.4],
                     }}
@@ -392,8 +401,8 @@ const Hero = () => {
                     w="8px"
                     h="8px"
                     borderRadius="50%"
-                    bg="#3b82f6"
-                    boxShadow="0 0 20px #3b82f6, 0 0 40px #3b82f6"
+                    bg="#6366f1"
+                    boxShadow="0 0 20px #6366f1, 0 0 40px #6366f1"
                     animate={{
                       opacity: [0.5, 1, 0.5],
                       scale: [1, 1.2, 1],

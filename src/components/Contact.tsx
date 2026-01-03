@@ -1,6 +1,6 @@
-import { Box, Container, Heading, VStack, Text, Link, Icon, Button, SimpleGrid } from '@chakra-ui/react';
+import { Box, Container, Heading, VStack, Text, Link, Icon, Button, SimpleGrid, HStack, Circle } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
 
 const MotionBox = motion(Box);
 
@@ -8,7 +8,6 @@ const contactData = {
   email: "saugatbhatta1234@gmail.com",
   github: "Saugat1017",
   linkedin: "saugat-bhatta-01a595217",
-  website: "saugatdev.com",
   location: "Irving, Texas"
 };
 
@@ -17,157 +16,269 @@ const Contact = () => {
     <Box
       id="contact"
       minH="100vh"
-      py={20}
-      bgGradient="linear(to-b, #0a0e1a, #0f172a)"
+      py={{ base: 16, md: 24 }}
+      bg="#0a0e1a"
       position="relative"
       overflow="hidden"
     >
+      {/* Background Elements */}
       <Box
         position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        bgGradient="radial(circle at 50% 50%, rgba(255, 0, 255, 0.1), transparent)"
-        opacity={0.3}
+        top="20%"
+        right="10%"
+        w="400px"
+        h="400px"
+        borderRadius="50%"
+        bgGradient="radial(circle, rgba(59, 130, 246, 0.1), transparent)"
+        filter="blur(80px)"
+        zIndex={0}
+      />
+      <Box
+        position="absolute"
+        bottom="20%"
+        left="10%"
+        w="300px"
+        h="300px"
+        borderRadius="50%"
+        bgGradient="radial(circle, rgba(236, 72, 153, 0.1), transparent)"
+        filter="blur(60px)"
+        zIndex={0}
       />
 
-      <Container maxW="container.xl" position="relative">
+      <Container maxW="container.xl" position="relative" zIndex={1}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <Heading
-            mb={16}
-            fontSize={{ base: "4xl", md: "5xl" }}
-            textAlign="center"
-            bgGradient="linear(to-r, #3b82f6, #6366f1)"
-            bgClip="text"
-          >
-            Get In Touch
-          </Heading>
+          <VStack spacing={4} mb={16} textAlign="center">
+            <Heading
+              fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
+              fontWeight="800"
+              letterSpacing="tight"
+              bgGradient="linear(to-r, #3b82f6, #06b6d4, #10b981, #ec4899)"
+              bgClip="text"
+            >
+              Get In Touch
+            </Heading>
+            <Text
+              color="gray.400"
+              fontSize={{ base: "md", md: "lg" }}
+              maxW="2xl"
+            >
+              I'm always open to new opportunities, collaborations, and conversations about technology
+            </Text>
+          </VStack>
         </motion.div>
 
         <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={12} alignItems="center">
-          <MotionBox
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <VStack align="flex-start" spacing={8}>
-              <Text
-                fontSize={{ base: "xl", md: "2xl" }}
-                color="whiteAlpha.900"
-                lineHeight="1.8"
+          {/* Left Side - Info Cards */}
+          <VStack spacing={6} align="stretch">
+            <MotionBox
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <Box
+                p={8}
+                borderRadius="2xl"
+                bg="rgba(26, 35, 50, 0.8)"
+                backdropFilter="blur(20px)"
+                border="1px solid"
+                borderColor="rgba(59, 130, 246, 0.2)"
+                _hover={{
+                  borderColor: "rgba(59, 130, 246, 0.5)",
+                  transform: "translateY(-4px)",
+                  boxShadow: "0 20px 40px rgba(59, 130, 246, 0.15)",
+                }}
+                transition="all 0.4s ease"
               >
-                I'm always open to new opportunities, collaborations, and conversations about technology, 
-                AI/ML, or software development. Whether you have a project in mind or just want to connect, 
-                I'd love to hear from you!
-              </Text>
-
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} w="100%">
-                <Box
-                  p={6}
-                  className="glass-card"
-                >
-                  <VStack align="flex-start" spacing={3}>
-                    <Icon as={FaEnvelope} boxSize={6} color="#3b82f6" />
-                    <Text color="white" fontWeight="bold">Email</Text>
-                    <Text color="whiteAlpha.900" fontSize="sm">{contactData.email}</Text>
+                <HStack spacing={4} mb={4}>
+                  <Circle
+                    size="50px"
+                    bgGradient="linear(135deg, #3b82f6, #06b6d4)"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <Icon as={FaEnvelope} boxSize={5} color="white" />
+                  </Circle>
+                  <VStack align="flex-start" spacing={1}>
+                    <Text color="gray.400" fontSize="sm" fontWeight="600" textTransform="uppercase" letterSpacing="wide">
+                      Email
+                    </Text>
+                    <Link
+                      href={`mailto:${contactData.email}`}
+                      color="white"
+                      fontSize="md"
+                      fontWeight="600"
+                      _hover={{ color: "#60a5fa", textDecoration: "none" }}
+                    >
+                      {contactData.email}
+                    </Link>
                   </VStack>
-                </Box>
+                </HStack>
+              </Box>
+            </MotionBox>
 
-                <Box
-                  p={6}
-                  className="glass-card"
-                >
-                  <VStack align="flex-start" spacing={3}>
-                    <Icon as={FaMapMarkerAlt} boxSize={6} color="#6366f1" />
-                    <Text color="white" fontWeight="bold">Location</Text>
-                    <Text color="whiteAlpha.900" fontSize="sm">{contactData.location}</Text>
+            <MotionBox
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Box
+                p={8}
+                borderRadius="2xl"
+                bg="rgba(26, 35, 50, 0.8)"
+                backdropFilter="blur(20px)"
+                border="1px solid"
+                borderColor="rgba(59, 130, 246, 0.2)"
+                _hover={{
+                  borderColor: "rgba(59, 130, 246, 0.5)",
+                  transform: "translateY(-4px)",
+                  boxShadow: "0 20px 40px rgba(59, 130, 246, 0.15)",
+                }}
+                transition="all 0.4s ease"
+              >
+                <HStack spacing={4} mb={4}>
+                  <Circle
+                    size="50px"
+                    bgGradient="linear(135deg, #06b6d4, #10b981)"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <Icon as={FaMapMarkerAlt} boxSize={5} color="white" />
+                  </Circle>
+                  <VStack align="flex-start" spacing={1}>
+                    <Text color="gray.400" fontSize="sm" fontWeight="600" textTransform="uppercase" letterSpacing="wide">
+                      Location
+                    </Text>
+                    <Text color="white" fontSize="md" fontWeight="600">
+                      {contactData.location}
+                    </Text>
                   </VStack>
-                </Box>
-              </SimpleGrid>
-            </VStack>
-          </MotionBox>
+                </HStack>
+              </Box>
+            </MotionBox>
+          </VStack>
 
-          <MotionBox
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <VStack spacing={6} w="100%">
-              <Link 
-                href={`mailto:${contactData.email}?subject=Getting%20in%20Touch&body=Hi%20Saugat,%0D%0A%0D%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20connect%20about...`} 
+          {/* Right Side - Action Buttons */}
+          <VStack spacing={6} align="stretch">
+            <MotionBox
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <Link
+                href={`mailto:${contactData.email}?subject=Getting%20in%20Touch&body=Hi%20Saugat,%0D%0A%0D%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20connect%20about...`}
                 w="100%"
                 isExternal
+                _hover={{ textDecoration: "none" }}
               >
                 <Button
-                  leftIcon={<FaEnvelope />}
+                  leftIcon={<FaPaperPlane />}
                   w="100%"
                   h="70px"
-                  fontSize="xl"
-                  bgGradient="linear(to-r, #3b82f6, #6366f1)"
+                  fontSize="lg"
+                  fontWeight="700"
+                  bgGradient="linear(to-r, #3b82f6, #06b6d4)"
                   color="white"
+                  borderRadius="xl"
                   _hover={{
-                    bgGradient: "linear(to-r, blue.600, indigo.700)",
-                    transform: "translateY(-2px)",
+                    bgGradient: "linear(to-r, #2563eb, #0891b2)",
+                    transform: "translateY(-4px)",
+                    boxShadow: "0 20px 40px rgba(59, 130, 246, 0.4)",
                   }}
                   transition="all 0.3s ease"
                 >
-                  Send me an email
+                  Send me an Email
                 </Button>
               </Link>
+            </MotionBox>
 
-              <Link href={`https://github.com/${contactData.github}`} isExternal w="100%">
+            <MotionBox
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Link
+                href={`https://github.com/${contactData.github}`}
+                isExternal
+                w="100%"
+                _hover={{ textDecoration: "none" }}
+              >
                 <Button
                   leftIcon={<FaGithub />}
                   w="100%"
                   h="70px"
-                  fontSize="xl"
+                  fontSize="lg"
+                  fontWeight="700"
                   variant="outline"
-                  borderColor="#3b82f6"
+                  borderColor="rgba(59, 130, 246, 0.4)"
                   borderWidth="2px"
-                  color="white"
+                  color="#60a5fa"
+                  bg="transparent"
+                  borderRadius="xl"
                   _hover={{
-                    bg: "#3b82f6",
-                    transform: "translateY(-2px)",
+                    bg: "rgba(59, 130, 246, 0.15)",
+                    borderColor: "#3b82f6",
+                    color: "#3b82f6",
+                    transform: "translateY(-4px)",
                   }}
                   transition="all 0.3s ease"
                 >
-                  Check my GitHub
+                  View GitHub Profile
                 </Button>
               </Link>
+            </MotionBox>
 
-              <Link href={`https://www.linkedin.com/in/${contactData.linkedin}`} isExternal w="100%">
+            <MotionBox
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <Link
+                href={`https://www.linkedin.com/in/${contactData.linkedin}`}
+                isExternal
+                w="100%"
+                _hover={{ textDecoration: "none" }}
+              >
                 <Button
                   leftIcon={<FaLinkedin />}
                   w="100%"
                   h="70px"
-                  fontSize="xl"
+                  fontSize="lg"
+                  fontWeight="700"
                   variant="outline"
-                  borderColor="#6366f1"
+                  borderColor="rgba(6, 182, 212, 0.4)"
                   borderWidth="2px"
-                  color="white"
+                  color="#06b6d4"
+                  bg="transparent"
+                  borderRadius="xl"
                   _hover={{
-                    bg: "#6366f1",
-                    transform: "translateY(-2px)",
+                    bg: "rgba(6, 182, 212, 0.15)",
+                    borderColor: "#06b6d4",
+                    color: "#06b6d4",
+                    transform: "translateY(-4px)",
                   }}
                   transition="all 0.3s ease"
                 >
                   Connect on LinkedIn
                 </Button>
               </Link>
-            </VStack>
-          </MotionBox>
+            </MotionBox>
+          </VStack>
         </SimpleGrid>
       </Container>
     </Box>
   );
 };
 
-export default Contact; 
+export default Contact;

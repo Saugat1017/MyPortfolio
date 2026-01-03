@@ -1,4 +1,4 @@
-/* App.css - Modern Dark Blue Theme with Box Layouts */
+/* App.css - Modern Multi-Color Theme with Box Layouts */
 :root {
   --primary: #3b82f6;
   --primary-dark: #2563eb;
@@ -6,13 +6,21 @@
   --secondary-dark: #4f46e5;
   --accent: #60a5fa;
   --accent-purple: #818cf8;
+  --accent-cyan: #06b6d4;
+  --accent-green: #10b981;
+  --accent-pink: #ec4899;
+  --accent-orange: #f59e0b;
   
-  --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
-  --secondary-gradient: linear-gradient(135deg, #60a5fa 0%, #818cf8 100%);
-  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #60a5fa 50%, #6366f1 100%);
+  --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #06b6d4 100%);
+  --secondary-gradient: linear-gradient(135deg, #60a5fa 0%, #818cf8 50%, #ec4899 100%);
+  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #06b6d4 30%, #10b981 60%, #ec4899 100%);
+  --rainbow-gradient: linear-gradient(135deg, #3b82f6 0%, #6366f1 25%, #06b6d4 50%, #10b981 75%, #ec4899 100%);
   
   --glow-primary: rgba(59, 130, 246, 0.4);
   --glow-secondary: rgba(99, 102, 241, 0.4);
+  --glow-cyan: rgba(6, 182, 212, 0.4);
+  --glow-green: rgba(16, 185, 129, 0.4);
+  --glow-pink: rgba(236, 72, 153, 0.4);
   
   --bg-primary: #0a0e1a;
   --bg-secondary: #0f172a;
@@ -103,13 +111,24 @@ html {
 }
 
 .gradient-text {
-  background: var(--primary-gradient);
+  background: var(--rainbow-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
   font-weight: 700;
+  animation: gradient-shift 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Modern Card Boxes */

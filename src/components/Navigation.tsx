@@ -63,10 +63,11 @@ const Navigation: React.FC = () => {
             fontSize="xl"
             fontWeight="bold"
             color="white"
-            _hover={{ textDecoration: 'none', color: '#3b82f6' }}
+            _hover={{ textDecoration: 'none' }}
             transition="color 0.3s ease"
+            className="gradient-text"
           >
-            Saugat.
+            SB
           </Link>
         </motion.div>
 
@@ -85,7 +86,8 @@ const Navigation: React.FC = () => {
                 fontWeight={activeSection === item.name ? '600' : '400'}
                 _hover={{ 
                   textDecoration: 'none',
-                  color: '#3b82f6',
+                  bgGradient: 'linear(to-r, #3b82f6, #06b6d4)',
+                  bgClip: 'text',
                 }}
                 transition="all 0.3s ease"
                 position="relative"
@@ -98,7 +100,7 @@ const Navigation: React.FC = () => {
                     left="0"
                     right="0"
                     h="2px"
-                    bg="#3b82f6"
+                    bgGradient="linear(to-r, #3b82f6, #06b6d4, #10b981)"
                     borderRadius="full"
                   />
                 )}

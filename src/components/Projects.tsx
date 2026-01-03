@@ -1,6 +1,6 @@
-import { Box, Container, Heading, Text, Tag, Icon, Button, VStack, HStack, Link, SimpleGrid } from '@chakra-ui/react';
+import { Box, Container, Heading, Text, Tag, Button, VStack, HStack, Link, SimpleGrid, Badge } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaTasks, FaMobile, FaServer, FaJava, FaHome, FaBrain } from 'react-icons/fa';
+import { FaGithub, FaTasks, FaMobile, FaServer, FaHome, FaBrain, FaArrowRight, FaJava } from 'react-icons/fa';
 import { SiReact, SiAndroid, SiC, SiHtml5, SiCss3, SiJavascript, SiPython, SiFastapi } from 'react-icons/si';
 
 const MotionBox = motion(Box);
@@ -106,95 +106,124 @@ const Projects = () => {
     <Box
       id="projects"
       minH="100vh"
-      py={20}
-      bgGradient="linear(to-b, #0a0e1a, #0f172a)"
+      py={{ base: 16, md: 24 }}
+      bg="#0a0e1a"
       position="relative"
       overflow="hidden"
     >
-      <Box
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        bgGradient="radial(circle at 50% 50%, rgba(59, 130, 246, 0.15), transparent)"
-        opacity={0.3}
-      />
-
-      <Container maxW="container.xl" position="relative">
+      <Container maxW="container.xl" position="relative" zIndex={1}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <Heading
-            mb={16}
-            fontSize={{ base: "4xl", md: "5xl" }}
-            textAlign="center"
-            bgGradient="linear(to-r, #3b82f6, #6366f1)"
-            bgClip="text"
-          >
-            Featured Projects
-          </Heading>
+          <VStack spacing={4} mb={16} textAlign="center">
+            <Heading
+              fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
+              fontWeight="800"
+              letterSpacing="tight"
+            >
+              <Text as="span" bgGradient="linear(to-r, #3b82f6, #06b6d4)" bgClip="text">
+                Featured
+              </Text>{' '}
+              <Text as="span" bgGradient="linear(to-r, #ec4899, #f472b6)" bgClip="text">
+                Projects
+              </Text>
+            </Heading>
+            <Text
+              color="gray.400"
+              fontSize={{ base: "md", md: "lg" }}
+              maxW="2xl"
+            >
+              Showcasing my best work across various technologies and domains
+            </Text>
+          </VStack>
         </motion.div>
 
         <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={8}>
           {projects.map((project, index) => (
             <MotionBox
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
               <Box
-                className="modern-card"
+                position="relative"
+                borderRadius="2xl"
+                bg="rgba(26, 35, 50, 0.8)"
+                backdropFilter="blur(20px)"
+                border="1px solid"
+                borderColor="rgba(59, 130, 246, 0.2)"
+                p={8}
                 h="100%"
+                display="flex"
+                flexDirection="column"
+                _hover={{
+                  borderColor: "rgba(59, 130, 246, 0.5)",
+                  boxShadow: "0 25px 50px rgba(59, 130, 246, 0.15)",
+                  transform: "translateY(-8px)",
+                }}
+                transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
               >
-                <VStack align="stretch" h="100%" spacing={6}>
-                  <HStack spacing={4} justify="space-between" flexWrap="wrap">
-                    <HStack spacing={4}>
-                      <Box
-                        p={3}
-                        borderRadius="xl"
-                        bg="rgba(59, 130, 246, 0.1)"
-                        border="1px solid rgba(59, 130, 246, 0.3)"
-                      >
-                        <Icon as={project.categoryIcon} boxSize={6} color="#3b82f6" />
-                      </Box>
-                      <Tag 
-                        size="md" 
-                        bg="rgba(99, 102, 241, 0.2)" 
-                        color="#6366f1"
-                        border="1px solid rgba(99, 102, 241, 0.4)"
-                        borderRadius="full"
-                        px={4}
-                        py={2}
-                      >
-                        {project.category}
-                      </Tag>
-                    </HStack>
+                {/* Gradient Border Top */}
+                <Box
+                  position="absolute"
+                  top={0}
+                  left={0}
+                  right={0}
+                  h="3px"
+                  bgGradient="linear(to-r, #3b82f6, #06b6d4, #10b981, #ec4899)"
+                  borderRadius="2xl 2xl 0 0"
+                />
+
+                <VStack align="stretch" spacing={6} flex="1">
+                  {/* Header */}
+                  <HStack justify="space-between" align="flex-start" flexWrap="wrap" gap={4}>
+                    <Badge
+                      px={4}
+                      py={2}
+                      borderRadius="full"
+                      bg="rgba(59, 130, 246, 0.15)"
+                      color="#60a5fa"
+                      border="1px solid"
+                      borderColor="rgba(59, 130, 246, 0.3)"
+                      fontSize="xs"
+                      fontWeight="700"
+                      textTransform="uppercase"
+                      letterSpacing="wide"
+                    >
+                      {project.category}
+                    </Badge>
                     {project.period && (
-                      <Text color="gray.400" fontSize="sm" fontWeight="500">
+                      <Text color="gray.500" fontSize="xs" fontWeight="600">
                         {project.period}
                       </Text>
                     )}
                   </HStack>
 
-                  <Heading 
-                    size="lg" 
+                  {/* Title */}
+                  <Heading
+                    fontSize={{ base: "xl", md: "2xl" }}
+                    fontWeight="700"
                     color="white"
-                    bgGradient="linear(to-r, #3b82f6, #ffffff)"
-                    bgClip="text"
+                    lineHeight="1.3"
                   >
                     {project.title}
                   </Heading>
 
-                  <Text color="gray.300" lineHeight="1.8" fontSize="md">
+                  {/* Description */}
+                  <Text
+                    color="gray.300"
+                    lineHeight="1.8"
+                    fontSize={{ base: "sm", md: "md" }}
+                  >
                     {project.description}
                   </Text>
 
+                  {/* Highlights */}
                   <Box flex="1">
                     <VStack align="stretch" spacing={3}>
                       {project.highlights.map((highlight, i) => (
@@ -203,12 +232,16 @@ const Projects = () => {
                             w="6px"
                             h="6px"
                             borderRadius="full"
-                            bg="#3b82f6"
+                            bgGradient="linear(to-r, #3b82f6, #06b6d4)"
                             mt={2}
                             flexShrink={0}
-                            boxShadow="0 0 10px rgba(59, 130, 246, 0.6)"
                           />
-                          <Text color="gray.300" fontSize="sm" lineHeight="1.7" flex={1}>
+                          <Text
+                            color="gray.300"
+                            fontSize={{ base: "xs", md: "sm" }}
+                            lineHeight="1.7"
+                            flex={1}
+                          >
                             {highlight}
                           </Text>
                         </HStack>
@@ -216,65 +249,74 @@ const Projects = () => {
                     </VStack>
                   </Box>
 
-                  <VStack spacing={4} align="stretch">
+                  {/* Technologies */}
+                  <Box>
                     <HStack spacing={2} flexWrap="wrap">
                       {project.technologies.map((tech, i) => (
                         <Tag
                           key={i}
                           size="sm"
                           bg="rgba(59, 130, 246, 0.1)"
-                          color="#3b82f6"
-                          border="1px solid rgba(59, 130, 246, 0.3)"
+                          color="#60a5fa"
+                          border="1px solid"
+                          borderColor="rgba(59, 130, 246, 0.2)"
                           borderRadius="md"
                           px={3}
                           py={1}
+                          fontSize="xs"
+                          fontWeight="600"
                         >
                           {tech}
                         </Tag>
                       ))}
                     </HStack>
+                  </Box>
 
-                    <HStack spacing={4}>
-                      <Link href={project.links.github} isExternal flex="1">
-                        <Button
-                          leftIcon={<FaGithub />}
-                          w="100%"
-                          variant="outline"
-                          borderColor="#3b82f6"
-                          color="#3b82f6"
-                          borderRadius="xl"
-                          py={6}
-                          _hover={{
-                            bg: "#3b82f6",
-                            color: "#0a0e1a",
-                            transform: "translateY(-2px)",
-                            boxShadow: "0 8px 25px rgba(59, 130, 246, 0.4)",
-                          }}
-                          transition="all 0.3s ease"
-                        >
-                          View Code
-                        </Button>
-                      </Link>
-                      <Link href={project.links.demo} isExternal flex="1">
-                        <Button
-                          leftIcon={<FaExternalLinkAlt />}
-                          w="100%"
-                          bgGradient="linear(to-r, #3b82f6, #6366f1)"
-                          color="white"
-                          borderRadius="xl"
-                          py={6}
-                          _hover={{
-                            bgGradient: "linear(to-r, #2563eb, #4f46e5)",
-                            transform: "translateY(-2px)",
-                            boxShadow: "0 8px 25px rgba(99, 102, 241, 0.4)",
-                          }}
-                          transition="all 0.3s ease"
-                        >
-                          Live Demo
-                        </Button>
-                      </Link>
-                    </HStack>
-                  </VStack>
+                  {/* Action Buttons */}
+                  <HStack spacing={4} pt={2}>
+                    <Link href={project.links.github} isExternal flex="1">
+                      <Button
+                        leftIcon={<FaGithub />}
+                        w="100%"
+                        variant="outline"
+                        borderColor="rgba(59, 130, 246, 0.4)"
+                        color="#60a5fa"
+                        bg="transparent"
+                        borderRadius="xl"
+                        py={6}
+                        fontSize="sm"
+                        fontWeight="600"
+                        _hover={{
+                          bg: "rgba(59, 130, 246, 0.15)",
+                          borderColor: "#3b82f6",
+                          color: "#3b82f6",
+                        }}
+                        transition="all 0.3s ease"
+                      >
+                        View Code
+                      </Button>
+                    </Link>
+                    <Link href={project.links.demo} isExternal flex="1">
+                      <Button
+                        rightIcon={<FaArrowRight />}
+                        w="100%"
+                        bgGradient="linear(to-r, #3b82f6, #06b6d4)"
+                        color="white"
+                        borderRadius="xl"
+                        py={6}
+                        fontSize="sm"
+                        fontWeight="600"
+                        _hover={{
+                          bgGradient: "linear(to-r, #2563eb, #0891b2)",
+                          transform: "translateY(-2px)",
+                          boxShadow: "0 10px 25px rgba(59, 130, 246, 0.4)",
+                        }}
+                        transition="all 0.3s ease"
+                      >
+                        Live Demo
+                      </Button>
+                    </Link>
+                  </HStack>
                 </VStack>
               </Box>
             </MotionBox>
