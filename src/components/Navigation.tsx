@@ -1,22 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Flex, Link } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
 const Navigation: React.FC = () => {
+  const [activeSection, setActiveSection] = useState('Home');
+  
   const navItems = [
     { name: 'Home', href: '#home' },
-    { name: 'Journey', href: '#journey' },
+    { name: 'About', href: '#about' },
+    { name: 'Education', href: '#journey' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Expertise', href: '#expertise' },
+    { name: 'Skills', href: '#expertise' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navItems.map(item => {
+        const id = item.href.substring(1);
+        return { name: item.name, element: document.getElementById(id) };
+      });
+
+      const scrollPosition = window.scrollY + 100;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section.element && section.element.offsetTop <= scrollPosition) {
+          setActiveSection(section.name);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <Box
       as="nav"
       position="fixed"
       w="100%"
-      bg="rgba(0, 0, 0, 0.1)"
+      bg="rgba(10, 14, 26, 0.9)"
       className="blur-bg"
       zIndex={1000}
       py={4}
@@ -37,13 +62,15 @@ const Navigation: React.FC = () => {
             href="#home"
             fontSize="xl"
             fontWeight="bold"
-            className="gradient-text"
-            _hover={{ textDecoration: 'none' }}
+            color="white"
+            _hover={{ textDecoration: 'none', color: '#3b82f6' }}
+            transition="color 0.3s ease"
           >
+            Saugat.
           </Link>
         </motion.div>
 
-        <Flex gap={8}>
+        <Flex gap={8} display={{ base: 'none', md: 'flex' }}>
           {navItems.map((item, index) => (
             <motion.div
               key={item.name}
@@ -53,10 +80,28 @@ const Navigation: React.FC = () => {
             >
               <Link
                 href={item.href}
-                className="nav-item"
-                _hover={{ textDecoration: 'none' }}
+                color={activeSection === item.name ? '#3b82f6' : '#60a5fa'}
+                fontSize="sm"
+                fontWeight={activeSection === item.name ? '600' : '400'}
+                _hover={{ 
+                  textDecoration: 'none',
+                  color: '#3b82f6',
+                }}
+                transition="all 0.3s ease"
+                position="relative"
               >
                 {item.name}
+                {activeSection === item.name && (
+                  <Box
+                    position="absolute"
+                    bottom="-4px"
+                    left="0"
+                    right="0"
+                    h="2px"
+                    bg="#3b82f6"
+                    borderRadius="full"
+                  />
+                )}
               </Link>
             </motion.div>
           ))}
@@ -66,4 +111,4 @@ const Navigation: React.FC = () => {
   );
 };
 
-export default Navigation; 
+export default Navigation;

@@ -5,10 +5,11 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa
 const MotionBox = motion(Box);
 
 const contactData = {
-  email: "saugatbhatta1217@gmail.com",
+  email: "saugatbhatta1234@gmail.com",
   github: "Saugat1017",
-  linkedin: "saugat-bhatta-01459517",
-  location: "Irving, Texas, United States"
+  linkedin: "saugat-bhatta-01a595217",
+  website: "saugatdev.com",
+  location: "Irving, Texas"
 };
 
 const Contact = () => {
@@ -17,7 +18,7 @@ const Contact = () => {
       id="contact"
       minH="100vh"
       py={20}
-      bgGradient="linear(to-b, gray.900, gray.800)"
+      bgGradient="linear(to-b, #0a0e1a, #0f172a)"
       position="relative"
       overflow="hidden"
     >
@@ -42,7 +43,7 @@ const Contact = () => {
             mb={16}
             fontSize={{ base: "4xl", md: "5xl" }}
             textAlign="center"
-            bgGradient="linear(to-r, cyan.400, purple.500)"
+            bgGradient="linear(to-r, #3b82f6, #6366f1)"
             bgClip="text"
           >
             Get In Touch
@@ -62,21 +63,18 @@ const Contact = () => {
                 color="whiteAlpha.900"
                 lineHeight="1.8"
               >
-                I'm always open to new opportunities and collaborations. Whether you have a project in mind
-                or just want to connect, I'd love to hear from you!
+                I'm always open to new opportunities, collaborations, and conversations about technology, 
+                AI/ML, or software development. Whether you have a project in mind or just want to connect, 
+                I'd love to hear from you!
               </Text>
 
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} w="100%">
                 <Box
                   p={6}
-                  borderRadius="lg"
-                  bg="whiteAlpha.100"
-                  backdropFilter="blur(10px)"
-                  border="1px solid"
-                  borderColor="whiteAlpha.200"
+                  className="glass-card"
                 >
                   <VStack align="flex-start" spacing={3}>
-                    <Icon as={FaEnvelope} boxSize={6} color="cyan.400" />
+                    <Icon as={FaEnvelope} boxSize={6} color="#3b82f6" />
                     <Text color="white" fontWeight="bold">Email</Text>
                     <Text color="whiteAlpha.900" fontSize="sm">{contactData.email}</Text>
                   </VStack>
@@ -84,14 +82,10 @@ const Contact = () => {
 
                 <Box
                   p={6}
-                  borderRadius="lg"
-                  bg="whiteAlpha.100"
-                  backdropFilter="blur(10px)"
-                  border="1px solid"
-                  borderColor="whiteAlpha.200"
+                  className="glass-card"
                 >
                   <VStack align="flex-start" spacing={3}>
-                    <Icon as={FaMapMarkerAlt} boxSize={6} color="purple.400" />
+                    <Icon as={FaMapMarkerAlt} boxSize={6} color="#6366f1" />
                     <Text color="white" fontWeight="bold">Location</Text>
                     <Text color="whiteAlpha.900" fontSize="sm">{contactData.location}</Text>
                   </VStack>
@@ -117,10 +111,10 @@ const Contact = () => {
                   w="100%"
                   h="70px"
                   fontSize="xl"
-                  bgGradient="linear(to-r, cyan.400, purple.500)"
+                  bgGradient="linear(to-r, #3b82f6, #6366f1)"
                   color="white"
                   _hover={{
-                    bgGradient: "linear(to-r, cyan.500, purple.600)",
+                    bgGradient: "linear(to-r, blue.600, indigo.700)",
                     transform: "translateY(-2px)",
                   }}
                   transition="all 0.3s ease"
@@ -136,11 +130,11 @@ const Contact = () => {
                   h="70px"
                   fontSize="xl"
                   variant="outline"
-                  borderColor="cyan.400"
+                  borderColor="#3b82f6"
                   borderWidth="2px"
                   color="white"
                   _hover={{
-                    bg: "cyan.400",
+                    bg: "#3b82f6",
                     transform: "translateY(-2px)",
                   }}
                   transition="all 0.3s ease"
@@ -156,11 +150,11 @@ const Contact = () => {
                   h="70px"
                   fontSize="xl"
                   variant="outline"
-                  borderColor="purple.500"
+                  borderColor="#6366f1"
                   borderWidth="2px"
                   color="white"
                   _hover={{
-                    bg: "purple.500",
+                    bg: "#6366f1",
                     transform: "translateY(-2px)",
                   }}
                   transition="all 0.3s ease"

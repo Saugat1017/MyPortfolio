@@ -27,27 +27,27 @@ const ChatBot = () => {
     const lowerQuestion = question.toLowerCase();
     
     if (lowerQuestion.includes('education')) {
-      return "Saugat completed his Bachelor of Science in Computer Science from Truman State University, graduating in May 2023. He was also recognized on the President's List!";
+      return "Saugat is currently pursuing a Bachelor of Science in Computer Science at the University of Texas at Arlington, expected to graduate in December 2026. He maintains a CGPA of 3.73 and has been recognized on the Honor Roll and Freshman Distinction Roll.";
     }
     
     if (lowerQuestion.includes('skills') || lowerQuestion.includes('technologies')) {
-      return "Saugat is skilled in:\n• Languages: Python, JavaScript, TypeScript, Java, C++\n• Web: React.js, Node.js, Express.js, HTML/CSS\n• Tools: Git, Docker, AWS, MongoDB\n• Machine Learning: TensorFlow, PyTorch, scikit-learn";
+      return "Saugat is skilled in:\n• Languages: Java, Python, C/C++, SQL, JavaScript, HTML/CSS, Go, R\n• Frameworks: Spring Boot, React, Node.js, Flask, FastAPI, Android SDK\n• Data Tools: MySQL, SQLite, Apache Kafka, AWS Glue ETL\n• Cloud & Tools: AWS (RDS), Docker, Git, CI/CD Pipelines\n• ML/AI: Hugging Face, scikit-learn, PyTorch, NLP";
     }
     
     if (lowerQuestion.includes('projects')) {
-      return "Here are some of Saugat's notable projects:\n1. Developed a Machine Learning model for Alzheimer's detection using MRI scans\n2. Created an AI-powered Resume Parser using Python and NLP\n3. Built a full-stack Task Management System with React and Node.js\n4. Implemented a Secure File Storage System using AWS S3";
+      return "Here are Saugat's notable projects:\n1. MavThread - Full-stack university discussion platform (React, Spring Boot, AWS RDS)\n2. Fitness Tracker App - Android app with GPS and analytics (Java, Android SDK)\n3. Farm Data Management System - C-based trading system\n4. Dallas AI - Emotional eating support platform with ML models (87% accuracy)\n5. OURCS@DFW Research - Transformer-based summarization research";
     }
     
     if (lowerQuestion.includes('experience') || lowerQuestion.includes('work')) {
-      return "Saugat's professional experience includes:\n• Software Engineer at Truman State University (Aug 2022 - May 2023)\n• Software Development Intern at Truman State University (May 2022 - Aug 2022)\n• Research Assistant at Truman State University (Jan 2022 - May 2022)";
+      return "Saugat's experience includes:\n• Dallas AI Summer Program (Jun 2025 - Aug 2025) - Built full-stack AI platform\n• OURCS@DFW Research Assistant at UT Arlington (Feb 2025 - Mar 2025)\n• Computer Lab Assistant at SUNY Oswego (Aug 2022 - Dec 2022) - 92% resolution rate";
     }
 
     if (lowerQuestion.includes('certificates') || lowerQuestion.includes('certifications')) {
-      return "Saugat has earned several certifications including:\n• AWS Certified Cloud Practitioner\n• Microsoft Azure Fundamentals\n• Google IT Support Professional Certificate";
+      return "Saugat has earned:\n• CodePath: Intermediate Technical Interview Prep\n• Amazon: Application Development Certificate\n• Paycom: Technology Summer Engagement Program\n• Volunteer: IT Systems Monitoring – ASNEngr Program (NYC)";
     }
 
     if (lowerQuestion.includes('contact') || lowerQuestion.includes('hire') || lowerQuestion.includes('email') || lowerQuestion.includes('linkedin') || lowerQuestion.includes('github')) {
-      return "You can get in touch with Saugat through:\n• Email: saugatbhatta1217@gmail.com\n• GitHub: github.com/saugatbhatta1217\n• LinkedIn: linkedin.com/in/saugatbhatta1217";
+      return "Get in touch with Saugat:\n• Email: saugatbhatta1234@gmail.com\n• GitHub: github.com/Saugat1017\n• LinkedIn: linkedin.com/in/saugat-bhatta-01a595217\n• Website: saugatdev.com\n• Location: Irving, Texas";
     }
 
     return "I can tell you about Saugat's education, skills, projects, experience, or certifications. What would you like to know?";
@@ -63,7 +63,7 @@ const ChatBot = () => {
         right="2rem"
         borderRadius="full"
         size="lg"
-        bgGradient="linear(45deg, #ff00ff, #00ffff)"
+        bgGradient="linear(135deg, #3b82f6, #6366f1)"
         color="white"
         _hover={{
           transform: 'scale(1.1)',
@@ -99,7 +99,7 @@ const ChatBot = () => {
             >
               <Flex 
                 p={3} 
-                bgGradient="linear(45deg, #ff00ff, #00ffff)"
+                bgGradient="linear(135deg, #3b82f6, #6366f1)"
                 justify="space-between" 
                 align="center"
               >
@@ -172,7 +172,7 @@ const ChatBot = () => {
                   aria-label="Send"
                   icon={<FaPaperPlane />}
                   onClick={handleSend}
-                  bgGradient="linear(45deg, #ff00ff, #00ffff)"
+                  bgGradient="linear(135deg, #3b82f6, #6366f1)"
                   color="white"
                   _hover={{
                     transform: 'scale(1.05)',

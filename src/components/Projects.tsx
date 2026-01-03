@@ -1,94 +1,102 @@
-import { Box, Container, Heading, SimpleGrid, Text, Tag, Icon, Button, VStack, HStack, Link } from '@chakra-ui/react';
+import { Box, Container, Heading, Text, Tag, Icon, Button, VStack, HStack, Link, SimpleGrid } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaBrain, FaTasks, FaLock } from 'react-icons/fa';
-import { SiPython, SiReact, SiTensorflow } from 'react-icons/si';
+import { FaGithub, FaExternalLinkAlt, FaTasks, FaMobile, FaServer, FaJava, FaHome, FaBrain } from 'react-icons/fa';
+import { SiReact, SiAndroid, SiC, SiHtml5, SiCss3, SiJavascript, SiPython, SiFastapi } from 'react-icons/si';
 
 const MotionBox = motion(Box);
 
 const projects = [
   {
-    title: "WhiteCoat AI - Medical Report Simplification Platform",
-    description: "Built an AI-based tool to extract, summarize, and visualize complex medical documents with chart outputs and interactive Q&A. Simplified over 200 documents in early testing, enhancing patient understanding and user satisfaction.",
-    technologies: ["Python", "Streamlit", "Google Gemini API", "MongoDB", "NLP"],
-    icons: [SiPython, FaBrain],
+    title: "Insurance Early Claim Risk Prediction System",
+    description: "A machine learning system that predicts claim severity (Low/Medium/High) at the moment a claim is filed, helping insurance companies prioritize resources and identify high-risk claims early. Uses only information available at claim filing time with no data leakage.",
+    technologies: ["Python", "FastAPI", "Streamlit", "Machine Learning", "Logistic Regression", "scikit-learn"],
+    icons: [SiPython, SiFastapi, FaBrain],
     category: "Machine Learning",
     categoryIcon: FaBrain,
     links: {
-      github: "https://github.com/Saugat1017/whiteCoatAI",
-      demo: "https://whitecoatai-2xizuifvkdg64cgjvvk9kc.streamlit.app/"
+      github: "https://github.com/Saugat1017/Insurance_early_claim_risk_Prediction_System",
+      demo: "https://github.com/Saugat1017/Insurance_early_claim_risk_Prediction_System"
     },
     highlights: [
-      "Implemented advanced NLP for medical document processing",
-      "Built interactive visualization dashboard",
-      "Achieved significant improvement in patient understanding"
+      "Predicts claim severity using only intake information (premium, age, policy tenure, family size, insurance type)",
+      "Decoupled architecture: FastAPI backend with ML model, Streamlit frontend",
+      "Business decision logic separated from ML training for explainability",
+      "Production-ready design with validated model and clean API endpoints"
     ]
   },
   {
-    title: "Gemini Alert - AI Stress Management System",
-    description: "Created a full-stack app offering real-time AI-guided strategies for managing anxiety, conflict, and high-stress events. Processed over 300 session simulations, with user testing reporting a 40% decrease in stress response levels.",
-    technologies: ["Vue.js", "Flask", "Gemini API", "Firebase"],
-    icons: [SiReact, FaBrain],
+    title: "MavThread - University Discussion Platform",
+    description: "Built a full-stack university discussion platform for 200+ simulated users with anonymous threaded conversations, secure JWT authentication, and a point tracking system. Handled 5K+ API calls during load testing with zero data collisions using UUID-based mapping.",
+    technologies: ["Java", "React", "Spring Boot", "MySQL", "JWT", "AWS RDS", "SLF4J"],
+    icons: [FaJava, SiReact],
     category: "Full Stack",
-    categoryIcon: FaTasks,
+    categoryIcon: FaServer,
+    period: "Jun 2025 – Present",
     links: {
-      github: "https://github.com/Saugat1017/gemini-alert-app",
-      demo: "https://gemini-alert-app.vercel.app/"
+      github: "https://github.com/Saugat1017/MavThread",
+      demo: "https://github.com/Saugat1017/MavThread"
     },
     highlights: [
-      "Real-time AI stress monitoring and response",
-      "40% reduction in user stress levels",
-      "Integrated Gemini API for personalized strategies"
+      "Scalable Spring Boot + MySQL (AWS RDS) backend with JPA",
+      "Zero data collisions with UUID-based mapping",
+      "React-based UI with SLF4J logging, reducing error resolution time by 40%",
+      "Handled 5K+ API calls during load testing"
     ]
   },
   {
-    title: "HealthCost AI Predictor",
-    description: "Developed a predictive model using Random Forest Regression to estimate yearly healthcare costs with 0.83 R² accuracy. Implemented an interactive Streamlit interface to process input features and visualize model results for 1,000+ profiles.",
-    technologies: ["Python", "Streamlit", "scikit-learn", "pandas"],
-    icons: [SiPython, SiTensorflow],
-    category: "Machine Learning",
-    categoryIcon: FaBrain,
+    title: "Mortgage Website - Volunteer Project",
+    description: "A modern, responsive mortgage website built as a volunteer project. Features interactive mortgage calculator, loan program information, and professional design with smooth animations. Fully responsive design that works seamlessly across desktop, tablet, and mobile devices.",
+    technologies: ["HTML5", "CSS3", "JavaScript", "Font Awesome", "Google Fonts"],
+    icons: [SiHtml5, SiCss3, SiJavascript],
+    category: "Web Development",
+    categoryIcon: FaHome,
     links: {
-      github: "https://github.com/axp8948/finhack-healthCostPredictor",
-      demo: "https://github.com/axp8948/finhack-healthCostPredictor"
+      github: "https://github.com/Saugat1017/MortgageWebsite-Volunteer-Project",
+      demo: "https://saugat1017.github.io/MortgageWebsite-Volunteer-Project"
     },
     highlights: [
-      "Achieved 0.83 R² accuracy in cost prediction",
-      "Processed over 1,000 patient profiles",
-      "Interactive visualization of prediction factors"
+      "Modern, responsive design with gradient backgrounds and smooth animations",
+      "Interactive mortgage calculator with real-time payment calculations",
+      "Professional UI with fixed navigation, mobile menu, and form validation",
+      "Built as volunteer work to support company's digital presence"
     ]
   },
   {
-    title: "Java Game Development Project",
-    description: "Designed a game to enhance problem-solving skills in game logic and AI behavior. Applied OOP principles to optimize game performance, reducing memory usage by 20% after code refactoring.",
-    technologies: ["Java", "Object-Oriented Design", "Game Development"],
-    icons: [FaTasks, FaBrain],
-    category: "Game Development",
-    categoryIcon: FaTasks,
+    title: "Fitness Tracker App - Android Application",
+    description: "Developed a comprehensive Android fitness tracker in Java with GPS integration and sensor-based step counting. Enabled accurate monitoring across 4+ activity types, supporting 1,000+ simulated workout records during testing with advanced analytics.",
+    technologies: ["Java", "Android SDK", "MySQL", "Google Play Services", "Material Design 3", "MPAndroidChart"],
+    icons: [FaJava, SiAndroid],
+    category: "Mobile Development",
+    categoryIcon: FaMobile,
+    period: "Aug 2024 – Dec 2024",
     links: {
-      github: "https://github.com/Saugat1017/Java-GamingProject",
-      demo: "https://github.com/Saugat1017/Java-GamingProject"
+      github: "https://github.com/Saugat1017",
+      demo: "https://github.com/Saugat1017"
     },
     highlights: [
-      "20% reduction in memory usage",
-      "Implemented AI behavior systems",
-      "Applied OOP design patterns"
+      "GPS integration and sensor-based step counting",
+      "Advanced analytics with weekly/daily progress visualization",
+      "Increased user engagement by 35% in trials",
+      "Normalized SQLite schema with dark/light mode support"
     ]
   },
   {
-    title: "Trading Program for Farmers and Merchants",
-    description: "Created a trading program using C++ to help farmers and merchants connect, reducing middlemen and increasing efficiency. Decreased simulated transaction time by 40% and improved user engagement with an intuitive menu-driven system.",
-    technologies: ["C++", "Data Structures", "Algorithms"],
-    icons: [FaTasks, FaLock],
+    title: "Farm Data Management System",
+    description: "Developed a C-based trading system for farmers and merchants with secure registration, product listing, and request features. Supported 3+ product categories and handled 1,000+ simulated records with file-based data persistence.",
+    technologies: ["C", "File I/O", "CSV", "Console Interface"],
+    icons: [SiC],
     category: "Desktop Application",
     categoryIcon: FaTasks,
+    period: "Aug 2022 – Dec 2022",
     links: {
       github: "https://github.com/Saugat1017/Trading-Program-for-Farmers-and-Merchants",
       demo: "https://github.com/Saugat1017/Trading-Program-for-Farmers-and-Merchants"
     },
     highlights: [
-      "40% reduction in transaction time",
-      "Intuitive menu-driven interface",
-      "Efficient matching algorithm for traders"
+      "File-based data persistence using structured CSV and .dat files",
+      "Secure, user-friendly console interface with input validation",
+      "Password protection and dynamic menus",
+      "Improved task completion by 40%"
     ]
   }
 ];
@@ -99,7 +107,7 @@ const Projects = () => {
       id="projects"
       minH="100vh"
       py={20}
-      bgGradient="linear(to-b, gray.900, gray.800)"
+      bgGradient="linear(to-b, #0a0e1a, #0f172a)"
       position="relative"
       overflow="hidden"
     >
@@ -109,7 +117,7 @@ const Projects = () => {
         left={0}
         right={0}
         bottom={0}
-        bgGradient="radial(circle at 50% 50%, rgba(0, 255, 255, 0.1), transparent)"
+        bgGradient="radial(circle at 50% 50%, rgba(59, 130, 246, 0.15), transparent)"
         opacity={0.3}
       />
 
@@ -124,7 +132,7 @@ const Projects = () => {
             mb={16}
             fontSize={{ base: "4xl", md: "5xl" }}
             textAlign="center"
-            bgGradient="linear(to-r, cyan.400, purple.500)"
+            bgGradient="linear(to-r, #3b82f6, #6366f1)"
             bgClip="text"
           >
             Featured Projects
@@ -135,47 +143,72 @@ const Projects = () => {
           {projects.map((project, index) => (
             <MotionBox
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
               <Box
-                p={8}
+                className="modern-card"
                 h="100%"
-                borderRadius="xl"
-                bg="whiteAlpha.100"
-                backdropFilter="blur(10px)"
-                border="1px solid"
-                borderColor="whiteAlpha.200"
-                _hover={{
-                  transform: "translateY(-5px)",
-                  boxShadow: "xl",
-                }}
-                transition="all 0.3s ease"
               >
                 <VStack align="stretch" h="100%" spacing={6}>
-                  <HStack spacing={4}>
-                    <Icon as={project.categoryIcon} boxSize={6} color="cyan.400" />
-                    <Tag size="md" colorScheme="purple" borderRadius="full">
-                      {project.category}
-                    </Tag>
+                  <HStack spacing={4} justify="space-between" flexWrap="wrap">
+                    <HStack spacing={4}>
+                      <Box
+                        p={3}
+                        borderRadius="xl"
+                        bg="rgba(59, 130, 246, 0.1)"
+                        border="1px solid rgba(59, 130, 246, 0.3)"
+                      >
+                        <Icon as={project.categoryIcon} boxSize={6} color="#3b82f6" />
+                      </Box>
+                      <Tag 
+                        size="md" 
+                        bg="rgba(99, 102, 241, 0.2)" 
+                        color="#6366f1"
+                        border="1px solid rgba(99, 102, 241, 0.4)"
+                        borderRadius="full"
+                        px={4}
+                        py={2}
+                      >
+                        {project.category}
+                      </Tag>
+                    </HStack>
+                    {project.period && (
+                      <Text color="gray.400" fontSize="sm" fontWeight="500">
+                        {project.period}
+                      </Text>
+                    )}
                   </HStack>
 
-                  <Heading size="lg" color="white">
+                  <Heading 
+                    size="lg" 
+                    color="white"
+                    bgGradient="linear(to-r, #3b82f6, #ffffff)"
+                    bgClip="text"
+                  >
                     {project.title}
                   </Heading>
 
-                  <Text color="whiteAlpha.900">
+                  <Text color="gray.300" lineHeight="1.8" fontSize="md">
                     {project.description}
                   </Text>
 
                   <Box flex="1">
-                    <VStack align="stretch" spacing={2}>
+                    <VStack align="stretch" spacing={3}>
                       {project.highlights.map((highlight, i) => (
-                        <HStack key={i} spacing={2}>
-                          <Box w="2" h="2" borderRadius="full" bg="cyan.400" />
-                          <Text color="whiteAlpha.800" fontSize="sm">
+                        <HStack key={i} spacing={3} align="flex-start">
+                          <Box
+                            w="6px"
+                            h="6px"
+                            borderRadius="full"
+                            bg="#3b82f6"
+                            mt={2}
+                            flexShrink={0}
+                            boxShadow="0 0 10px rgba(59, 130, 246, 0.6)"
+                          />
+                          <Text color="gray.300" fontSize="sm" lineHeight="1.7" flex={1}>
                             {highlight}
                           </Text>
                         </HStack>
@@ -189,9 +222,12 @@ const Projects = () => {
                         <Tag
                           key={i}
                           size="sm"
-                          colorScheme="cyan"
-                          variant="subtle"
-                          mt={1}
+                          bg="rgba(59, 130, 246, 0.1)"
+                          color="#3b82f6"
+                          border="1px solid rgba(59, 130, 246, 0.3)"
+                          borderRadius="md"
+                          px={3}
+                          py={1}
                         >
                           {tech}
                         </Tag>
@@ -204,25 +240,35 @@ const Projects = () => {
                           leftIcon={<FaGithub />}
                           w="100%"
                           variant="outline"
-                          borderColor="cyan.400"
-                          color="white"
+                          borderColor="#3b82f6"
+                          color="#3b82f6"
+                          borderRadius="xl"
+                          py={6}
                           _hover={{
-                            bg: "cyan.400",
+                            bg: "#3b82f6",
+                            color: "#0a0e1a",
+                            transform: "translateY(-2px)",
+                            boxShadow: "0 8px 25px rgba(59, 130, 246, 0.4)",
                           }}
+                          transition="all 0.3s ease"
                         >
-                          Code
+                          View Code
                         </Button>
                       </Link>
                       <Link href={project.links.demo} isExternal flex="1">
                         <Button
                           leftIcon={<FaExternalLinkAlt />}
                           w="100%"
-                          variant="outline"
-                          borderColor="purple.500"
+                          bgGradient="linear(to-r, #3b82f6, #6366f1)"
                           color="white"
+                          borderRadius="xl"
+                          py={6}
                           _hover={{
-                            bg: "purple.500",
+                            bgGradient: "linear(to-r, #2563eb, #4f46e5)",
+                            transform: "translateY(-2px)",
+                            boxShadow: "0 8px 25px rgba(99, 102, 241, 0.4)",
                           }}
+                          transition="all 0.3s ease"
                         >
                           Live Demo
                         </Button>
@@ -239,4 +285,4 @@ const Projects = () => {
   );
 };
 
-export default Projects; 
+export default Projects;
