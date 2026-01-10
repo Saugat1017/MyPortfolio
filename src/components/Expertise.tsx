@@ -43,7 +43,7 @@ const expertiseData = [
     category: "Programming Languages",
     icon: FaCode,
     skills: [
-      { name: "Java", level: 95, icon: FaJava },
+      { name: "Java", level: 90, icon: FaJava },
       { name: "Python", level: 90, icon: FaPython },
       { name: "JavaScript/TypeScript", level: 85, icon: SiJavascript },
       { name: "C/C++", level: 80, icon: FaDatabase },
