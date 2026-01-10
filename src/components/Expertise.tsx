@@ -1,14 +1,40 @@
-import { Box, Container, Heading, SimpleGrid, Text, Icon, VStack, HStack, Circle } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import { 
-  FaReact, FaNodeJs, FaPython, FaJava, FaAws, 
-  FaDatabase, FaGitAlt, FaBrain, FaMobile, FaCode
-} from 'react-icons/fa';
-import { 
-  SiJavascript, SiMongodb, SiPostgresql, SiMysql,
-  SiPytorch, SiScikitlearn, SiSpring, SiAndroid,
-  SiDocker, SiGo, SiFlask
-} from 'react-icons/si';
+import {
+  Box,
+  Container,
+  Heading,
+  SimpleGrid,
+  Text,
+  Icon,
+  VStack,
+  HStack,
+  Circle,
+} from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import {
+  FaReact,
+  FaNodeJs,
+  FaPython,
+  FaJava,
+  FaAws,
+  FaDatabase,
+  FaGitAlt,
+  FaBrain,
+  FaMobile,
+  FaCode,
+} from "react-icons/fa";
+import {
+  SiJavascript,
+  SiMongodb,
+  SiPostgresql,
+  SiMysql,
+  SiPytorch,
+  SiScikitlearn,
+  SiSpring,
+  SiAndroid,
+  SiDocker,
+  SiGo,
+  SiFlask,
+} from "react-icons/si";
 
 const MotionBox = motion(Box);
 
@@ -23,19 +49,19 @@ const expertiseData = [
       { name: "C/C++", level: 80, icon: FaDatabase },
       { name: "Go", level: 60, icon: SiGo },
       { name: "R", level: 70, icon: FaDatabase },
-    ]
+    ],
   },
   {
     category: "Web Development",
     icon: FaReact,
     skills: [
-      { name: "React", level: 85, icon: FaReact },
+      { name: "React", level: 75, icon: FaReact },
       { name: "Spring Boot", level: 90, icon: SiSpring },
       { name: "Node.js", level: 80, icon: FaNodeJs },
       { name: "Flask/FastAPI", level: 85, icon: SiFlask },
       { name: "HTML5/CSS3", level: 90, icon: FaReact },
       { name: "RESTful APIs", level: 90, icon: FaReact },
-    ]
+    ],
   },
   {
     category: "Mobile & Databases",
@@ -46,7 +72,7 @@ const expertiseData = [
       { name: "SQLite", level: 85, icon: SiPostgresql },
       { name: "MongoDB", level: 80, icon: SiMongodb },
       { name: "SQL", level: 90, icon: FaDatabase },
-    ]
+    ],
   },
   {
     category: "AI/ML & Cloud",
@@ -59,8 +85,8 @@ const expertiseData = [
       { name: "Apache Kafka", level: 75 },
       { name: "Docker", level: 80, icon: SiDocker },
       { name: "Git", level: 90, icon: FaGitAlt },
-    ]
-  }
+    ],
+  },
 ];
 
 const Expertise = () => {
@@ -74,14 +100,7 @@ const Expertise = () => {
       overflow="hidden"
     >
       {/* Subtle background patterns */}
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        right="0"
-        bottom="0"
-        zIndex={0}
-      >
+      <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={0}>
         {/* Circuit board pattern */}
         <Box
           position="absolute"
@@ -176,11 +195,7 @@ const Expertise = () => {
                     bgGradient="linear(135deg, #ffffff, #e5e5e5)"
                     p={3}
                   >
-                    <Icon
-                      as={category.icon}
-                      boxSize={8}
-                      color="white"
-                    />
+                    <Icon as={category.icon} boxSize={8} color="white" />
                   </Circle>
                   <Heading size="lg" color="white" fontWeight="700">
                     {category.category}
@@ -193,7 +208,7 @@ const Expertise = () => {
                     // Colorful progress bars - highlight Java, Python, and ML skills
                     let barColor = "#ffffff"; // default white
                     let barGradient = "linear(to-r, #ffffff, #e5e5e5)";
-                    
+
                     // Special colors for key skills
                     if (skill.name === "Java") {
                       barColor = "#ed8b00"; // Java orange
@@ -201,7 +216,13 @@ const Expertise = () => {
                     } else if (skill.name === "Python") {
                       barColor = "#3776ab"; // Python blue
                       barGradient = "linear(to-r, #3776ab, #4b8bbe)";
-                    } else if (skill.name === "Machine Learning" || skill.name.includes("ML") || skill.name === "Hugging Face" || skill.name === "scikit-learn" || skill.name === "PyTorch") {
+                    } else if (
+                      skill.name === "Machine Learning" ||
+                      skill.name.includes("ML") ||
+                      skill.name === "Hugging Face" ||
+                      skill.name === "scikit-learn" ||
+                      skill.name === "PyTorch"
+                    ) {
                       barColor = "#ff6b6b"; // ML red/pink
                       barGradient = "linear(to-r, #ff6b6b, #ee5a6f)";
                     } else if (skill.level >= 90) {
@@ -217,17 +238,13 @@ const Expertise = () => {
                       barColor = "#d4d4d4"; // Lower - gray
                       barGradient = "linear(to-r, #d4d4d4, #a3a3a3)";
                     }
-                    
+
                     return (
                       <Box key={skillIndex}>
                         <HStack justify="space-between" mb={3}>
                           <HStack spacing={3}>
                             {skill.icon && (
-                              <Icon
-                                as={skill.icon}
-                                boxSize={5}
-                                color="white"
-                              />
+                              <Icon as={skill.icon} boxSize={5} color="white" />
                             )}
                             <Text color="white" fontSize="md" fontWeight="600">
                               {skill.name}
@@ -248,7 +265,10 @@ const Expertise = () => {
                           <MotionBox
                             initial={{ width: 0 }}
                             whileInView={{ width: `${skill.level}%` }}
-                            transition={{ duration: 1, delay: skillIndex * 0.1 }}
+                            transition={{
+                              duration: 1,
+                              delay: skillIndex * 0.1,
+                            }}
                             viewport={{ once: true }}
                             h="100%"
                             bgGradient={barGradient}
