@@ -125,7 +125,7 @@ const About = () => {
               >
                 I'm a Computer Science student at the University of Texas at
                 Arlington with a passion for building scalable full-stack
-                (Python) applications and exploring AI/ML technologies. With a
+                (Java/Python) applications and exploring AI/ML technologies. With a
                 CGPA of 3.73, I'm committed to creating impactful software
                 solutions that make a difference.
               </Text>

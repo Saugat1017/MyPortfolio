@@ -1,32 +1,39 @@
-import { Box, Container, VStack, HStack, Text, Button, Icon, SimpleGrid } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
+import {
+  Box,
+  Container,
+  VStack,
+  HStack,
+  Text,
+  Button,
+  Icon,
+  SimpleGrid,
+} from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 const MotionBox = motion(Box);
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0);
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   const roles = [
-    "Full Stack Developer (Python)",
-    "Python Developer",
+    "Full Stack Developer",
     "Machine Learning Engineer",
     "AI/ML Enthusiast",
     "Software Engineer",
-    "Problem Solver"
   ];
 
   const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
   // Typing animation effect
   useEffect(() => {
     const fullText = roles[currentRole];
     let currentIndex = 0;
-    setDisplayText('');
+    setDisplayText("");
 
     const typingInterval = setInterval(() => {
       if (currentIndex < fullText.length) {
@@ -67,14 +74,7 @@ const Hero = () => {
       pt={20}
     >
       {/* Subtle background patterns */}
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        right="0"
-        bottom="0"
-        zIndex={0}
-      >
+      <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={0}>
         {/* Grid pattern */}
         <Box
           position="absolute"
@@ -107,8 +107,18 @@ const Hero = () => {
         />
       </Box>
 
-      <Container maxW="container.xl" position="relative" zIndex={1} px={{ base: 6, md: 8 }}>
-        <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={12} alignItems="center" minH="80vh">
+      <Container
+        maxW="container.xl"
+        position="relative"
+        zIndex={1}
+        px={{ base: 6, md: 8 }}
+      >
+        <SimpleGrid
+          columns={{ base: 1, lg: 2 }}
+          spacing={12}
+          alignItems="center"
+          minH="80vh"
+        >
           {/* Left Section - Text Content */}
           <VStack align="flex-start" spacing={8} textAlign="left">
             <MotionBox
@@ -176,8 +186,10 @@ const Hero = () => {
                 fontFamily="'Space Grotesk', sans-serif"
                 maxW="600px"
               >
-                COMPUTER SCIENCE STUDENT AT UT ARLINGTON (GPA: 3.73) | BUILDING SCALABLE FULL-STACK APPLICATIONS (PYTHON) 
-                WITH REACT, SPRING BOOT, PYTHON & AWS | PASSIONATE ABOUT MACHINE LEARNING, AI/ML AND CREATING IMPACTFUL SOFTWARE SOLUTIONS
+                COMPUTER SCIENCE STUDENT AT UT ARLINGTON (GPA: 3.73) | BUILDING
+                SCALABLE FULL-STACK APPLICATIONS (PYTHON) WITH REACT, SPRING
+                BOOT, PYTHON & AWS | PASSIONATE ABOUT MACHINE LEARNING, AI/ML
+                AND CREATING IMPACTFUL SOFTWARE SOLUTIONS
               </Text>
             </MotionBox>
 
@@ -363,11 +375,14 @@ const Hero = () => {
                   position="relative"
                   zIndex={0}
                   style={{
-                    filter: 'none',
-                    mixBlendMode: 'normal',
+                    filter: "none",
+                    mixBlendMode: "normal",
                   }}
-                  onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                    e.currentTarget.src = "https://via.placeholder.com/500x500/1a1a1a/ffffff?text=SB";
+                  onError={(
+                    e: React.SyntheticEvent<HTMLImageElement, Event>
+                  ) => {
+                    e.currentTarget.src =
+                      "https://via.placeholder.com/500x500/1a1a1a/ffffff?text=SB";
                   }}
                 />
               </Box>
