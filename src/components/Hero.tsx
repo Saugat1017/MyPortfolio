@@ -302,7 +302,7 @@ const Hero = () => {
               >
                 <Box
                   as="img"
-                  src="/images/profile.jpg"
+                  src={`/images/profile.jpg?t=${Date.now()}`}
                   alt="Saugat Bhatta"
                   w="100%"
                   h="auto"
