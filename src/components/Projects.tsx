@@ -26,10 +26,10 @@ const projects = [
   },
   {
     title: "MavThread - University Discussion Platform",
-    description: "Built a full-stack university discussion platform for 200+ simulated users with anonymous threaded conversations, secure JWT authentication, and a point tracking system. Handled 5K+ API calls during load testing with zero data collisions using UUID-based mapping.",
+    description: "Built a full-stack (Python) university discussion platform for 200+ simulated users with anonymous threaded conversations, secure JWT authentication, and a point tracking system. Handled 5K+ API calls during load testing with zero data collisions using UUID-based mapping.",
     technologies: ["Java", "React", "Spring Boot", "MySQL", "JWT", "AWS RDS", "SLF4J"],
     icons: [FaJava, SiReact],
-    category: "Full Stack",
+    category: "Full Stack (Python)",
     categoryIcon: FaServer,
     period: "Jun 2025 – Present",
     links: {
@@ -107,7 +107,7 @@ const Projects = () => {
       id="projects"
       minH="100vh"
       py={{ base: 16, md: 24 }}
-      bg="#0a0e1a"
+      bg="#000000"
       position="relative"
       overflow="hidden"
     >
@@ -124,10 +124,10 @@ const Projects = () => {
               fontWeight="800"
               letterSpacing="tight"
             >
-              <Text as="span" bgGradient="linear(to-r, #3b82f6, #06b6d4)" bgClip="text">
+              <Text as="span" bgGradient="linear(to-r, #ffffff, #e5e5e5)" bgClip="text">
                 Featured
               </Text>{' '}
-              <Text as="span" bgGradient="linear(to-r, #ec4899, #f472b6)" bgClip="text">
+              <Text as="span" bgGradient="linear(to-r, #d4d4d4, #a3a3a3)" bgClip="text">
                 Projects
               </Text>
             </Heading>
@@ -153,17 +153,17 @@ const Projects = () => {
               <Box
                 position="relative"
                 borderRadius="2xl"
-                bg="rgba(26, 35, 50, 0.8)"
+                bg="rgba(20, 20, 20, 0.8)"
                 backdropFilter="blur(20px)"
                 border="1px solid"
-                borderColor="rgba(59, 130, 246, 0.2)"
+                borderColor="rgba(255, 255, 255, 0.2)"
                 p={8}
                 h="100%"
                 display="flex"
                 flexDirection="column"
                 _hover={{
-                  borderColor: "rgba(59, 130, 246, 0.5)",
-                  boxShadow: "0 25px 50px rgba(59, 130, 246, 0.15)",
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                  boxShadow: "0 25px 50px rgba(255, 255, 255, 0.1)",
                   transform: "translateY(-8px)",
                 }}
                 transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
@@ -175,7 +175,7 @@ const Projects = () => {
                   left={0}
                   right={0}
                   h="3px"
-                  bgGradient="linear(to-r, #3b82f6, #06b6d4, #10b981, #ec4899)"
+                  bgGradient="linear(to-r, #ffffff, #e5e5e5, #d4d4d4, #a3a3a3)"
                   borderRadius="2xl 2xl 0 0"
                 />
 
@@ -186,10 +186,10 @@ const Projects = () => {
                       px={4}
                       py={2}
                       borderRadius="full"
-                      bg="rgba(59, 130, 246, 0.15)"
-                      color="#60a5fa"
+                      bg="rgba(255, 255, 255, 0.1)"
+                      color="#e5e5e5"
                       border="1px solid"
-                      borderColor="rgba(59, 130, 246, 0.3)"
+                      borderColor="rgba(255, 255, 255, 0.2)"
                       fontSize="xs"
                       fontWeight="700"
                       textTransform="uppercase"
@@ -232,7 +232,7 @@ const Projects = () => {
                             w="6px"
                             h="6px"
                             borderRadius="full"
-                            bgGradient="linear(to-r, #3b82f6, #06b6d4)"
+                            bg="#ffffff"
                             mt={2}
                             flexShrink={0}
                           />
@@ -256,10 +256,10 @@ const Projects = () => {
                         <Tag
                           key={i}
                           size="sm"
-                          bg="rgba(59, 130, 246, 0.1)"
-                          color="#60a5fa"
+                          bg="rgba(255, 255, 255, 0.1)"
+                          color="#e5e5e5"
                           border="1px solid"
-                          borderColor="rgba(59, 130, 246, 0.2)"
+                          borderColor="rgba(255, 255, 255, 0.2)"
                           borderRadius="md"
                           px={3}
                           py={1}
@@ -279,8 +279,8 @@ const Projects = () => {
                         leftIcon={<FaGithub />}
                         w="100%"
                         variant="outline"
-                        borderColor="rgba(59, 130, 246, 0.4)"
-                        color="#60a5fa"
+                        borderColor="rgba(255, 255, 255, 0.3)"
+                        color="#ffffff"
                         bg="transparent"
                         borderRadius="xl"
                         py={6}
@@ -288,8 +288,8 @@ const Projects = () => {
                         fontWeight="600"
                         _hover={{
                           bg: "rgba(59, 130, 246, 0.15)",
-                          borderColor: "#3b82f6",
-                          color: "#3b82f6",
+                          borderColor: "#ffffff",
+                          color: "#ffffff",
                         }}
                         transition="all 0.3s ease"
                       >
@@ -300,16 +300,16 @@ const Projects = () => {
                       <Button
                         rightIcon={<FaArrowRight />}
                         w="100%"
-                        bgGradient="linear(to-r, #3b82f6, #06b6d4)"
-                        color="white"
+                        bgGradient="linear(to-r, #ffffff, #e5e5e5)"
+                        color="#000000"
                         borderRadius="xl"
                         py={6}
                         fontSize="sm"
                         fontWeight="600"
                         _hover={{
-                          bgGradient: "linear(to-r, #2563eb, #0891b2)",
+                          bgGradient: "linear(to-r, #e5e5e5, #d4d4d4)",
                           transform: "translateY(-2px)",
-                          boxShadow: "0 10px 25px rgba(59, 130, 246, 0.4)",
+                          boxShadow: "0 10px 25px rgba(255, 255, 255, 0.3)",
                         }}
                         transition="all 0.3s ease"
                       >

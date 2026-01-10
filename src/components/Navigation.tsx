@@ -41,7 +41,7 @@ const Navigation: React.FC = () => {
       as="nav"
       position="fixed"
       w="100%"
-      bg="rgba(10, 14, 26, 0.9)"
+      bg="rgba(0, 0, 0, 0.9)"
       className="blur-bg"
       zIndex={1000}
       py={4}
@@ -81,12 +81,12 @@ const Navigation: React.FC = () => {
             >
               <Link
                 href={item.href}
-                color={activeSection === item.name ? '#3b82f6' : '#60a5fa'}
+                color={activeSection === item.name ? '#ffffff' : '#d4d4d4'}
                 fontSize="sm"
                 fontWeight={activeSection === item.name ? '600' : '400'}
                 _hover={{ 
                   textDecoration: 'none',
-                  bgGradient: 'linear(to-r, #3b82f6, #06b6d4)',
+                  bgGradient: 'linear(to-r, #ffffff, #e5e5e5)',
                   bgClip: 'text',
                 }}
                 transition="all 0.3s ease"
@@ -100,7 +100,7 @@ const Navigation: React.FC = () => {
                     left="0"
                     right="0"
                     h="2px"
-                    bgGradient="linear(to-r, #3b82f6, #06b6d4, #10b981)"
+                    bgGradient="linear(to-r, #ffffff, #e5e5e5, #d4d4d4)"
                     borderRadius="full"
                   />
                 )}

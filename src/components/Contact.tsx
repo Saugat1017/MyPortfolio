@@ -17,7 +17,7 @@ const Contact = () => {
       id="contact"
       minH="100vh"
       py={{ base: 16, md: 24 }}
-      bg="#0a0e1a"
+      bg="#000000"
       position="relative"
       overflow="hidden"
     >
@@ -29,7 +29,7 @@ const Contact = () => {
         w="400px"
         h="400px"
         borderRadius="50%"
-        bgGradient="radial(circle, rgba(59, 130, 246, 0.1), transparent)"
+        bgGradient="radial(circle, rgba(255, 255, 255, 0.05), transparent)"
         filter="blur(80px)"
         zIndex={0}
       />
@@ -40,7 +40,7 @@ const Contact = () => {
         w="300px"
         h="300px"
         borderRadius="50%"
-        bgGradient="radial(circle, rgba(236, 72, 153, 0.1), transparent)"
+        bgGradient="radial(circle, rgba(255, 255, 255, 0.03), transparent)"
         filter="blur(60px)"
         zIndex={0}
       />
@@ -57,7 +57,7 @@ const Contact = () => {
               fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
               fontWeight="800"
               letterSpacing="tight"
-              bgGradient="linear(to-r, #3b82f6, #06b6d4, #10b981, #ec4899)"
+              bgGradient="linear(to-r, #ffffff, #e5e5e5, #d4d4d4, #a3a3a3)"
               bgClip="text"
             >
               Get In Touch
@@ -84,21 +84,21 @@ const Contact = () => {
               <Box
                 p={8}
                 borderRadius="2xl"
-                bg="rgba(26, 35, 50, 0.8)"
+                bg="rgba(20, 20, 20, 0.8)"
                 backdropFilter="blur(20px)"
                 border="1px solid"
-                borderColor="rgba(59, 130, 246, 0.2)"
+                borderColor="rgba(255, 255, 255, 0.2)"
                 _hover={{
-                  borderColor: "rgba(59, 130, 246, 0.5)",
+                  borderColor: "rgba(255, 255, 255, 0.4)",
                   transform: "translateY(-4px)",
-                  boxShadow: "0 20px 40px rgba(59, 130, 246, 0.15)",
+                  boxShadow: "0 20px 40px rgba(255, 255, 255, 0.1)",
                 }}
                 transition="all 0.4s ease"
               >
                 <HStack spacing={4} mb={4}>
                   <Circle
                     size="50px"
-                    bgGradient="linear(135deg, #3b82f6, #06b6d4)"
+                    bgGradient="linear(135deg, #ffffff, #e5e5e5)"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -114,7 +114,7 @@ const Contact = () => {
                       color="white"
                       fontSize="md"
                       fontWeight="600"
-                      _hover={{ color: "#60a5fa", textDecoration: "none" }}
+                      _hover={{ color: "#e5e5e5", textDecoration: "none" }}
                     >
                       {contactData.email}
                     </Link>
@@ -132,21 +132,21 @@ const Contact = () => {
               <Box
                 p={8}
                 borderRadius="2xl"
-                bg="rgba(26, 35, 50, 0.8)"
+                bg="rgba(20, 20, 20, 0.8)"
                 backdropFilter="blur(20px)"
                 border="1px solid"
-                borderColor="rgba(59, 130, 246, 0.2)"
+                borderColor="rgba(255, 255, 255, 0.2)"
                 _hover={{
-                  borderColor: "rgba(59, 130, 246, 0.5)",
+                  borderColor: "rgba(255, 255, 255, 0.4)",
                   transform: "translateY(-4px)",
-                  boxShadow: "0 20px 40px rgba(59, 130, 246, 0.15)",
+                  boxShadow: "0 20px 40px rgba(255, 255, 255, 0.1)",
                 }}
                 transition="all 0.4s ease"
               >
                 <HStack spacing={4} mb={4}>
                   <Circle
                     size="50px"
-                    bgGradient="linear(135deg, #06b6d4, #10b981)"
+                    bgGradient="linear(135deg, #e5e5e5, #d4d4d4)"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -186,13 +186,13 @@ const Contact = () => {
                   h="70px"
                   fontSize="lg"
                   fontWeight="700"
-                  bgGradient="linear(to-r, #3b82f6, #06b6d4)"
-                  color="white"
+                  bgGradient="linear(to-r, #ffffff, #e5e5e5)"
+                  color="#000000"
                   borderRadius="xl"
                   _hover={{
-                    bgGradient: "linear(to-r, #2563eb, #0891b2)",
+                    bgGradient: "linear(to-r, #e5e5e5, #d4d4d4)",
                     transform: "translateY(-4px)",
-                    boxShadow: "0 20px 40px rgba(59, 130, 246, 0.4)",
+                    boxShadow: "0 20px 40px rgba(255, 255, 255, 0.3)",
                   }}
                   transition="all 0.3s ease"
                 >
@@ -220,15 +220,15 @@ const Contact = () => {
                   fontSize="lg"
                   fontWeight="700"
                   variant="outline"
-                  borderColor="rgba(59, 130, 246, 0.4)"
+                  borderColor="rgba(255, 255, 255, 0.3)"
                   borderWidth="2px"
-                  color="#60a5fa"
+                  color="#ffffff"
                   bg="transparent"
                   borderRadius="xl"
                   _hover={{
-                    bg: "rgba(59, 130, 246, 0.15)",
-                    borderColor: "#3b82f6",
-                    color: "#3b82f6",
+                    bg: "rgba(255, 255, 255, 0.1)",
+                    borderColor: "#ffffff",
+                    color: "#ffffff",
                     transform: "translateY(-4px)",
                   }}
                   transition="all 0.3s ease"
@@ -257,15 +257,15 @@ const Contact = () => {
                   fontSize="lg"
                   fontWeight="700"
                   variant="outline"
-                  borderColor="rgba(6, 182, 212, 0.4)"
+                  borderColor="rgba(255, 255, 255, 0.3)"
                   borderWidth="2px"
-                  color="#06b6d4"
+                  color="#e5e5e5"
                   bg="transparent"
                   borderRadius="xl"
                   _hover={{
-                    bg: "rgba(6, 182, 212, 0.15)",
-                    borderColor: "#06b6d4",
-                    color: "#06b6d4",
+                    bg: "rgba(255, 255, 255, 0.1)",
+                    borderColor: "#ffffff",
+                    color: "#ffffff",
                     transform: "translateY(-4px)",
                   }}
                   transition="all 0.3s ease"

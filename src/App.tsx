@@ -38,7 +38,7 @@ const theme = {
     ...baseTheme.styles,
     global: {
       body: {
-        bg: '#0a0e1a',
+        bg: '#000000',
         color: '#ffffff',
         overflowX: 'hidden',
         fontFamily: "'Inter', sans-serif",
@@ -70,7 +70,7 @@ const Contact = lazy(() => import('./components/Contact'));
 
 const LoadingSpinner = () => (
   <Center h="100vh">
-    <Spinner size="xl" color="blue.400" />
+    <Spinner size="xl" color="white" />
   </Center>
 );
 

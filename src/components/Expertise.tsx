@@ -69,7 +69,7 @@ const Expertise = () => {
       id="expertise"
       minH="100vh"
       py={{ base: 16, md: 24 }}
-      bg="#0f172a"
+      bg="#0a0a0a"
       position="relative"
       overflow="hidden"
     >
@@ -85,7 +85,7 @@ const Expertise = () => {
               fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
               fontWeight="800"
               letterSpacing="tight"
-              bgGradient="linear(to-r, #3b82f6, #06b6d4, #10b981, #ec4899)"
+              bgGradient="linear(to-r, #ffffff, #e5e5e5, #d4d4d4, #a3a3a3)"
               bgClip="text"
             >
               Technical Expertise
@@ -112,15 +112,15 @@ const Expertise = () => {
               <Box
                 position="relative"
                 borderRadius="2xl"
-                bg="rgba(26, 35, 50, 0.8)"
+                bg="rgba(20, 20, 20, 0.8)"
                 backdropFilter="blur(20px)"
                 border="1px solid"
-                borderColor="rgba(59, 130, 246, 0.2)"
+                borderColor="rgba(255, 255, 255, 0.2)"
                 p={8}
                 h="100%"
                 _hover={{
-                  borderColor: "rgba(59, 130, 246, 0.4)",
-                  boxShadow: "0 20px 60px rgba(59, 130, 246, 0.15)",
+                  borderColor: "rgba(255, 255, 255, 0.3)",
+                  boxShadow: "0 20px 60px rgba(255, 255, 255, 0.1)",
                   transform: "translateY(-4px)",
                 }}
                 transition="all 0.4s ease"
@@ -129,7 +129,7 @@ const Expertise = () => {
                 <HStack spacing={4} mb={8}>
                   <Circle
                     size="60px"
-                    bgGradient="linear(135deg, #3b82f6, #06b6d4)"
+                    bgGradient="linear(135deg, #ffffff, #e5e5e5)"
                     p={3}
                   >
                     <Icon
@@ -147,10 +147,10 @@ const Expertise = () => {
                 <VStack align="stretch" spacing={6}>
                   {category.skills.map((skill, skillIndex) => {
                     const color = skill.level >= 85 
-                      ? "#3b82f6" 
+                      ? "#ffffff" 
                       : skill.level >= 75 
-                      ? "#06b6d4" 
-                      : "#10b981";
+                      ? "#e5e5e5" 
+                      : "#d4d4d4";
                     
                     return (
                       <Box key={skillIndex}>

@@ -104,7 +104,7 @@ const GitHubShowcase = () => {
               mx="auto"
               lineHeight="1.8"
             >
-              I've built numerous projects across different domains - from machine learning and full-stack applications 
+              I've built numerous projects across different domains - from machine learning and full-stack (Python) applications 
               to mobile apps and web development. Each repository represents a learning journey and a solution to real-world problems.
             </Text>
           </MotionBox>

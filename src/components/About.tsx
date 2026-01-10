@@ -17,7 +17,7 @@ const MotionBox = motion(Box);
 const About = () => {
   const skills = [
     {
-      title: 'Full Stack Development',
+      title: 'Full Stack Development (Python)',
       icon: FaLaptopCode,
       description: 'React, Spring Boot, Node.js, TypeScript, JavaScript, HTML5, CSS3, Chakra UI',
       gradient: 'linear-gradient(135deg, #3b82f6, #6366f1)',
@@ -88,7 +88,7 @@ const About = () => {
                 lineHeight="1.8"
               >
                 I'm a Computer Science student at the University of Texas at Arlington with a passion for 
-                building scalable full-stack applications and exploring AI/ML technologies. With a CGPA of 3.73, 
+                building scalable full-stack (Python) applications and exploring AI/ML technologies. With a CGPA of 3.73, 
                 I'm committed to creating impactful software solutions that make a difference.
               </Text>
             </Box>
@@ -162,7 +162,7 @@ const About = () => {
                     Maintaining a CGPA of 3.73 while actively engaging in research, internships, and real-world projects.
                   </Text>
                   <Text lineHeight="1.8" fontSize="md">
-                    My experience spans from building full-stack applications like <strong style={{ color: '#3b82f6' }}>MavThread</strong> (a university discussion platform) 
+                    My experience spans from building full-stack (Python) applications like <strong style={{ color: '#3b82f6' }}>MavThread</strong> (a university discussion platform) 
                     to developing Android applications and working on AI/ML research projects. I'm passionate about creating 
                     scalable, efficient solutions that solve real-world problems.
                   </Text>
@@ -176,7 +176,7 @@ const About = () => {
                       py={2}
                       borderRadius="full"
                     >
-                      Full Stack Development
+                      Full Stack Development (Python)
                     </Badge>
                     <Badge 
                       bg="rgba(99, 102, 241, 0.2)" 

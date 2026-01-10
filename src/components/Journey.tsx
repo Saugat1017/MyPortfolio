@@ -13,7 +13,7 @@ const journeyData = [
     icon: FaGraduationCap,
     color: "cyan",
     description: [
-      "Pursuing B.S. in Computer Science with focus on Full Stack Development, AI/ML, and Software Engineering",
+      "Pursuing B.S. in Computer Science with focus on Full Stack Development (Python), AI/ML, and Software Engineering",
       "Relevant Coursework: Algorithms & Data Structures, Operating Systems, Database Systems, AI, Machine Learning, Computer Vision, Data Mining, Computer Networks, NLP",
       "Academic Honors: Honor Roll, Freshman Distinction Roll",
       "Active in research projects and internships while maintaining strong academic performance"
@@ -26,7 +26,7 @@ const journeyData = [
     icon: FaBriefcase,
     color: "purple",
     description: [
-      "Built a secure full-stack platform using Spring Boot and React with JWT authentication",
+      "Built a secure full-stack (Python) platform using Spring Boot and React with JWT authentication",
       "Enabled real-time AI-powered chat guidance for 100+ simulated users in emotional eating support scenarios",
       "Researched and implemented ML models with Hugging Face Transformers",
       "Achieved 87% classification accuracy across 1,500+ annotated food-mood records for detecting emotional vs. physical hunger patterns"

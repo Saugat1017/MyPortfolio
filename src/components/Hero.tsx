@@ -10,7 +10,9 @@ const Hero = () => {
   const [displayText, setDisplayText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
   const roles = [
-    "Full Stack Developer",
+    "Full Stack Developer (Python)",
+    "Python Developer",
+    "Machine Learning Engineer",
     "AI/ML Enthusiast",
     "Software Engineer",
     "Problem Solver"
@@ -61,7 +63,7 @@ const Hero = () => {
       alignItems="center"
       position="relative"
       overflow="hidden"
-      bg="#0a0e1a"
+      bg="#000000"
       pt={20}
     >
       {/* Subtle background gradient */}
@@ -71,7 +73,7 @@ const Hero = () => {
         left="0"
         right="0"
         bottom="0"
-        bgGradient="radial(circle at 30% 50%, rgba(59, 130, 246, 0.1), transparent)"
+        bgGradient="radial(circle at 30% 50%, rgba(255, 255, 255, 0.05), transparent)"
         zIndex={0}
       />
 
@@ -91,7 +93,7 @@ const Hero = () => {
                 lineHeight="1.1"
               >
                 Hi, I'm{' '}
-                <Box as="span" bgGradient="linear(to-r, #3b82f6, #60a5fa)" bgClip="text">
+                <Box as="span" bgGradient="linear(to-r, #ffffff, #e5e5e5)" bgClip="text">
                   Saugat Bhatta
                 </Box>
               </Text>
@@ -108,7 +110,7 @@ const Hero = () => {
               <Text
                 fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
                 fontWeight="600"
-                bgGradient="linear(to-r, #3b82f6, #06b6d4)"
+                bgGradient="linear(to-r, #ffffff, #e5e5e5)"
                 bgClip="text"
               >
                 {displayText}
@@ -117,7 +119,7 @@ const Hero = () => {
                   display="inline-block"
                   w="3px"
                   h="1em"
-                  bgGradient="linear(to-r, #3b82f6, #06b6d4)"
+                  bg="#ffffff"
                   ml={2}
                   opacity={showCursor ? 1 : 0}
                   transition="opacity 0.3s"
@@ -138,8 +140,8 @@ const Hero = () => {
                 color="gray.300"
                 lineHeight="1.8"
               >
-                Computer Science student at UT Arlington (GPA: 3.73) | Building scalable full-stack applications 
-                with React, Spring Boot & AWS | Passionate about AI/ML and creating impactful software solutions
+                Computer Science student at UT Arlington (GPA: 3.73) | Building scalable full-stack applications (Python) 
+                with React, Spring Boot, Python & AWS | Passionate about Machine Learning, AI/ML and creating impactful software solutions
               </Text>
             </MotionBox>
 
@@ -151,8 +153,8 @@ const Hero = () => {
             >
               <HStack spacing={4} flexWrap="wrap">
                 <Button
-                  bg="#3b82f6"
-                  color="white"
+                  bg="#ffffff"
+                  color="#000000"
                   size="lg"
                   px={8}
                   py={6}
@@ -162,9 +164,9 @@ const Hero = () => {
                   onClick={scrollToContact}
                   cursor="pointer"
                   _hover={{
-                    bg: "#2563eb",
+                    bg: "#e5e5e5",
                     transform: "translateY(-2px)",
-                    boxShadow: "0 8px 20px rgba(59, 130, 246, 0.4)",
+                    boxShadow: "0 8px 20px rgba(255, 255, 255, 0.3)",
                   }}
                   transition="all 0.3s ease"
                 >
@@ -172,8 +174,8 @@ const Hero = () => {
                 </Button>
                 <Button
                   variant="outline"
-                  borderColor="#3b82f6"
-                  color="#3b82f6"
+                  borderColor="#ffffff"
+                  color="#ffffff"
                   bg="transparent"
                   size="lg"
                   px={8}
@@ -184,10 +186,10 @@ const Hero = () => {
                   onClick={scrollToContact}
                   cursor="pointer"
                   _hover={{
-                    bg: "#3b82f6",
-                    color: "white",
+                    bg: "#ffffff",
+                    color: "#000000",
                     transform: "translateY(-2px)",
-                    boxShadow: "0 8px 20px rgba(59, 130, 246, 0.3)",
+                    boxShadow: "0 8px 20px rgba(255, 255, 255, 0.2)",
                   }}
                   transition="all 0.3s ease"
                 >
@@ -212,16 +214,16 @@ const Hero = () => {
                   h="45px"
                   borderRadius="50%"
                   border="2px solid"
-                  borderColor="#3b82f6"
+                  borderColor="#ffffff"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
-                  color="#3b82f6"
+                  color="#ffffff"
                   _hover={{
-                    bg: "#3b82f6",
-                    color: "white",
+                    bg: "#ffffff",
+                    color: "#000000",
                     transform: "translateY(-3px)",
-                    boxShadow: "0 5px 15px rgba(59, 130, 246, 0.4)",
+                    boxShadow: "0 5px 15px rgba(255, 255, 255, 0.3)",
                   }}
                   transition="all 0.3s ease"
                 >
@@ -236,16 +238,16 @@ const Hero = () => {
                   h="45px"
                   borderRadius="50%"
                   border="2px solid"
-                  borderColor="#06b6d4"
+                  borderColor="#ffffff"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
-                  color="#06b6d4"
+                  color="#ffffff"
                   _hover={{
-                    bg: "#06b6d4",
-                    color: "white",
+                    bg: "#ffffff",
+                    color: "#000000",
                     transform: "translateY(-3px)",
-                    boxShadow: "0 5px 15px rgba(6, 182, 212, 0.4)",
+                    boxShadow: "0 5px 15px rgba(255, 255, 255, 0.3)",
                   }}
                   transition="all 0.3s ease"
                 >
@@ -258,16 +260,16 @@ const Hero = () => {
                   h="45px"
                   borderRadius="50%"
                   border="2px solid"
-                  borderColor="#10b981"
+                  borderColor="#ffffff"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
-                  color="#10b981"
+                  color="#ffffff"
                   _hover={{
-                    bg: "#10b981",
-                    color: "white",
+                    bg: "#ffffff",
+                    color: "#000000",
                     transform: "translateY(-3px)",
-                    boxShadow: "0 5px 15px rgba(16, 185, 129, 0.4)",
+                    boxShadow: "0 5px 15px rgba(255, 255, 255, 0.3)",
                   }}
                   transition="all 0.3s ease"
                 >
@@ -306,11 +308,11 @@ const Hero = () => {
                   h="auto"
                   objectFit="cover"
                   onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                    e.currentTarget.src = "https://via.placeholder.com/500x600/1a2332/3b82f6?text=SB";
+                    e.currentTarget.src = "https://via.placeholder.com/500x600/1a1a1a/ffffff?text=SB";
                   }}
                 />
                 
-                {/* Glowing Blue Lines Overlay */}
+                {/* Glowing White Lines Overlay */}
                 <Box
                   position="absolute"
                   top="0"
@@ -326,8 +328,8 @@ const Hero = () => {
                     top="30%"
                     w="3px"
                     h="120px"
-                    bg="#3b82f6"
-                    boxShadow="0 0 20px #3b82f6, 0 0 40px #3b82f6"
+                    bg="#ffffff"
+                    boxShadow="0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5)"
                     animate={{
                       opacity: [0.6, 1, 0.6],
                     }}
@@ -344,8 +346,8 @@ const Hero = () => {
                     top="25%"
                     w="3px"
                     h="100px"
-                    bg="#06b6d4"
-                    boxShadow="0 0 20px #06b6d4, 0 0 40px #06b6d4"
+                    bg="#ffffff"
+                    boxShadow="0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5)"
                     animate={{
                       opacity: [0.5, 1, 0.5],
                     }}
@@ -363,8 +365,8 @@ const Hero = () => {
                     top="35%"
                     w="3px"
                     h="90px"
-                    bg="#10b981"
-                    boxShadow="0 0 20px #10b981, 0 0 40px #10b981"
+                    bg="#ffffff"
+                    boxShadow="0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5)"
                     animate={{
                       opacity: [0.6, 1, 0.6],
                     }}
@@ -382,8 +384,8 @@ const Hero = () => {
                     top="40%"
                     w="60px"
                     h="2px"
-                    bg="#ec4899"
-                    boxShadow="0 0 15px #ec4899, 0 0 30px #ec4899"
+                    bg="#ffffff"
+                    boxShadow="0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5)"
                     animate={{
                       opacity: [0.4, 1, 0.4],
                     }}
@@ -401,8 +403,8 @@ const Hero = () => {
                     w="8px"
                     h="8px"
                     borderRadius="50%"
-                    bg="#6366f1"
-                    boxShadow="0 0 20px #6366f1, 0 0 40px #6366f1"
+                    bg="#ffffff"
+                    boxShadow="0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5)"
                     animate={{
                       opacity: [0.5, 1, 0.5],
                       scale: [1, 1.2, 1],

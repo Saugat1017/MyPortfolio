@@ -35,11 +35,11 @@ const ChatBot = () => {
     }
     
     if (lowerQuestion.includes('projects')) {
-      return "Here are Saugat's notable projects:\n1. MavThread - Full-stack university discussion platform (React, Spring Boot, AWS RDS)\n2. Fitness Tracker App - Android app with GPS and analytics (Java, Android SDK)\n3. Farm Data Management System - C-based trading system\n4. Dallas AI - Emotional eating support platform with ML models (87% accuracy)\n5. OURCS@DFW Research - Transformer-based summarization research";
+      return "Here are Saugat's notable projects:\n1. MavThread - Full-stack (Python) university discussion platform (React, Spring Boot, AWS RDS)\n2. Fitness Tracker App - Android app with GPS and analytics (Java, Android SDK)\n3. Farm Data Management System - C-based trading system\n4. Dallas AI - Emotional eating support platform with ML models (87% accuracy)\n5. OURCS@DFW Research - Transformer-based summarization research";
     }
     
     if (lowerQuestion.includes('experience') || lowerQuestion.includes('work')) {
-      return "Saugat's experience includes:\n• Dallas AI Summer Program (Jun 2025 - Aug 2025) - Built full-stack AI platform\n• OURCS@DFW Research Assistant at UT Arlington (Feb 2025 - Mar 2025)\n• Computer Lab Assistant at SUNY Oswego (Aug 2022 - Dec 2022) - 92% resolution rate";
+      return "Saugat's experience includes:\n• Dallas AI Summer Program (Jun 2025 - Aug 2025) - Built full-stack (Python) AI platform\n• OURCS@DFW Research Assistant at UT Arlington (Feb 2025 - Mar 2025)\n• Computer Lab Assistant at SUNY Oswego (Aug 2022 - Dec 2022) - 92% resolution rate";
     }
 
     if (lowerQuestion.includes('certificates') || lowerQuestion.includes('certifications')) {
