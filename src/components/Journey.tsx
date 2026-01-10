@@ -11,7 +11,6 @@ const journeyData = [
     period: "Aug 2024 - Dec 2026 (Expected)",
     gpa: "CGPA: 3.73",
     icon: FaGraduationCap,
-    color: "cyan",
     description: [
       "Pursuing B.S. in Computer Science with focus on Full Stack Development (Python), AI/ML, and Software Engineering",
       "Relevant Coursework: Algorithms & Data Structures, Operating Systems, Database Systems, AI, Machine Learning, Computer Vision, Data Mining, Computer Networks, NLP",
@@ -24,7 +23,6 @@ const journeyData = [
     organization: "Dallas AI",
     period: "Jun 2025 - Aug 2025",
     icon: FaBriefcase,
-    color: "purple",
     description: [
       "Built a secure full-stack (Python) platform using Spring Boot and React with JWT authentication",
       "Enabled real-time AI-powered chat guidance for 100+ simulated users in emotional eating support scenarios",
@@ -37,7 +35,6 @@ const journeyData = [
     organization: "University of Texas at Arlington",
     period: "Feb 2025 - Mar 2025",
     icon: FaCode,
-    color: "pink",
     description: [
       "Designed adversarial test cases for transformer-based summarization models",
       "Identified and fixed vulnerabilities that improved output robustness by 30%",
@@ -50,7 +47,6 @@ const journeyData = [
     organization: "SUNY Oswego",
     period: "Aug 2022 - Dec 2022",
     icon: FaBriefcase,
-    color: "blue",
     description: [
       "Delivered technical support to 100+ users weekly, resolving Java code, software, and connectivity issues",
       "Achieved 92% average resolution rate and reduced lab downtime by 25% through proactive diagnostics",
@@ -63,7 +59,6 @@ const journeyData = [
     organization: "SUNY Oswego / Dallas College",
     period: "2022 - 2024",
     icon: FaGraduationCap,
-    color: "green",
     description: [
       "Completed foundational coursework in Computer Science",
       "Transferred credits to UT Arlington",
@@ -78,19 +73,49 @@ const Journey = () => {
       id="journey"
       minH="100vh"
       py={20}
-      bgGradient="linear(to-b, #0a0e1a, #0f172a)"
+      bg="#0a0a0a"
       position="relative"
       overflow="hidden"
     >
+      {/* Subtle background patterns */}
       <Box
         position="absolute"
         top={0}
         left={0}
         right={0}
         bottom={0}
-        bgGradient="radial(circle at 50% 50%, rgba(59, 130, 246, 0.1), transparent)"
-        opacity={0.3}
-      />
+        zIndex={0}
+      >
+        {/* Diagonal lines pattern */}
+        <Box
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          opacity={0.02}
+          backgroundImage="repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.5) 10px, rgba(255, 255, 255, 0.5) 20px)"
+        />
+        {/* Cross pattern */}
+        <Box
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          opacity={0.015}
+          backgroundImage="repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255, 255, 255, 0.1) 50px, rgba(255, 255, 255, 0.1) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 255, 255, 0.1) 50px, rgba(255, 255, 255, 0.1) 51px)"
+        />
+        {/* Timeline-style dots */}
+        <Box
+          position="absolute"
+          left="15%"
+          top={0}
+          bottom={0}
+          w="2px"
+          bgGradient="linear(to-b, transparent, rgba(255, 255, 255, 0.1), transparent)"
+        />
+      </Box>
 
       <Container maxW="container.xl" position="relative">
         <motion.div
@@ -101,12 +126,15 @@ const Journey = () => {
         >
           <Heading
             mb={12}
-            fontSize={{ base: "4xl", md: "5xl" }}
+            fontSize={{ base: "5xl", md: "7xl", lg: "8xl" }}
             textAlign="center"
-            bgGradient="linear(to-r, #3b82f6, #6366f1)"
-            bgClip="text"
+            color="white"
+            fontWeight="700"
+            letterSpacing="0.1em"
+            textTransform="uppercase"
+            fontFamily="'Space Grotesk', sans-serif"
           >
-            My Journey
+            Journey
           </Heading>
         </motion.div>
 
@@ -121,43 +149,65 @@ const Journey = () => {
             >
               <Box
                 p={8}
-                className="modern-card"
+                bg="rgba(20, 20, 20, 0.8)"
+                backdropFilter="blur(20px)"
+                border="1px solid"
+                borderColor="rgba(255, 255, 255, 0.2)"
+                borderRadius="2xl"
+                position="relative"
                 _hover={{
                   transform: "translateY(-8px)",
-                  boxShadow: "0 20px 60px rgba(59, 130, 246, 0.3)",
+                  boxShadow: "0 20px 60px rgba(255, 255, 255, 0.1)",
+                  borderColor: "rgba(255, 255, 255, 0.4)",
                 }}
                 transition="all 0.4s ease"
                 h="100%"
               >
+                {/* Left border accent */}
+                <Box
+                  position="absolute"
+                  left={0}
+                  top="20%"
+                  bottom="20%"
+                  w="4px"
+                  bgGradient="linear(to-b, transparent, #ffffff, transparent)"
+                  opacity={0.5}
+                  borderRadius="0 4px 4px 0"
+                />
                 <VStack align="stretch" spacing={4}>
                   <HStack spacing={3} justify="space-between" flexWrap="wrap">
                     <HStack spacing={3}>
                       <Box
                         p={2}
                         borderRadius="lg"
-                        bgGradient={`linear-gradient(135deg, ${item.color === 'cyan' ? '#3b82f6' : item.color === 'purple' ? '#6366f1' : item.color === 'pink' ? '#2563eb' : '#818cf8'}, ${item.color === 'cyan' ? '#6366f1' : item.color === 'purple' ? '#2563eb' : item.color === 'pink' ? '#818cf8' : '#3b82f6'})`}
+                        bg="rgba(255, 255, 255, 0.1)"
+                        border="2px solid"
+                        borderColor="rgba(255, 255, 255, 0.3)"
+                        boxShadow="0 4px 15px rgba(255, 255, 255, 0.1)"
                       >
                         <Icon as={item.icon} boxSize={6} color="white" />
                       </Box>
                       <VStack align="start" spacing={0}>
-                        <Heading size="md" color="white">
+                        <Heading size="md" color="white" fontWeight="700">
                           {item.title}
                         </Heading>
-                        <Text color={`${item.color}.300`} fontSize="sm" fontWeight="500">
+                        <Text color="gray.400" fontSize="sm" fontWeight="500">
                           {item.organization}
                         </Text>
                       </VStack>
                     </HStack>
                     {item.gpa && (
                       <Badge 
-                      bg={`rgba(${item.color === 'cyan' ? '244, 114, 182' : item.color === 'purple' ? '167, 139, 250' : item.color === 'pink' ? '236, 72, 153' : '192, 132, 252'}, 0.2)`}
-                      color={`${item.color === 'cyan' ? '#3b82f6' : item.color === 'purple' ? '#6366f1' : item.color === 'pink' ? '#2563eb' : '#818cf8'}`}
-                      border={`1px solid rgba(${item.color === 'cyan' ? '244, 114, 182' : item.color === 'purple' ? '167, 139, 250' : item.color === 'pink' ? '236, 72, 153' : '192, 132, 252'}, 0.4)`}
-                      fontSize="sm" 
-                      px={3} 
-                      py={1}
-                      borderRadius="full"
-                    >
+                        bg="rgba(255, 255, 255, 0.1)" 
+                        color="#ffffff" 
+                        border="1px solid"
+                        borderColor="rgba(255, 255, 255, 0.3)"
+                        fontSize="sm" 
+                        px={3} 
+                        py={1}
+                        borderRadius="full"
+                        fontWeight="600"
+                      >
                         {item.gpa}
                       </Badge>
                     )}
@@ -171,14 +221,15 @@ const Journey = () => {
                     {item.description.map((desc, i) => (
                       <HStack key={i} spacing={2} align="flex-start">
                         <Box 
-                          w="2" 
-                          h="2" 
+                          w="6px" 
+                          h="6px" 
                           borderRadius="full" 
-                          bg={`${item.color}.400`} 
+                          bg="#ffffff" 
                           mt={2} 
-                          flexShrink={0} 
+                          flexShrink={0}
+                          boxShadow="0 0 8px rgba(255, 255, 255, 0.5)"
                         />
-                        <Text key={i} color="whiteAlpha.900" fontSize="sm" lineHeight="1.7">
+                        <Text color="whiteAlpha.900" fontSize="sm" lineHeight="1.7">
                           {desc}
                         </Text>
                       </HStack>

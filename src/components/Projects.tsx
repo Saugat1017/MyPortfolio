@@ -111,6 +111,50 @@ const Projects = () => {
       position="relative"
       overflow="hidden"
     >
+      {/* Subtle background patterns */}
+      <Box
+        position="absolute"
+        top="0"
+        left="0"
+        right="0"
+        bottom="0"
+        zIndex={0}
+      >
+        {/* Dot pattern */}
+        <Box
+          position="absolute"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          opacity={0.03}
+          backgroundImage="radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.5) 1px, transparent 0)"
+          backgroundSize="50px 50px"
+        />
+        {/* Hexagon pattern (approximated with dots) */}
+        <Box
+          position="absolute"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          opacity={0.02}
+          backgroundImage="radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.3) 2px, transparent 0), radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.3) 2px, transparent 0)"
+          backgroundSize="100px 100px"
+        />
+        {/* Subtle gradient */}
+        <Box
+          position="absolute"
+          top="20%"
+          right="10%"
+          w="500px"
+          h="500px"
+          borderRadius="50%"
+          bgGradient="radial(circle, rgba(255, 255, 255, 0.02), transparent)"
+          filter="blur(100px)"
+        />
+      </Box>
+
       <Container maxW="container.xl" position="relative" zIndex={1}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -120,16 +164,14 @@ const Projects = () => {
         >
           <VStack spacing={4} mb={16} textAlign="center">
             <Heading
-              fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
-              fontWeight="800"
-              letterSpacing="tight"
+              fontSize={{ base: "5xl", md: "7xl", lg: "8xl" }}
+              fontWeight="700"
+              letterSpacing="0.1em"
+              textTransform="uppercase"
+              fontFamily="'Space Grotesk', sans-serif"
+              color="white"
             >
-              <Text as="span" bgGradient="linear(to-r, #ffffff, #e5e5e5)" bgClip="text">
-                Featured
-              </Text>{' '}
-              <Text as="span" bgGradient="linear(to-r, #d4d4d4, #a3a3a3)" bgClip="text">
-                Projects
-              </Text>
+              Projects
             </Heading>
             <Text
               color="gray.400"

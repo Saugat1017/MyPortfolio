@@ -61,11 +61,13 @@ const Navigation: React.FC = () => {
           <Link
             href="#home"
             fontSize="xl"
-            fontWeight="bold"
+            fontWeight="700"
             color="white"
             _hover={{ textDecoration: 'none' }}
             transition="color 0.3s ease"
-            className="gradient-text"
+            fontFamily="'Space Grotesk', sans-serif"
+            letterSpacing="0.1em"
+            textTransform="uppercase"
           >
             SB
           </Link>
@@ -83,16 +85,18 @@ const Navigation: React.FC = () => {
                 href={item.href}
                 color={activeSection === item.name ? '#ffffff' : '#d4d4d4'}
                 fontSize="sm"
-                fontWeight={activeSection === item.name ? '600' : '400'}
+                fontWeight={activeSection === item.name ? '700' : '500'}
+                letterSpacing="0.1em"
+                textTransform="uppercase"
+                fontFamily="'Space Grotesk', sans-serif"
                 _hover={{ 
                   textDecoration: 'none',
-                  bgGradient: 'linear(to-r, #ffffff, #e5e5e5)',
-                  bgClip: 'text',
+                  color: '#ffffff',
                 }}
                 transition="all 0.3s ease"
                 position="relative"
               >
-                {item.name}
+                {item.name.toUpperCase()}
                 {activeSection === item.name && (
                   <Box
                     position="absolute"

@@ -21,29 +21,72 @@ const Contact = () => {
       position="relative"
       overflow="hidden"
     >
-      {/* Background Elements */}
+      {/* Background Elements with patterns */}
       <Box
         position="absolute"
-        top="20%"
-        right="10%"
-        w="400px"
-        h="400px"
-        borderRadius="50%"
-        bgGradient="radial(circle, rgba(255, 255, 255, 0.05), transparent)"
-        filter="blur(80px)"
+        top="0"
+        left="0"
+        right="0"
+        bottom="0"
         zIndex={0}
-      />
-      <Box
-        position="absolute"
-        bottom="20%"
-        left="10%"
-        w="300px"
-        h="300px"
-        borderRadius="50%"
-        bgGradient="radial(circle, rgba(255, 255, 255, 0.03), transparent)"
-        filter="blur(60px)"
-        zIndex={0}
-      />
+      >
+        {/* Wave pattern */}
+        <Box
+          position="absolute"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          opacity={0.03}
+          backgroundImage="repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.05) 2px, rgba(255, 255, 255, 0.05) 4px)"
+        />
+        {/* Circular pattern */}
+        <Box
+          position="absolute"
+          top="20%"
+          right="10%"
+          w="400px"
+          h="400px"
+          borderRadius="50%"
+          bgGradient="radial(circle, rgba(255, 255, 255, 0.04), transparent)"
+          filter="blur(80px)"
+        />
+        <Box
+          position="absolute"
+          bottom="20%"
+          left="10%"
+          w="300px"
+          h="300px"
+          borderRadius="50%"
+          bgGradient="radial(circle, rgba(255, 255, 255, 0.03), transparent)"
+          filter="blur(60px)"
+        />
+        {/* Concentric circles pattern */}
+        <Box
+          position="absolute"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+          w="800px"
+          h="800px"
+          borderRadius="50%"
+          border="1px solid"
+          borderColor="rgba(255, 255, 255, 0.02)"
+          opacity={0.5}
+        />
+        <Box
+          position="absolute"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+          w="600px"
+          h="600px"
+          borderRadius="50%"
+          border="1px solid"
+          borderColor="rgba(255, 255, 255, 0.02)"
+          opacity={0.5}
+        />
+      </Box>
 
       <Container maxW="container.xl" position="relative" zIndex={1}>
         <motion.div
@@ -54,13 +97,14 @@ const Contact = () => {
         >
           <VStack spacing={4} mb={16} textAlign="center">
             <Heading
-              fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
-              fontWeight="800"
-              letterSpacing="tight"
-              bgGradient="linear(to-r, #ffffff, #e5e5e5, #d4d4d4, #a3a3a3)"
-              bgClip="text"
+              fontSize={{ base: "5xl", md: "7xl", lg: "8xl" }}
+              fontWeight="700"
+              letterSpacing="0.1em"
+              textTransform="uppercase"
+              fontFamily="'Space Grotesk', sans-serif"
+              color="white"
             >
-              Get In Touch
+              Contact
             </Heading>
             <Text
               color="gray.400"

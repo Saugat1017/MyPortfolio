@@ -1,7 +1,24 @@
-import { Box, Container, Heading, Text, VStack, HStack, Button, Link, Icon, SimpleGrid } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import { FaGithub, FaCode, FaStar, FaCodeBranch, FaArrowRight } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Button,
+  Link,
+  Icon,
+  SimpleGrid,
+} from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import {
+  FaGithub,
+  FaCode,
+  FaStar,
+  FaCodeBranch,
+  FaArrowRight,
+} from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 const MotionBox = motion(Box);
 
@@ -25,9 +42,9 @@ const GitHubShowcase = () => {
       py={20}
       position="relative"
       overflow="hidden"
-      bgGradient="linear(to-b, #0a0e1a, #0f172a)"
+      bg="#000000"
     >
-      {/* Animated background elements */}
+      {/* Animated background elements - monochrome */}
       <Box
         position="absolute"
         top="0"
@@ -44,10 +61,10 @@ const GitHubShowcase = () => {
           w="300px"
           h="300px"
           borderRadius="50%"
-          bg="rgba(59, 130, 246, 0.1)"
+          bg="rgba(255, 255, 255, 0.03)"
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.2, 0.4, 0.2],
+            opacity: [0.03, 0.05, 0.03],
           }}
           transition={{
             duration: 8,
@@ -63,10 +80,10 @@ const GitHubShowcase = () => {
           w="400px"
           h="400px"
           borderRadius="50%"
-          bg="rgba(99, 102, 241, 0.1)"
+          bg="rgba(255, 255, 255, 0.02)"
           animate={{
             scale: [1, 1.3, 1],
-            opacity: [0.2, 0.4, 0.2],
+            opacity: [0.02, 0.04, 0.02],
           }}
           transition={{
             duration: 10,
@@ -87,14 +104,16 @@ const GitHubShowcase = () => {
             textAlign="center"
           >
             <HStack spacing={3} justify="center" mb={4}>
-              <Icon as={FaGithub} boxSize={10} color="#3b82f6" />
+              <Icon as={FaGithub} boxSize={10} color="#ffffff" />
               <Heading
-                fontSize={{ base: "3xl", md: "5xl" }}
-                fontWeight="bold"
-                bgGradient="linear(to-r, #3b82f6, #6366f1)"
-                bgClip="text"
+                fontSize={{ base: "4xl", md: "6xl", lg: "7xl" }}
+                fontWeight="700"
+                color="white"
+                letterSpacing="0.1em"
+                textTransform="uppercase"
+                fontFamily="'Space Grotesk', sans-serif"
               >
-                Explore My GitHub
+                GitHub
               </Heading>
             </HStack>
             <Text
@@ -104,8 +123,11 @@ const GitHubShowcase = () => {
               mx="auto"
               lineHeight="1.8"
             >
-              I've built numerous projects across different domains - from machine learning and full-stack (Python) applications 
-              to mobile apps and web development. Each repository represents a learning journey and a solution to real-world problems.
+              I've built numerous projects across different domains - from
+              machine learning and full-stack (Python) applications and
+              Java(SpringBoot) to mobile apps and web development. Each
+              repository represents a learning journey and a solution to
+              real-world problems.
             </Text>
           </MotionBox>
 
@@ -118,10 +140,20 @@ const GitHubShowcase = () => {
             >
               <Box
                 p={8}
-                className="modern-card"
+                bg="rgba(20, 20, 20, 0.8)"
+                backdropFilter="blur(20px)"
+                border="1px solid"
+                borderColor="rgba(255, 255, 255, 0.2)"
+                borderRadius="2xl"
                 textAlign="center"
+                _hover={{
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                  transform: "translateY(-8px)",
+                  boxShadow: "0 20px 60px rgba(255, 255, 255, 0.1)",
+                }}
+                transition="all 0.4s ease"
               >
-                <Icon as={FaCode} boxSize={12} color="#3b82f6" mb={4} />
+                <Icon as={FaCode} boxSize={12} color="#ffffff" mb={4} />
                 <Text fontSize="4xl" fontWeight="bold" color="white" mb={2}>
                   {repos}+
                 </Text>
@@ -139,10 +171,20 @@ const GitHubShowcase = () => {
             >
               <Box
                 p={8}
-                className="modern-card"
+                bg="rgba(20, 20, 20, 0.8)"
+                backdropFilter="blur(20px)"
+                border="1px solid"
+                borderColor="rgba(255, 255, 255, 0.2)"
+                borderRadius="2xl"
                 textAlign="center"
+                _hover={{
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                  transform: "translateY(-8px)",
+                  boxShadow: "0 20px 60px rgba(255, 255, 255, 0.1)",
+                }}
+                transition="all 0.4s ease"
               >
-                <Icon as={FaStar} boxSize={12} color="#6366f1" mb={4} />
+                <Icon as={FaStar} boxSize={12} color="#e5e5e5" mb={4} />
                 <Text fontSize="4xl" fontWeight="bold" color="white" mb={2}>
                   {stars}+
                 </Text>
@@ -160,10 +202,20 @@ const GitHubShowcase = () => {
             >
               <Box
                 p={8}
-                className="modern-card"
+                bg="rgba(20, 20, 20, 0.8)"
+                backdropFilter="blur(20px)"
+                border="1px solid"
+                borderColor="rgba(255, 255, 255, 0.2)"
+                borderRadius="2xl"
                 textAlign="center"
+                _hover={{
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                  transform: "translateY(-8px)",
+                  boxShadow: "0 20px 60px rgba(255, 255, 255, 0.1)",
+                }}
+                transition="all 0.4s ease"
               >
-                <Icon as={FaCodeBranch} boxSize={12} color="#818cf8" mb={4} />
+                <Icon as={FaCodeBranch} boxSize={12} color="#d4d4d4" mb={4} />
                 <Text fontSize="4xl" fontWeight="bold" color="white" mb={2}>
                   Active
                 </Text>
@@ -184,18 +236,19 @@ const GitHubShowcase = () => {
               <Button
                 size="lg"
                 rightIcon={<FaArrowRight />}
-                bgGradient="linear(to-r, #3b82f6, indigo.600)"
-                color="white"
+                bgGradient="linear(to-r, #ffffff, #e5e5e5)"
+                color="#000000"
                 _hover={{
-                  bgGradient: "linear(to-r, blue.600, indigo.700)",
+                  bgGradient: "linear(to-r, #e5e5e5, #d4d4d4)",
                   transform: "translateY(-2px)",
-                  boxShadow: "0 10px 25px rgba(59, 130, 246, 0.4)",
+                  boxShadow: "0 10px 25px rgba(255, 255, 255, 0.3)",
                 }}
                 transition="all 0.3s ease"
                 px={8}
                 py={6}
                 fontSize="lg"
                 borderRadius="xl"
+                fontWeight="700"
               >
                 View All Projects on GitHub
               </Button>
@@ -208,4 +261,3 @@ const GitHubShowcase = () => {
 };
 
 export default GitHubShowcase;
-

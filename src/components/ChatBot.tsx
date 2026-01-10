@@ -63,13 +63,17 @@ const ChatBot = () => {
         right="2rem"
         borderRadius="full"
         size="lg"
-        bgGradient="linear(135deg, #3b82f6, #6366f1)"
-        color="white"
+        bgGradient="linear(135deg, #ffffff, #e5e5e5)"
+        color="#000000"
         _hover={{
           transform: 'scale(1.1)',
+          bgGradient: "linear(135deg, #e5e5e5, #d4d4d4)",
+          boxShadow: "0 8px 25px rgba(255, 255, 255, 0.3)",
         }}
         onClick={onToggle}
         zIndex={9999}
+        border="2px solid"
+        borderColor="rgba(0, 0, 0, 0.2)"
       />
 
       <AnimatePresence>
@@ -89,27 +93,28 @@ const ChatBot = () => {
             <Box
               width="300px"
               height="400px"
-              bg="rgba(0, 0, 0, 0.9)"
+              bg="rgba(0, 0, 0, 0.95)"
               borderRadius="xl"
               overflow="hidden"
-              border="1px solid"
-              borderColor="rgba(255, 255, 255, 0.1)"
+              border="2px solid"
+              borderColor="rgba(255, 255, 255, 0.2)"
               backdropFilter="blur(10px)"
-              boxShadow="0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)"
+              boxShadow="0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 255, 255, 0.1)"
             >
               <Flex 
                 p={3} 
-                bgGradient="linear(135deg, #3b82f6, #6366f1)"
+                bgGradient="linear(135deg, #ffffff, #e5e5e5)"
+                color="#000000"
                 justify="space-between" 
                 align="center"
               >
-                <Text color="white" fontWeight="bold">Chat with AI Assistant</Text>
+                <Text fontWeight="bold">Chat with AI Assistant</Text>
                 <IconButton
                   aria-label="Close"
                   icon={<FaTimes />}
                   size="sm"
                   variant="ghost"
-                  color="white"
+                  color="#000000"
                   onClick={onToggle}
                 />
               </Flex>
@@ -127,7 +132,7 @@ const ChatBot = () => {
                     background: 'rgba(0, 0, 0, 0.1)',
                   },
                   '&::-webkit-scrollbar-thumb': {
-                    background: 'rgba(255, 255, 255, 0.2)',
+                    background: 'rgba(255, 255, 255, 0.3)',
                     borderRadius: '2px',
                   },
                 }}
@@ -142,13 +147,15 @@ const ChatBot = () => {
                   >
                     <Box
                       alignSelf={msg.isBot ? 'flex-start' : 'flex-end'}
-                      bg={msg.isBot ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 0, 255, 0.2)'}
+                      bg={msg.isBot ? 'rgba(255, 255, 255, 0.1)' : 'rgba(229, 229, 229, 0.2)'}
                       color="white"
                       p={3}
                       borderRadius="lg"
                       maxW="80%"
                       marginLeft={msg.isBot ? 0 : 'auto'}
                       whiteSpace="pre-line"
+                      border="1px solid"
+                      borderColor={msg.isBot ? 'rgba(255, 255, 255, 0.1)' : 'rgba(229, 229, 229, 0.2)'}
                     >
                       {msg.text}
                     </Box>
@@ -163,7 +170,8 @@ const ChatBot = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                   bg="rgba(255, 255, 255, 0.1)"
-                  border="none"
+                  border="1px solid"
+                  borderColor="rgba(255, 255, 255, 0.2)"
                   color="white"
                   _placeholder={{ color: 'rgba(255, 255, 255, 0.5)' }}
                   mr={2}
@@ -172,10 +180,11 @@ const ChatBot = () => {
                   aria-label="Send"
                   icon={<FaPaperPlane />}
                   onClick={handleSend}
-                  bgGradient="linear(135deg, #3b82f6, #6366f1)"
-                  color="white"
+                  bgGradient="linear(135deg, #ffffff, #e5e5e5)"
+                  color="#000000"
                   _hover={{
                     transform: 'scale(1.05)',
+                    bgGradient: "linear(135deg, #e5e5e5, #d4d4d4)",
                   }}
                 />
               </Flex>
@@ -187,4 +196,4 @@ const ChatBot = () => {
   );
 };
 
-export default ChatBot; 
+export default ChatBot;

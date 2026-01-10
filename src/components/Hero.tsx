@@ -66,16 +66,46 @@ const Hero = () => {
       bg="#000000"
       pt={20}
     >
-      {/* Subtle background gradient */}
+      {/* Subtle background patterns */}
       <Box
         position="absolute"
         top="0"
         left="0"
         right="0"
         bottom="0"
-        bgGradient="radial(circle at 30% 50%, rgba(255, 255, 255, 0.05), transparent)"
         zIndex={0}
-      />
+      >
+        {/* Grid pattern */}
+        <Box
+          position="absolute"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          opacity={0.03}
+          backgroundImage="linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)"
+          backgroundSize="60px 60px"
+        />
+        {/* Diagonal lines */}
+        <Box
+          position="absolute"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          opacity={0.02}
+          backgroundImage="repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(255, 255, 255, 0.05) 100px, rgba(255, 255, 255, 0.05) 200px)"
+        />
+        {/* Radial gradient overlay */}
+        <Box
+          position="absolute"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          bgGradient="radial(circle at 30% 50%, rgba(255, 255, 255, 0.03), transparent)"
+        />
+      </Box>
 
       <Container maxW="container.xl" position="relative" zIndex={1} px={{ base: 6, md: 8 }}>
         <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={12} alignItems="center" minH="80vh">
@@ -87,15 +117,15 @@ const Hero = () => {
               transition={{ duration: 0.6 }}
             >
               <Text
-                fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
-                fontWeight="bold"
+                fontSize={{ base: "5xl", md: "7xl", lg: "8xl" }}
+                fontWeight="700"
                 color="white"
-                lineHeight="1.1"
+                lineHeight="1"
+                letterSpacing="0.05em"
+                textTransform="uppercase"
+                fontFamily="'Space Grotesk', sans-serif"
               >
-                Hi, I'm{' '}
-                <Box as="span" bgGradient="linear(to-r, #ffffff, #e5e5e5)" bgClip="text">
-                  Saugat Bhatta
-                </Box>
+                SAUGAT BHATTA
               </Text>
             </MotionBox>
 
@@ -108,10 +138,12 @@ const Hero = () => {
               h="50px"
             >
               <Text
-                fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
-                fontWeight="600"
-                bgGradient="linear(to-r, #ffffff, #e5e5e5)"
-                bgClip="text"
+                fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
+                fontWeight="500"
+                color="gray.300"
+                letterSpacing="0.1em"
+                textTransform="uppercase"
+                fontFamily="'Space Grotesk', sans-serif"
               >
                 {displayText}
                 <Box
@@ -136,12 +168,16 @@ const Hero = () => {
               maxW="600px"
             >
               <Text
-                fontSize={{ base: "md", md: "lg" }}
-                color="gray.300"
+                fontSize={{ base: "sm", md: "md", lg: "lg" }}
+                color="gray.400"
                 lineHeight="1.8"
+                letterSpacing="0.02em"
+                textTransform="uppercase"
+                fontFamily="'Space Grotesk', sans-serif"
+                maxW="600px"
               >
-                Computer Science student at UT Arlington (GPA: 3.73) | Building scalable full-stack applications (Python) 
-                with React, Spring Boot, Python & AWS | Passionate about Machine Learning, AI/ML and creating impactful software solutions
+                COMPUTER SCIENCE STUDENT AT UT ARLINGTON (GPA: 3.73) | BUILDING SCALABLE FULL-STACK APPLICATIONS (PYTHON) 
+                WITH REACT, SPRING BOOT, PYTHON & AWS | PASSIONATE ABOUT MACHINE LEARNING, AI/ML AND CREATING IMPACTFUL SOFTWARE SOLUTIONS
               </Text>
             </MotionBox>
 
@@ -290,132 +326,50 @@ const Hero = () => {
             <Box
               position="relative"
               w="100%"
-              maxW="500px"
+              maxW="600px"
               mx="auto"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
             >
-              {/* Portrait Image */}
+              {/* Circular Portrait Image - Blended with Background */}
               <Box
                 position="relative"
-                borderRadius="lg"
+                w={{ base: "350px", md: "450px", lg: "550px" }}
+                h={{ base: "350px", md: "450px", lg: "550px" }}
+                borderRadius="50%"
                 overflow="hidden"
-                filter="brightness(0.7)"
+                boxShadow="0 0 0 8px rgba(0, 0, 0, 0.3), 0 0 0 12px rgba(255, 255, 255, 0.05), 0 20px 80px rgba(0, 0, 0, 0.8)"
+                mixBlendMode="normal"
               >
+                {/* Subtle background blend */}
+                <Box
+                  position="absolute"
+                  top="-50%"
+                  left="-50%"
+                  right="-50%"
+                  bottom="-50%"
+                  bgGradient="radial(circle, rgba(0, 0, 0, 0.4), transparent)"
+                  zIndex={1}
+                  pointerEvents="none"
+                />
                 <Box
                   as="img"
                   src={`/images/profile.jpg?t=${Date.now()}`}
                   alt="Saugat Bhatta"
                   w="100%"
-                  h="auto"
+                  h="100%"
                   objectFit="cover"
+                  position="relative"
+                  zIndex={0}
+                  style={{
+                    filter: 'none',
+                    mixBlendMode: 'normal',
+                  }}
                   onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                    e.currentTarget.src = "https://via.placeholder.com/500x600/1a1a1a/ffffff?text=SB";
+                    e.currentTarget.src = "https://via.placeholder.com/500x500/1a1a1a/ffffff?text=SB";
                   }}
                 />
-                
-                {/* Glowing White Lines Overlay */}
-                <Box
-                  position="absolute"
-                  top="0"
-                  left="0"
-                  right="0"
-                  bottom="0"
-                  pointerEvents="none"
-                >
-                  {/* Vertical line 1 - Left cheek */}
-                  <MotionBox
-                    position="absolute"
-                    left="25%"
-                    top="30%"
-                    w="3px"
-                    h="120px"
-                    bg="#ffffff"
-                    boxShadow="0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5)"
-                    animate={{
-                      opacity: [0.6, 1, 0.6],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                  {/* Vertical line 2 - Middle */}
-                  <MotionBox
-                    position="absolute"
-                    left="30%"
-                    top="25%"
-                    w="3px"
-                    h="100px"
-                    bg="#ffffff"
-                    boxShadow="0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5)"
-                    animate={{
-                      opacity: [0.5, 1, 0.5],
-                    }}
-                    transition={{
-                      duration: 2.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 0.5,
-                    }}
-                  />
-                  {/* Vertical line 3 - Right */}
-                  <MotionBox
-                    position="absolute"
-                    left="35%"
-                    top="35%"
-                    w="3px"
-                    h="90px"
-                    bg="#ffffff"
-                    boxShadow="0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5)"
-                    animate={{
-                      opacity: [0.6, 1, 0.6],
-                    }}
-                    transition={{
-                      duration: 2.2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 1,
-                    }}
-                  />
-                  {/* Horizontal line near eye */}
-                  <MotionBox
-                    position="absolute"
-                    left="20%"
-                    top="40%"
-                    w="60px"
-                    h="2px"
-                    bg="#ffffff"
-                    boxShadow="0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5)"
-                    animate={{
-                      opacity: [0.4, 1, 0.4],
-                    }}
-                    transition={{
-                      duration: 2.8,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                  {/* Eye glow effect */}
-                  <MotionBox
-                    position="absolute"
-                    left="22%"
-                    top="38%"
-                    w="8px"
-                    h="8px"
-                    borderRadius="50%"
-                    bg="#ffffff"
-                    boxShadow="0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5)"
-                    animate={{
-                      opacity: [0.5, 1, 0.5],
-                      scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                </Box>
               </Box>
             </Box>
           </MotionBox>

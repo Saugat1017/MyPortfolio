@@ -73,6 +73,49 @@ const Expertise = () => {
       position="relative"
       overflow="hidden"
     >
+      {/* Subtle background patterns */}
+      <Box
+        position="absolute"
+        top="0"
+        left="0"
+        right="0"
+        bottom="0"
+        zIndex={0}
+      >
+        {/* Circuit board pattern */}
+        <Box
+          position="absolute"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          opacity={0.02}
+          backgroundImage="linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)"
+          backgroundSize="40px 40px"
+        />
+        {/* Dots at intersections */}
+        <Box
+          position="absolute"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          opacity={0.03}
+          backgroundImage="radial-gradient(circle at 40px 40px, rgba(255, 255, 255, 0.4) 1px, transparent 0)"
+          backgroundSize="40px 40px"
+        />
+        {/* Gradient overlay */}
+        <Box
+          position="absolute"
+          top="30%"
+          right="20%"
+          w="600px"
+          h="600px"
+          borderRadius="50%"
+          bgGradient="radial(circle, rgba(255, 255, 255, 0.02), transparent)"
+          filter="blur(120px)"
+        />
+      </Box>
       <Container maxW="container.xl" position="relative" zIndex={1}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -82,13 +125,14 @@ const Expertise = () => {
         >
           <VStack spacing={4} mb={16} textAlign="center">
             <Heading
-              fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
-              fontWeight="800"
-              letterSpacing="tight"
-              bgGradient="linear(to-r, #ffffff, #e5e5e5, #d4d4d4, #a3a3a3)"
-              bgClip="text"
+              fontSize={{ base: "5xl", md: "7xl", lg: "8xl" }}
+              fontWeight="700"
+              letterSpacing="0.1em"
+              textTransform="uppercase"
+              fontFamily="'Space Grotesk', sans-serif"
+              color="white"
             >
-              Technical Expertise
+              Expertise
             </Heading>
             <Text
               color="gray.400"
@@ -146,11 +190,33 @@ const Expertise = () => {
                 {/* Skills List */}
                 <VStack align="stretch" spacing={6}>
                   {category.skills.map((skill, skillIndex) => {
-                    const color = skill.level >= 85 
-                      ? "#ffffff" 
-                      : skill.level >= 75 
-                      ? "#e5e5e5" 
-                      : "#d4d4d4";
+                    // Colorful progress bars - highlight Java, Python, and ML skills
+                    let barColor = "#ffffff"; // default white
+                    let barGradient = "linear(to-r, #ffffff, #e5e5e5)";
+                    
+                    // Special colors for key skills
+                    if (skill.name === "Java") {
+                      barColor = "#ed8b00"; // Java orange
+                      barGradient = "linear(to-r, #ed8b00, #f8981d)";
+                    } else if (skill.name === "Python") {
+                      barColor = "#3776ab"; // Python blue
+                      barGradient = "linear(to-r, #3776ab, #4b8bbe)";
+                    } else if (skill.name === "Machine Learning" || skill.name.includes("ML") || skill.name === "Hugging Face" || skill.name === "scikit-learn" || skill.name === "PyTorch") {
+                      barColor = "#ff6b6b"; // ML red/pink
+                      barGradient = "linear(to-r, #ff6b6b, #ee5a6f)";
+                    } else if (skill.level >= 90) {
+                      barColor = "#4ecdc4"; // High skill - teal
+                      barGradient = "linear(to-r, #4ecdc4, #44a08d)";
+                    } else if (skill.level >= 85) {
+                      barColor = "#95e1d3"; // Very good - light teal
+                      barGradient = "linear(to-r, #95e1d3, #7dd3c0)";
+                    } else if (skill.level >= 75) {
+                      barColor = "#a8e6cf"; // Good - mint
+                      barGradient = "linear(to-r, #a8e6cf, #88d8a3)";
+                    } else {
+                      barColor = "#d4d4d4"; // Lower - gray
+                      barGradient = "linear(to-r, #d4d4d4, #a3a3a3)";
+                    }
                     
                     return (
                       <Box key={skillIndex}>
@@ -160,7 +226,7 @@ const Expertise = () => {
                               <Icon
                                 as={skill.icon}
                                 boxSize={5}
-                                color={color}
+                                color="white"
                               />
                             )}
                             <Text color="white" fontSize="md" fontWeight="600">
@@ -173,7 +239,7 @@ const Expertise = () => {
                         </HStack>
                         <Box
                           w="100%"
-                          h="10px"
+                          h="12px"
                           bg="rgba(255, 255, 255, 0.05)"
                           borderRadius="full"
                           overflow="hidden"
@@ -185,9 +251,9 @@ const Expertise = () => {
                             transition={{ duration: 1, delay: skillIndex * 0.1 }}
                             viewport={{ once: true }}
                             h="100%"
-                            bgGradient={`linear(to-r, ${color}, ${color}dd)`}
+                            bgGradient={barGradient}
                             borderRadius="full"
-                            boxShadow={`0 0 20px ${color}50`}
+                            boxShadow={`0 0 15px ${barColor}80, 0 0 30px ${barColor}40`}
                           />
                         </Box>
                       </Box>
