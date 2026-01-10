@@ -343,27 +343,17 @@ const Hero = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {/* Circular Portrait Image - Blended with Background */}
+              {/* Circular Portrait Image - Bright and Colorful */}
               <Box
                 position="relative"
                 w={{ base: "350px", md: "450px", lg: "550px" }}
                 h={{ base: "350px", md: "450px", lg: "550px" }}
                 borderRadius="50%"
                 overflow="hidden"
-                boxShadow="0 0 0 8px rgba(0, 0, 0, 0.3), 0 0 0 12px rgba(255, 255, 255, 0.05), 0 20px 80px rgba(0, 0, 0, 0.8)"
-                mixBlendMode="normal"
+                boxShadow="0 0 0 4px rgba(255, 255, 255, 0.1), 0 20px 60px rgba(0, 0, 0, 0.5)"
+                border="2px solid"
+                borderColor="rgba(255, 255, 255, 0.1)"
               >
-                {/* Subtle background blend */}
-                <Box
-                  position="absolute"
-                  top="-50%"
-                  left="-50%"
-                  right="-50%"
-                  bottom="-50%"
-                  bgGradient="radial(circle, rgba(0, 0, 0, 0.4), transparent)"
-                  zIndex={1}
-                  pointerEvents="none"
-                />
                 <Box
                   as="img"
                   src={`/images/profile.jpg?t=${Date.now()}`}
@@ -371,11 +361,9 @@ const Hero = () => {
                   w="100%"
                   h="100%"
                   objectFit="cover"
-                  position="relative"
-                  zIndex={0}
                   style={{
-                    filter: "none",
-                    mixBlendMode: "normal",
+                    filter: "brightness(1.1) saturate(1.2)",
+                    display: "block",
                   }}
                   onError={(
                     e: React.SyntheticEvent<HTMLImageElement, Event>
