@@ -8,7 +8,7 @@ const contactData = {
   email: "saugatbhatta1234@gmail.com",
   github: "Saugat1017",
   linkedin: "saugat-bhatta-01a595217",
-  location: "Irving, Texas"
+  location: "Irving, Texas, 75039"
 };
 
 const Contact = () => {
