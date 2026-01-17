@@ -12,7 +12,6 @@ import {
 import { motion } from "framer-motion";
 import {
   FaReact,
-  FaNodeJs,
   FaPython,
   FaJava,
   FaAws,
@@ -32,7 +31,6 @@ import {
   SiSpring,
   SiAndroid,
   SiDocker,
-  SiGo,
   SiFlask,
 } from "react-icons/si";
 
