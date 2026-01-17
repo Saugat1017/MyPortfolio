@@ -45,9 +45,8 @@ const expertiseData = [
     skills: [
       { name: "Java", level: 90, icon: FaJava },
       { name: "Python", level: 90, icon: FaPython },
-      { name: "JavaScript/TypeScript", level: 85, icon: SiJavascript },
+      { name: "JavaScript", level: 75, icon: SiJavascript },
       { name: "C/C++", level: 80, icon: FaDatabase },
-      { name: "Go", level: 60, icon: SiGo },
       { name: "R", level: 70, icon: FaDatabase },
     ],
   },
@@ -55,7 +54,7 @@ const expertiseData = [
     category: "Web Development",
     icon: FaReact,
     skills: [
-      { name: "React", level: 75, icon: FaReact },
+      { name: "React", level: 70, icon: FaReact },
       { name: "Spring Boot", level: 90, icon: SiSpring },
       { name: "Flask/FastAPI", level: 85, icon: SiFlask },
       { name: "HTML5/CSS3", level: 90, icon: FaReact },
