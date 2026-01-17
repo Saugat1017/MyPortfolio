@@ -7,6 +7,24 @@ const MotionBox = motion(Box);
 
 const projects = [
   {
+    title: "Insurance Smart Policy Advisor",
+    description: "An intelligent AI-powered system that provides personalized insurance policy recommendations based on user profiles, risk assessments, and comprehensive policy analysis. Helps users make informed decisions about their insurance coverage needs through advanced machine learning algorithms and intuitive interface.",
+    technologies: ["Python", "Machine Learning", "FastAPI", "React", "scikit-learn", "Streamlit", "Natural Language Processing"],
+    icons: [SiPython, FaBrain, SiFastapi],
+    category: "Machine Learning & AI",
+    categoryIcon: FaBrain,
+    links: {
+      github: "https://github.com/Saugat1017/Insurance_Smart_Policy_Advisor",
+      demo: "https://github.com/Saugat1017/Insurance_Smart_Policy_Advisor"
+    },
+    highlights: [
+      "AI-driven policy recommendations tailored to individual risk profiles and needs",
+      "Advanced machine learning models for risk assessment and policy matching",
+      "Intuitive user interface with interactive policy comparison and visualization",
+      "Production-ready API architecture with comprehensive documentation"
+    ]
+  },
+  {
     title: "Insurance Early Claim Risk Prediction System",
     description: "A machine learning system that predicts claim severity (Low/Medium/High) at the moment a claim is filed, helping insurance companies prioritize resources and identify high-risk claims early. Uses only information available at claim filing time with no data leakage.",
     technologies: ["Python", "FastAPI", "Streamlit", "Machine Learning", "Logistic Regression", "scikit-learn"],
@@ -364,6 +382,54 @@ const Projects = () => {
             </MotionBox>
           ))}
         </SimpleGrid>
+
+        {/* GitHub Link Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          <Box
+            mt={16}
+            textAlign="center"
+          >
+            <VStack spacing={6}>
+              <Text
+                color="gray.400"
+                fontSize={{ base: "md", md: "lg" }}
+                maxW="2xl"
+                mx="auto"
+              >
+                Want to see more of my work? Check out my GitHub profile for additional projects and contributions.
+              </Text>
+              <Link href="https://github.com/Saugat1017" isExternal>
+                <Button
+                  leftIcon={<FaGithub />}
+                  size="lg"
+                  bgGradient="linear(to-r, #ffffff, #e5e5e5)"
+                  color="#000000"
+                  borderRadius="xl"
+                  px={8}
+                  py={6}
+                  fontSize="md"
+                  fontWeight="700"
+                  letterSpacing="0.05em"
+                  textTransform="uppercase"
+                  fontFamily="'Space Grotesk', sans-serif"
+                  _hover={{
+                    bgGradient: "linear(to-r, #e5e5e5, #d4d4d4)",
+                    transform: "translateY(-3px)",
+                    boxShadow: "0 15px 35px rgba(255, 255, 255, 0.3)",
+                  }}
+                  transition="all 0.3s ease"
+                >
+                  View All Projects on GitHub
+                </Button>
+              </Link>
+            </VStack>
+          </Box>
+        </motion.div>
       </Container>
     </Box>
   );

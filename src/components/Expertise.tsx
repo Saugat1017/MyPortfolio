@@ -57,7 +57,6 @@ const expertiseData = [
     skills: [
       { name: "React", level: 75, icon: FaReact },
       { name: "Spring Boot", level: 90, icon: SiSpring },
-      { name: "Node.js", level: 80, icon: FaNodeJs },
       { name: "Flask/FastAPI", level: 85, icon: SiFlask },
       { name: "HTML5/CSS3", level: 90, icon: FaReact },
       { name: "RESTful APIs", level: 90, icon: FaReact },
