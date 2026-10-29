@@ -1,72 +1,47 @@
-# Modern Portfolio Website
+# Saugat Bhatta — Portfolio
 
-A beautiful, responsive portfolio website built with React, TypeScript, and Chakra UI. This portfolio showcases your skills, projects, and provides a way for visitors to get in touch with you.
+Personal portfolio for Saugat Bhatta, software engineer (ML platforms, cloud automation, edge AI). Built with React, TypeScript, Chakra UI and Framer Motion. Live at [saugatdev.com](https://saugatdev.com).
 
-## Features
+## Sections
 
-- 🎨 Modern and colorful design
-- 📱 Fully responsive layout
-- ✨ Smooth animations and transitions
-- 🎯 Interactive components
-- 📝 Contact form
-- 🔗 Social media integration
-- 🎭 Dark mode support
+Hero · Tech marquee · About · Experience · Projects (with live GitHub activity) · Skills · Career goals & what's next · Resume (preview + PDF download) · Contact
 
-## Technologies Used
+Extras: ⌘K / Ctrl+K command menu, a chat assistant that answers questions from the site's content, scroll-linked timeline, cursor-spotlight cards, and full `prefers-reduced-motion` support.
 
-- React
-- TypeScript
-- Chakra UI
-- Framer Motion
-- React Icons
+## Getting started
 
-## Getting Started
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/portfolio.git
-cd portfolio
-```
-
-2. Install dependencies:
 ```bash
 npm install
+npm run dev      # http://localhost:5173
+npm run build    # type-check + production build to dist/
+npm run preview  # serve the production build
 ```
 
-3. Start the development server:
-```bash
-npm run dev
+## Updating content
+
+Almost everything lives in **`src/data/profile.ts`**: experience, projects, skills, career goals, stats and links. Every section, the chat assistant and the ⌘K menu read from it, so an edit there updates the whole site. Wrap words in `**double asterisks**` to bold them in bullet points.
+
+To replace the resume:
+
+1. Save the new PDF as `public/resume/Saugat_Bhatta_Resume.pdf`.
+2. Regenerate the preview image (macOS):
+   ```bash
+   qlmanage -t -s 1400 -o /tmp public/resume/Saugat_Bhatta_Resume.pdf
+   sips -Z 1150 -s format jpeg -s formatOptions 60 /tmp/Saugat_Bhatta_Resume.pdf.png --out public/resume/resume-preview.jpg
+   ```
+3. Update `resume.size` in `profile.ts` if the file size changed.
+
+## Project structure
+
 ```
-
-4. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
-
-## Customization
-
-1. Update your personal information in the respective components:
-   - `src/components/About.tsx`
-   - `src/components/Projects.tsx`
-   - `src/components/Contact.tsx`
-
-2. Add your own projects in `src/components/Projects.tsx`
-
-3. Update social media links in `src/components/Contact.tsx`
-
-4. Customize colors and theme in `src/App.tsx`
-
-## Deployment
-
-The website can be easily deployed to various platforms:
-
-- Vercel
-- Netlify
-- GitHub Pages
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- [Chakra UI](https://chakra-ui.com/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [React Icons](https://react-icons.github.io/react-icons/)
+src/
+  data/profile.ts        content (single source of truth)
+  components/            one file per section + Navigation, Footer, ChatBot, CommandPalette
+  components/ui/         shared primitives (Reveal, Magnetic, Counter, SpotlightCard, Flow, …)
+  hooks/                 active-section tracking + smooth scrolling
+  theme.ts               Chakra theme (fonts, colors)
+  index.css, App.css     design tokens, effects and component styles
+public/
+  resume/                resume PDF + preview image
+  images/profile.jpg     portrait
+```

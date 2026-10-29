@@ -1,383 +1,213 @@
-import {
-  Box,
-  Container,
-  VStack,
-  HStack,
-  Text,
-  Button,
-  Icon,
-  SimpleGrid,
-} from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Box, Container, Grid, HStack } from "@chakra-ui/react";
+import { motion, useReducedMotion } from "framer-motion";
+import { FaAws } from "react-icons/fa";
+import { SiPytorch } from "react-icons/si";
+import { LuArrowDown, LuArrowRight, LuDownload, LuGithub, LuLinkedin, LuMail, LuMapPin } from "react-icons/lu";
+import { heroStats, profile } from "../data/profile";
+import { Counter, EASE, Magnetic } from "./ui/motion";
 
-const MotionBox = motion(Box);
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease: EASE },
+});
 
-const Hero = () => {
-  const [currentRole, setCurrentRole] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
-  const roles = [
-    "Full Stack Developer",
-    "Machine Learning Engineer",
-    "AI/ML Enthusiast",
-    "Software Engineer",
-  ];
-
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // Typing animation effect
-  useEffect(() => {
-    const fullText = roles[currentRole];
-    let currentIndex = 0;
-    setDisplayText("");
-
-    const typingInterval = setInterval(() => {
-      if (currentIndex < fullText.length) {
-        setDisplayText(fullText.slice(0, currentIndex + 1));
-        currentIndex++;
-      } else {
-        clearInterval(typingInterval);
-      }
-    }, 100);
-
-    return () => clearInterval(typingInterval);
-  }, [currentRole]);
+const TypeRotator = ({ words }: { words: string[] }) => {
+  const reduceMotion = useReducedMotion();
+  const [index, setIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentRole((prev) => (prev + 1) % roles.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
+    if (reduceMotion) {
+      const timer = window.setInterval(() => setIndex((i) => (i + 1) % words.length), 3000);
+      return () => window.clearInterval(timer);
+    }
 
-  // Cursor blink animation
-  useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 530);
-    return () => clearInterval(cursorInterval);
-  }, []);
+    const full = words[index];
+    if (deleting && text === "") {
+      setDeleting(false);
+      setIndex((i) => (i + 1) % words.length);
+      return;
+    }
+
+    const delay = !deleting && text === full ? 1900 : deleting ? 35 : 75;
+    const timer = window.setTimeout(() => {
+      if (!deleting && text === full) setDeleting(true);
+      else setText(full.slice(0, deleting ? text.length - 1 : text.length + 1));
+    }, delay);
+    return () => window.clearTimeout(timer);
+  }, [text, deleting, index, words, reduceMotion]);
 
   return (
-    <Box
-      id="home"
-      minH="100vh"
-      display="flex"
-      alignItems="center"
-      position="relative"
-      overflow="hidden"
-      bg="#000000"
-      pt={20}
-    >
-      {/* Subtle background patterns */}
-      <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={0}>
-        {/* Grid pattern */}
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          right="0"
-          bottom="0"
-          opacity={0.03}
-          backgroundImage="linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)"
-          backgroundSize="60px 60px"
-        />
-        {/* Diagonal lines */}
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          right="0"
-          bottom="0"
-          opacity={0.02}
-          backgroundImage="repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(255, 255, 255, 0.05) 100px, rgba(255, 255, 255, 0.05) 200px)"
-        />
-        {/* Radial gradient overlay */}
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          right="0"
-          bottom="0"
-          bgGradient="radial(circle at 30% 50%, rgba(255, 255, 255, 0.03), transparent)"
-        />
-      </Box>
+    <span className="typed" aria-hidden="true">
+      <span className="grad-text">{reduceMotion ? words[index] : text}</span>
+      <span className="caret" />
+    </span>
+  );
+};
 
-      <Container
-        maxW="container.xl"
-        position="relative"
-        zIndex={1}
-        px={{ base: 6, md: 8 }}
-      >
-        <SimpleGrid
-          columns={{ base: 1, lg: 2 }}
-          spacing={12}
+const Portrait = () => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.94, y: 24 }}
+    animate={{ opacity: 1, scale: 1, y: 0 }}
+    transition={{ duration: 1.1, delay: 0.35, ease: EASE }}
+  >
+    <div className="portrait">
+      <div className="portrait-glow" aria-hidden="true" />
+      <div className="portrait-frame">
+        <img className="portrait-img" src={profile.photo} alt={`Portrait of ${profile.name}`} width={1536} height={1024} />
+      </div>
+      <div className="float-chip a" aria-hidden="true">
+        <SiPytorch /> PyTorch · TensorRT
+      </div>
+      <div className="float-chip b" aria-hidden="true">
+        <FaAws /> AWS · Terraform
+      </div>
+      <div className="float-chip c" aria-hidden="true">
+        <span className="pulse-dot" /> Building an MCP server
+      </div>
+    </div>
+  </motion.div>
+);
+
+const Hero = () => {
+  const ref = useRef<HTMLElement>(null);
+  const nameWords = profile.name.split(" ");
+
+  const handleMove = (event: React.MouseEvent<HTMLElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--hx", `${event.clientX - rect.left}px`);
+    el.style.setProperty("--hy", `${event.clientY - rect.top}px`);
+  };
+
+  return (
+    <section id="home" ref={ref} className="hero" onMouseMove={handleMove}>
+      <div className="hero-bg" aria-hidden="true">
+        <div className="hero-grid" />
+        <div className="aurora aurora-1" />
+        <div className="aurora aurora-2" />
+        <div className="aurora aurora-3" />
+        <div className="hero-spotlight" />
+        <div className="hero-fade" />
+      </div>
+
+      <Container maxW="6xl" px={{ base: 5, md: 8 }} position="relative" zIndex={1}>
+        <Grid
+          templateColumns={{ base: "minmax(0,1fr)", lg: "minmax(0,1.3fr) minmax(0,0.7fr)" }}
+          gap={{ base: 10, lg: 16 }}
           alignItems="center"
-          minH="80vh"
         >
-          {/* Left Section - Text Content */}
-          <VStack align="flex-start" spacing={8} textAlign="left">
-            <MotionBox
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Text
-                fontSize={{ base: "5xl", md: "7xl", lg: "8xl" }}
-                fontWeight="700"
-                color="white"
-                lineHeight="1"
-                letterSpacing="0.05em"
-                textTransform="uppercase"
-                fontFamily="'Space Grotesk', sans-serif"
-              >
-                SAUGAT BHATTA
-              </Text>
-            </MotionBox>
-
-            {/* Animated Role with Typing Effect */}
-            <MotionBox
-              key={currentRole}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              h="50px"
-            >
-              <Text
-                fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
-                fontWeight="500"
-                color="gray.300"
-                letterSpacing="0.1em"
-                textTransform="uppercase"
-                fontFamily="'Space Grotesk', sans-serif"
-              >
-                {displayText}
-                <Box
-                  as="span"
-                  display="inline-block"
-                  w="3px"
-                  h="1em"
-                  bg="#ffffff"
-                  ml={2}
-                  opacity={showCursor ? 1 : 0}
-                  transition="opacity 0.3s"
-                  verticalAlign="baseline"
-                />
-              </Text>
-            </MotionBox>
-
-            {/* Description */}
-            <MotionBox
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              maxW="600px"
-            >
-              <Text
-                fontSize={{ base: "sm", md: "md", lg: "lg" }}
-                color="gray.400"
-                lineHeight="1.8"
-                letterSpacing="0.02em"
-                textTransform="uppercase"
-                fontFamily="'Space Grotesk', sans-serif"
-                maxW="600px"
-              >
-                COMPUTER SCIENCE STUDENT AT UT ARLINGTON (GPA: 3.73) | BUILDING
-                SCALABLE FULL-STACK APPLICATIONS WITH JAVA(SPRING BOOT), PYTHON(FLASK, FASTAPI) & AWS | PASSIONATE ABOUT MACHINE LEARNING, AI/ML
-                BOOT, PYTHON & AWS 
-              </Text>
-            </MotionBox>
-
-            {/* Call-to-Action Buttons */}
-            <MotionBox
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-            >
-              <HStack spacing={4} flexWrap="wrap">
-                <Button
-                  bg="#ffffff"
-                  color="#000000"
-                  size="lg"
-                  px={8}
-                  py={6}
-                  borderRadius="md"
-                  fontSize="md"
-                  fontWeight="600"
-                  onClick={scrollToContact}
-                  cursor="pointer"
-                  _hover={{
-                    bg: "#e5e5e5",
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 8px 20px rgba(255, 255, 255, 0.3)",
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  Hire Me
-                </Button>
-                <Button
-                  variant="outline"
-                  borderColor="#ffffff"
-                  color="#ffffff"
-                  bg="transparent"
-                  size="lg"
-                  px={8}
-                  py={6}
-                  borderRadius="md"
-                  fontSize="md"
-                  fontWeight="600"
-                  onClick={scrollToContact}
-                  cursor="pointer"
-                  _hover={{
-                    bg: "#ffffff",
-                    color: "#000000",
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 8px 20px rgba(255, 255, 255, 0.2)",
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  Let's Talk
-                </Button>
+          <Box>
+            <motion.div {...fadeUp(0.05)}>
+              <HStack spacing={3}>
+                <Box as="img" src={profile.photo} alt="" className="mobile-avatar" display={{ base: "block", lg: "none" }} />
+                <a href="#goals" className="status-pill">
+                  <span className="status-badge">
+                    <span className="pulse-dot" />
+                    {profile.status.badge}
+                  </span>
+                  <Box as="span" display={{ base: "none", sm: "inline" }}>
+                    {profile.status.text}
+                  </Box>
+                  <Box as="span" display={{ base: "inline", sm: "none" }}>
+                    State Farm
+                  </Box>
+                  <LuArrowRight aria-hidden="true" />
+                </a>
               </HStack>
-            </MotionBox>
+            </motion.div>
 
-            {/* Social Media Icons */}
-            <MotionBox
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-            >
-              <HStack spacing={4}>
-                <Box
-                  as="a"
-                  href="https://github.com/Saugat1017"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  w="45px"
-                  h="45px"
-                  borderRadius="50%"
-                  border="2px solid"
-                  borderColor="#ffffff"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  color="#ffffff"
-                  _hover={{
-                    bg: "#ffffff",
-                    color: "#000000",
-                    transform: "translateY(-3px)",
-                    boxShadow: "0 5px 15px rgba(255, 255, 255, 0.3)",
-                  }}
-                  transition="all 0.3s ease"
+            <h1 className="hero-name" aria-label={profile.name}>
+              {nameWords.map((word, i) => (
+                <motion.span
+                  key={word}
+                  className="hero-word"
+                  aria-hidden="true"
+                  initial={{ opacity: 0, y: "0.45em", filter: "blur(14px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 1, delay: 0.15 + i * 0.12, ease: EASE }}
                 >
-                  <Icon as={FaGithub} boxSize={5} />
-                </Box>
-                <Box
-                  as="a"
-                  href="https://www.linkedin.com/in/saugat-bhatta-01a595217"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  w="45px"
-                  h="45px"
-                  borderRadius="50%"
-                  border="2px solid"
-                  borderColor="#ffffff"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  color="#ffffff"
-                  _hover={{
-                    bg: "#ffffff",
-                    color: "#000000",
-                    transform: "translateY(-3px)",
-                    boxShadow: "0 5px 15px rgba(255, 255, 255, 0.3)",
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  <Icon as={FaLinkedin} boxSize={5} />
-                </Box>
-                <Box
-                  as="a"
-                  href="mailto:saugatbhatta1234@gmail.com"
-                  w="45px"
-                  h="45px"
-                  borderRadius="50%"
-                  border="2px solid"
-                  borderColor="#ffffff"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  color="#ffffff"
-                  _hover={{
-                    bg: "#ffffff",
-                    color: "#000000",
-                    transform: "translateY(-3px)",
-                    boxShadow: "0 5px 15px rgba(255, 255, 255, 0.3)",
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  <Icon as={FaEnvelope} boxSize={5} />
-                </Box>
+                  {word}
+                </motion.span>
+              ))}
+            </h1>
+
+            <motion.p className="hero-tagline" {...fadeUp(0.45)}>
+              Software engineer building <TypeRotator words={profile.roles} />
+              <span className="sr-only">
+                ML platforms, cloud automation, edge AI systems and full-stack products.
+              </span>
+            </motion.p>
+
+            <motion.p className="hero-intro" {...fadeUp(0.55)}>
+              I build the tools that help data scientists ship models faster — currently on the{" "}
+              <strong>Property & Casualty Modeling</strong> team at <strong>State Farm</strong>, while
+              researching real-time edge AI and finishing my <strong>B.S. in Computer Science</strong> at
+              UT Arlington.
+            </motion.p>
+
+            <motion.div className="hero-actions" {...fadeUp(0.65)}>
+              <Magnetic>
+                <a href={profile.resume.pdf} download={profile.resume.fileName} className="btn btn-primary">
+                  <LuDownload className="shift shift-down" aria-hidden="true" />
+                  Download resume
+                </a>
+              </Magnetic>
+              <Magnetic>
+                <a href="#experience" className="btn btn-ghost">
+                  See my work
+                  <LuArrowDown aria-hidden="true" />
+                </a>
+              </Magnetic>
+            </motion.div>
+
+            <motion.div className="hero-meta" {...fadeUp(0.75)}>
+              <HStack spacing={2}>
+                <a className="icon-btn" href={profile.links.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                  <LuGithub />
+                </a>
+                <a className="icon-btn" href={profile.links.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <LuLinkedin />
+                </a>
+                <a className="icon-btn" href={`mailto:${profile.email}`} aria-label="Email">
+                  <LuMail />
+                </a>
               </HStack>
-            </MotionBox>
-          </VStack>
+              <span className="divider" aria-hidden="true" />
+              <span className="location">
+                <LuMapPin aria-hidden="true" />
+                {profile.location}
+              </span>
+            </motion.div>
+          </Box>
 
-          {/* Right Section - Portrait with Glowing Lines */}
-          <MotionBox
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            position="relative"
-            display={{ base: "none", lg: "block" }}
-          >
-            <Box
-              position="relative"
-              w="100%"
-              maxW="600px"
-              mx="auto"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              {/* Circular Portrait Image - Bright and Colorful */}
-              <Box
-                position="relative"
-                w={{ base: "350px", md: "450px", lg: "550px" }}
-                h={{ base: "350px", md: "450px", lg: "550px" }}
-                borderRadius="50%"
-                overflow="hidden"
-                boxShadow="0 0 0 4px rgba(255, 255, 255, 0.1), 0 20px 60px rgba(0, 0, 0, 0.5)"
-                border="2px solid"
-                borderColor="rgba(255, 255, 255, 0.1)"
-              >
-                <Box
-                  as="img"
-                  src={`/images/profile.jpg?t=${Date.now()}`}
-                  alt="Saugat Bhatta"
-                  w="100%"
-                  h="100%"
-                  objectFit="cover"
-                  style={{
-                    filter: "brightness(1.1) saturate(1.2)",
-                    display: "block",
-                  }}
-                  onError={(
-                    e: React.SyntheticEvent<HTMLImageElement, Event>
-                  ) => {
-                    e.currentTarget.src =
-                      "https://via.placeholder.com/500x500/1a1a1a/ffffff?text=SB";
-                  }}
-                />
-              </Box>
-            </Box>
-          </MotionBox>
-        </SimpleGrid>
+          <Box display={{ base: "none", lg: "block" }}>
+            <Portrait />
+          </Box>
+        </Grid>
+
+        <motion.div {...fadeUp(0.9)}>
+          <div className="stats">
+            {heroStats.map((stat) => (
+              <div className="stat" key={stat.label}>
+                <div className="stat-value">
+                  <Counter value={stat.value} decimals={stat.decimals} suffix={stat.suffix} />
+                </div>
+                <div className="stat-label">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </Container>
-    </Box>
+
+      <a href="#about" className="scroll-cue" aria-label="Scroll to About">
+        <span />
+      </a>
+    </section>
   );
 };
 

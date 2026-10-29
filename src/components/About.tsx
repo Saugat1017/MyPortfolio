@@ -1,331 +1,200 @@
+import { useEffect, useState } from "react";
+import { Box, Flex, Grid, GridItem, HStack, Text } from "@chakra-ui/react";
 import {
-  Box,
-  Container,
-  Heading,
-  Text,
-  VStack,
-  Icon,
-  SimpleGrid,
-  HStack,
-  Badge,
-} from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import {
-  FaGraduationCap,
-  FaCode,
-  FaLaptopCode,
-  FaBrain,
-  FaCloud,
-} from "react-icons/fa";
+  LuArrowUpRight,
+  LuAward,
+  LuBriefcase,
+  LuClock,
+  LuFlaskConical,
+  LuGraduationCap,
+  LuMapPin,
+  LuUsers,
+} from "react-icons/lu";
+import { about, profile } from "../data/profile";
+import { Reveal } from "./ui/motion";
+import { Rich, Section, SectionHeading, SpotlightCard } from "./ui/primitives";
 
-const MotionBox = motion(Box);
+const useLocalTime = (timeZone: string) => {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(new Date()), 30_000);
+    return () => window.clearInterval(timer);
+  }, []);
+  return new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone }).format(now);
+};
+
+const CardLabel = ({ icon: Icon, children }: { icon: React.ElementType; children: React.ReactNode }) => (
+  <HStack spacing={3} mb={5}>
+    <span className="icon-tile">
+      <Icon aria-hidden="true" />
+    </span>
+    <span className="eyebrow">{children}</span>
+  </HStack>
+);
 
 const About = () => {
-  const skills = [
-    {
-      title: "Full Stack Development ",
-      icon: FaLaptopCode,
-      description:
-        "Java (Spring Boot), Python (Flask, FastAPI), React, Node.js, TypeScript, JavaScript, HTML5, CSS3, Chakra UI",
-    },
-    {
-      title: "Backend & APIs",
-      icon: FaCode,
-      description: "Java, Python, Flask, FastAPI, RESTful APIs, JWT, SLF4J",
-    },
-    {
-      title: "Database & Cloud",
-      icon: FaCloud,
-      description: "MySQL, SQLite, AWS (RDS, Glue), MongoDB, Docker, CI/CD",
-    },
-    {
-      title: "AI/ML & Data",
-      icon: FaBrain,
-      description:
-        "Hugging Face, scikit-learn, PyTorch, Apache Kafka, Data Mining, NLP",
-    },
-  ];
+  const localTime = useLocalTime(profile.timeZone);
+  const { education } = about;
 
   return (
-    <Box
-      id="about"
-      minH="100vh"
-      py={20}
-      bg="#000000"
-      position="relative"
-      overflow="hidden"
-    >
-      {/* Subtle geometric patterns */}
-      <Box position="absolute" top={0} left={0} right={0} bottom={0} zIndex={0}>
-        {/* Dot pattern */}
-        <Box
-          position="absolute"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          opacity={0.03}
-          backgroundImage="radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.5) 1px, transparent 0)"
-          backgroundSize="40px 40px"
-        />
-        {/* Diamond pattern */}
-        <Box
-          position="absolute"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          opacity={0.02}
-          backgroundImage="repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255, 255, 255, 0.05) 20px, rgba(255, 255, 255, 0.05) 21px), repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(255, 255, 255, 0.05) 20px, rgba(255, 255, 255, 0.05) 21px)"
-        />
-        {/* Radial gradient accent */}
-        <Box
-          position="absolute"
-          top="-20%"
-          right="-10%"
-          w="800px"
-          h="800px"
-          borderRadius="50%"
-          bgGradient="radial(circle, rgba(255, 255, 255, 0.03), transparent)"
-          filter="blur(100px)"
-        />
-      </Box>
+    <Section id="about">
+      <SectionHeading
+        index="01"
+        eyebrow="About"
+        title={
+          <>
+            Turning ML research into <span className="serif grad-text">reliable software</span>.
+          </>
+        }
+      />
 
-      <Container maxW="container.xl" position="relative">
-        <VStack spacing={16} align="stretch">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <Box textAlign="center">
-              <Heading
-                as="h2"
-                size="2xl"
-                mb={4}
-                fontSize={{ base: "5xl", md: "7xl", lg: "8xl" }}
-                color="white"
-                fontWeight="700"
-                letterSpacing="0.1em"
-                textTransform="uppercase"
-                fontFamily="'Space Grotesk', sans-serif"
-              >
-                About
-              </Heading>
-              <Text
-                fontSize={{ base: "sm", md: "md", lg: "lg" }}
-                color="gray.400"
-                maxW="4xl"
-                mx="auto"
-                lineHeight="1.8"
-                letterSpacing="0.05em"
-                textTransform="uppercase"
-                fontFamily="'Space Grotesk', sans-serif"
-              >
-                I'm a Computer Science student at the University of Texas at
-                Arlington with a passion for building scalable full-stack
-                (Java/Python) applications and exploring AI/ML technologies. With a
-                CGPA of 3.73, I'm committed to creating impactful software
-                solutions that make a difference.
+      <Grid templateColumns={{ base: "minmax(0,1fr)", md: "repeat(2, minmax(0,1fr))", lg: "repeat(6, minmax(0,1fr))" }} gap={5}>
+        {/* Bio */}
+        <GridItem colSpan={{ base: 1, md: 2, lg: 4 }} rowSpan={{ lg: 2 }}>
+          <Reveal style={{ height: "100%" }}>
+            <SpotlightCard p={{ base: 6, md: 9 }} h="100%" display="flex" flexDirection="column">
+              <Box display="grid" gap={5} fontSize={{ base: "md", md: "lg" }} lineHeight={1.75} color="var(--text-muted)" sx={{ strong: { color: "var(--text)", fontWeight: 500 } }}>
+                {about.paragraphs.map((p) => (
+                  <Text key={p.slice(0, 24)}>
+                    <Rich text={p} />
+                  </Text>
+                ))}
+              </Box>
+              <Box mt={8}>
+                <Text className="eyebrow" mb={3}>
+                  Focus areas
+                </Text>
+                <div className="chips">
+                  {about.focus.map((f) => (
+                    <span className="chip chip-lg" key={f}>
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              </Box>
+              <Flex mt="auto" pt={8} gap={6} wrap="wrap" className="muted-sm">
+                <span className="location">
+                  <LuMapPin aria-hidden="true" />
+                  {profile.location}
+                </span>
+                <span className="location">
+                  <LuClock aria-hidden="true" />
+                  {localTime} local time
+                </span>
+              </Flex>
+            </SpotlightCard>
+          </Reveal>
+        </GridItem>
+
+        {/* Now */}
+        <GridItem colSpan={{ base: 1, lg: 2 }}>
+          <Reveal delay={0.08} style={{ height: "100%" }}>
+            <SpotlightCard p={7} h="100%">
+              <CardLabel icon={LuBriefcase}>Now</CardLabel>
+              <Text fontSize="xl" fontWeight={600} letterSpacing="-0.02em">
+                Software Engineer at State Farm
               </Text>
-            </Box>
-          </motion.div>
+              <Text mt={2} color="var(--text-muted)" fontSize="sm" lineHeight={1.7}>
+                Interning on Property & Casualty Modeling since June 2026 — and staying on full-time after graduation.
+              </Text>
+              <HStack mt={5}>
+                <span className="badge badge-green">
+                  <span className="pulse-dot" /> Offer accepted
+                </span>
+              </HStack>
+            </SpotlightCard>
+          </Reveal>
+        </GridItem>
 
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-            {skills.map((skill, index) => (
-              <MotionBox
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Box
-                  position="relative"
-                  p={8}
-                  bg="rgba(20, 20, 20, 0.8)"
-                  backdropFilter="blur(20px)"
-                  border="1px solid"
-                  borderColor="rgba(255, 255, 255, 0.2)"
-                  borderRadius="2xl"
-                  _hover={{
-                    borderColor: "rgba(255, 255, 255, 0.4)",
-                    transform: "translateY(-8px)",
-                    boxShadow: "0 20px 60px rgba(255, 255, 255, 0.1)",
-                  }}
-                  transition="all 0.4s ease"
-                >
-                  {/* Top accent line */}
-                  <Box
-                    position="absolute"
-                    top={0}
-                    left={0}
-                    right={0}
-                    h="3px"
-                    bgGradient="linear(to-r, transparent, #ffffff, transparent)"
-                    opacity={0.5}
-                  />
-                  <VStack
-                    spacing={4}
-                    align="start"
-                    position="relative"
-                    zIndex={1}
-                  >
-                    <HStack spacing={4}>
-                      <Box
-                        p={3}
-                        borderRadius="xl"
-                        bg="rgba(255, 255, 255, 0.1)"
-                        border="2px solid"
-                        borderColor="rgba(255, 255, 255, 0.3)"
-                        boxShadow="0 8px 25px rgba(255, 255, 255, 0.1)"
-                      >
-                        <Icon as={skill.icon} w={8} h={8} color="white" />
-                      </Box>
-                      <Heading as="h3" size="md" color="white" fontWeight="700">
-                        {skill.title}
-                      </Heading>
-                    </HStack>
-                    <Text color="gray.300" lineHeight="1.7" fontSize="md">
-                      {skill.description}
-                    </Text>
-                  </VStack>
+        {/* Research */}
+        <GridItem colSpan={{ base: 1, lg: 2 }}>
+          <Reveal delay={0.16} style={{ height: "100%" }}>
+            <SpotlightCard p={7} h="100%">
+              <CardLabel icon={LuFlaskConical}>Research</CardLabel>
+              <Text fontSize="xl" fontWeight={600} letterSpacing="-0.02em">
+                Edge AI, in real time
+              </Text>
+              <Text mt={2} color="var(--text-muted)" fontSize="sm" lineHeight={1.7}>
+                DeiT-Small compressed to run at 330 FPS on a Jetson Orin Nano. First-author paper in preparation.
+              </Text>
+              <a href="#experience" className="text-link" style={{ marginTop: 20 }}>
+                Read more <LuArrowUpRight aria-hidden="true" />
+              </a>
+            </SpotlightCard>
+          </Reveal>
+        </GridItem>
+
+        {/* Education */}
+        <GridItem colSpan={{ base: 1, md: 2, lg: 4 }}>
+          <Reveal style={{ height: "100%" }}>
+            <SpotlightCard p={{ base: 6, md: 8 }} h="100%">
+              <Flex justify="space-between" align="flex-start" gap={6} wrap="wrap">
+                <Box>
+                  <CardLabel icon={LuGraduationCap}>Education</CardLabel>
+                  <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={600} letterSpacing="-0.02em">
+                    {education.degree}
+                  </Text>
+                  <Text color="var(--text-muted)" mt={1}>
+                    {education.school}
+                  </Text>
+                  <Text className="mono-sm" mt={2}>
+                    {education.period}
+                  </Text>
                 </Box>
-              </MotionBox>
-            ))}
-          </SimpleGrid>
+                <Box textAlign={{ base: "left", sm: "right" }}>
+                  <Text fontSize="5xl" fontWeight={600} letterSpacing="-0.04em" lineHeight={1}>
+                    {education.gpa}
+                  </Text>
+                  <Text className="mono-sm" mt={2}>
+                    GPA
+                  </Text>
+                </Box>
+              </Flex>
+              <HStack spacing={2} mt={6} flexWrap="wrap">
+                {education.honors.map((h) => (
+                  <span className="badge badge-violet" key={h}>
+                    <LuAward aria-hidden="true" /> {h}
+                  </span>
+                ))}
+              </HStack>
+              <Text className="eyebrow" mt={7} mb={3}>
+                Relevant coursework
+              </Text>
+              <div className="chips">
+                {education.coursework.map((c) => (
+                  <span className="chip" key={c}>
+                    {c}
+                  </span>
+                ))}
+              </div>
+              <Text className="muted-sm" mt={5}>
+                {education.previous}
+              </Text>
+            </SpotlightCard>
+          </Reveal>
+        </GridItem>
 
-          <MotionBox
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <Box
-              p={10}
-              bg="rgba(20, 20, 20, 0.8)"
-              backdropFilter="blur(20px)"
-              border="1px solid"
-              borderColor="rgba(255, 255, 255, 0.2)"
-              borderRadius="2xl"
-              position="relative"
-            >
-              {/* Corner accent */}
-              <Box
-                position="absolute"
-                top={0}
-                left={0}
-                w="100px"
-                h="100px"
-                borderTop="3px solid"
-                borderLeft="3px solid"
-                borderColor="rgba(255, 255, 255, 0.3)"
-                borderRadius="2xl 0 0 0"
-              />
-              <VStack spacing={6} align="start" position="relative" zIndex={1}>
-                <HStack spacing={4}>
-                  <Box
-                    p={4}
-                    borderRadius="xl"
-                    bg="rgba(255, 255, 255, 0.1)"
-                    border="2px solid"
-                    borderColor="rgba(255, 255, 255, 0.3)"
-                    boxShadow="0 8px 25px rgba(255, 255, 255, 0.1)"
-                  >
-                    <Icon as={FaGraduationCap} w={10} h={10} color="white" />
-                  </Box>
-                  <Heading as="h3" size="lg" color="white" fontWeight="700">
-                    Education & Background
-                  </Heading>
-                </HStack>
-                <VStack align="start" spacing={4} color="gray.300">
-                  <Text lineHeight="1.8" fontSize="md">
-                    Currently pursuing a{" "}
-                    <strong style={{ color: "#ffffff", fontWeight: 700 }}>
-                      Bachelor of Science in Computer Science
-                    </strong>{" "}
-                    at the
-                    <strong style={{ color: "#e5e5e5", fontWeight: 700 }}>
-                      {" "}
-                      University of Texas at Arlington
-                    </strong>
-                    , expected to graduate in December 2026. Maintaining a CGPA
-                    of 3.73 while actively engaging in research, internships,
-                    and real-world projects.
-                  </Text>
-                  <Text lineHeight="1.8" fontSize="md">
-                    My experience spans from building full-stack (Python)
-                    applications like{" "}
-                    <strong style={{ color: "#ffffff", fontWeight: 700 }}>
-                      MavThread
-                    </strong>{" "}
-                    (a university discussion platform) to developing Android
-                    applications and working on AI/ML research projects. I'm
-                    passionate about creating scalable, efficient solutions that
-                    solve real-world problems.
-                  </Text>
-                  <HStack spacing={3} flexWrap="wrap" pt={2}>
-                    <Badge
-                      bg="rgba(255, 255, 255, 0.1)"
-                      color="#ffffff"
-                      border="1px solid"
-                      borderColor="rgba(255, 255, 255, 0.3)"
-                      fontSize="sm"
-                      px={4}
-                      py={2}
-                      borderRadius="full"
-                      fontWeight="600"
-                    >
-                      Full Stack Development (Python)
-                    </Badge>
-                    <Badge
-                      bg="rgba(229, 229, 229, 0.1)"
-                      color="#e5e5e5"
-                      border="1px solid"
-                      borderColor="rgba(229, 229, 229, 0.3)"
-                      fontSize="sm"
-                      px={4}
-                      py={2}
-                      borderRadius="full"
-                      fontWeight="600"
-                    >
-                      AI/ML Research
-                    </Badge>
-                    <Badge
-                      bg="rgba(212, 212, 212, 0.1)"
-                      color="#d4d4d4"
-                      border="1px solid"
-                      borderColor="rgba(212, 212, 212, 0.3)"
-                      fontSize="sm"
-                      px={4}
-                      py={2}
-                      borderRadius="full"
-                      fontWeight="600"
-                    >
-                      Cloud Computing
-                    </Badge>
-                    <Badge
-                      bg="rgba(163, 163, 163, 0.1)"
-                      color="#a3a3a3"
-                      border="1px solid"
-                      borderColor="rgba(163, 163, 163, 0.3)"
-                      fontSize="sm"
-                      px={4}
-                      py={2}
-                      borderRadius="full"
-                      fontWeight="600"
-                    >
-                      Mobile Development
-                    </Badge>
-                  </HStack>
-                </VStack>
-              </VStack>
-            </Box>
-          </MotionBox>
-        </VStack>
-      </Container>
-    </Box>
+        {/* Leadership */}
+        <GridItem colSpan={{ base: 1, md: 2, lg: 2 }}>
+          <Reveal delay={0.08} style={{ height: "100%" }}>
+            <SpotlightCard p={7} h="100%" display="flex" flexDirection="column">
+              <CardLabel icon={LuUsers}>Leadership</CardLabel>
+              <Text fontSize="5xl" fontWeight={600} letterSpacing="-0.04em" lineHeight={1}>
+                35+
+              </Text>
+              <Text mt={3} color="var(--text-muted)" fontSize="sm" lineHeight={1.7}>
+                Tutors I lead as LRC Tutors Team Lead at UT Arlington — scheduling, operations and performance analytics.
+              </Text>
+              <HStack mt="auto" pt={5}>
+                <span className="badge badge-amber">
+                  <LuAward aria-hidden="true" /> Mavs Up MVP
+                </span>
+              </HStack>
+            </SpotlightCard>
+          </Reveal>
+        </GridItem>
+      </Grid>
+    </Section>
   );
 };
 

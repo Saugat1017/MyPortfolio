@@ -1,438 +1,328 @@
-import { Box, Container, Heading, Text, Tag, Button, VStack, HStack, Link, SimpleGrid, Badge } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import { FaGithub, FaTasks, FaMobile, FaServer, FaHome, FaBrain, FaArrowRight, FaJava } from 'react-icons/fa';
-import { SiReact, SiAndroid, SiC, SiHtml5, SiCss3, SiJavascript, SiPython, SiFastapi } from 'react-icons/si';
+import { useEffect, useRef, useState } from "react";
+import { Box, Flex, Grid, GridItem, HStack, Text } from "@chakra-ui/react";
+import { motion, useInView } from "framer-motion";
+import { FaGithub } from "react-icons/fa";
+import { LuArrowUpRight, LuExternalLink, LuGitBranch, LuLayers } from "react-icons/lu";
+import { featuredProjects, moreProjects, profile, type Project } from "../data/profile";
+import { EASE, Reveal } from "./ui/motion";
+import { Flow, Rich, Section, SectionHeading, SpotlightCard, TechChip } from "./ui/primitives";
 
-const MotionBox = motion(Box);
+const ProjectLinks = ({ project }: { project: Project }) => (
+  <HStack spacing={2} flexWrap="wrap">
+    {project.links.code && (
+      <a className="btn btn-sm btn-ghost" href={project.links.code} target="_blank" rel="noopener noreferrer">
+        <FaGithub aria-hidden="true" /> View code
+        <LuArrowUpRight className="shift" aria-hidden="true" />
+      </a>
+    )}
+    {project.links.live && (
+      <a className="btn btn-sm btn-primary" href={project.links.live} target="_blank" rel="noopener noreferrer">
+        Live site <LuExternalLink aria-hidden="true" />
+      </a>
+    )}
+  </HStack>
+);
 
-const projects = [
-  {
-    title: "Insurance Smart Policy Advisor",
-    description: "An intelligent AI-powered system that provides personalized insurance policy recommendations based on user profiles, risk assessments, and comprehensive policy analysis. Helps users make informed decisions about their insurance coverage needs through advanced machine learning algorithms and intuitive interface.",
-    technologies: ["Python", "Machine Learning", "FastAPI", "React", "scikit-learn", "Streamlit", "Natural Language Processing"],
-    icons: [SiPython, FaBrain, SiFastapi],
-    category: "Machine Learning & AI",
-    categoryIcon: FaBrain,
-    links: {
-      github: "https://github.com/Saugat1017/Insurance_Smart_Policy_Advisor",
-      demo: "https://github.com/Saugat1017/Insurance_Smart_Policy_Advisor"
-    },
-    highlights: [
-      "AI-driven policy recommendations tailored to individual risk profiles and needs",
-      "Advanced machine learning models for risk assessment and policy matching",
-      "Intuitive user interface with interactive policy comparison and visualization",
-      "Production-ready API architecture with comprehensive documentation"
-    ]
-  },
-  {
-    title: "Insurance Early Claim Risk Prediction System",
-    description: "A machine learning system that predicts claim severity (Low/Medium/High) at the moment a claim is filed, helping insurance companies prioritize resources and identify high-risk claims early. Uses only information available at claim filing time with no data leakage.",
-    technologies: ["Python", "FastAPI", "Streamlit", "Machine Learning", "Logistic Regression", "scikit-learn"],
-    icons: [SiPython, SiFastapi, FaBrain],
-    category: "Machine Learning",
-    categoryIcon: FaBrain,
-    links: {
-      github: "https://github.com/Saugat1017/Insurance_early_claim_risk_Prediction_System",
-      demo: "https://github.com/Saugat1017/Insurance_early_claim_risk_Prediction_System"
-    },
-    highlights: [
-      "Predicts claim severity using only intake information (premium, age, policy tenure, family size, insurance type)",
-      "Decoupled architecture: FastAPI backend with ML model, Streamlit frontend",
-      "Business decision logic separated from ML training for explainability",
-      "Production-ready design with validated model and clean API endpoints"
-    ]
-  },
-  {
-    title: "MavThread - University Discussion Platform",
-    description: "Built a full-stack (Python) university discussion platform for 200+ simulated users with anonymous threaded conversations, secure JWT authentication, and a point tracking system. Handled 5K+ API calls during load testing with zero data collisions using UUID-based mapping.",
-    technologies: ["Java", "React", "Spring Boot", "MySQL", "JWT", "AWS RDS", "SLF4J"],
-    icons: [FaJava, SiReact],
-    category: "Full Stack (Python)",
-    categoryIcon: FaServer,
-    period: "Jun 2025 – Present",
-    links: {
-      github: "https://github.com/Saugat1017/MavThread",
-      demo: "https://github.com/Saugat1017/MavThread"
-    },
-    highlights: [
-      "Scalable Spring Boot + MySQL (AWS RDS) backend with JPA",
-      "Zero data collisions with UUID-based mapping",
-      "React-based UI with SLF4J logging, reducing error resolution time by 40%",
-      "Handled 5K+ API calls during load testing"
-    ]
-  },
-  {
-    title: "Mortgage Website - Volunteer Project",
-    description: "A modern, responsive mortgage website built as a volunteer project. Features interactive mortgage calculator, loan program information, and professional design with smooth animations. Fully responsive design that works seamlessly across desktop, tablet, and mobile devices.",
-    technologies: ["HTML5", "CSS3", "JavaScript", "Font Awesome", "Google Fonts"],
-    icons: [SiHtml5, SiCss3, SiJavascript],
-    category: "Web Development",
-    categoryIcon: FaHome,
-    links: {
-      github: "https://github.com/Saugat1017/MortgageWebsite-Volunteer-Project",
-      demo: "https://saugat1017.github.io/MortgageWebsite-Volunteer-Project"
-    },
-    highlights: [
-      "Modern, responsive design with gradient backgrounds and smooth animations",
-      "Interactive mortgage calculator with real-time payment calculations",
-      "Professional UI with fixed navigation, mobile menu, and form validation",
-      "Built as volunteer work to support company's digital presence"
-    ]
-  },
-  {
-    title: "Fitness Tracker App - Android Application",
-    description: "Developed a comprehensive Android fitness tracker in Java with GPS integration and sensor-based step counting. Enabled accurate monitoring across 4+ activity types, supporting 1,000+ simulated workout records during testing with advanced analytics.",
-    technologies: ["Java", "Android SDK", "MySQL", "Google Play Services", "Material Design 3", "MPAndroidChart"],
-    icons: [FaJava, SiAndroid],
-    category: "Mobile Development",
-    categoryIcon: FaMobile,
-    period: "Aug 2024 – Dec 2024",
-    links: {
-      github: "https://github.com/Saugat1017",
-      demo: "https://github.com/Saugat1017"
-    },
-    highlights: [
-      "GPS integration and sensor-based step counting",
-      "Advanced analytics with weekly/daily progress visualization",
-      "Increased user engagement by 35% in trials",
-      "Normalized SQLite schema with dark/light mode support"
-    ]
-  },
-  {
-    title: "Farm Data Management System",
-    description: "Developed a C-based trading system for farmers and merchants with secure registration, product listing, and request features. Supported 3+ product categories and handled 1,000+ simulated records with file-based data persistence.",
-    technologies: ["C", "File I/O", "CSV", "Console Interface"],
-    icons: [SiC],
-    category: "Desktop Application",
-    categoryIcon: FaTasks,
-    period: "Aug 2022 – Dec 2022",
-    links: {
-      github: "https://github.com/Saugat1017/Trading-Program-for-Farmers-and-Merchants",
-      demo: "https://github.com/Saugat1017/Trading-Program-for-Farmers-and-Merchants"
-    },
-    highlights: [
-      "File-based data persistence using structured CSV and .dat files",
-      "Secure, user-friendly console interface with input validation",
-      "Password protection and dynamic menus",
-      "Improved task completion by 40%"
-    ]
-  }
-];
+const FeaturedCard = ({ project, index, wide }: { project: Project; index: number; wide: boolean }) => (
+  <SpotlightCard as="article" className="card-lift" p={{ base: 6, md: 8 }} h="100%">
+    <Grid templateColumns={{ base: "minmax(0,1fr)", lg: wide ? "minmax(0,1.15fr) minmax(0,0.85fr)" : "minmax(0,1fr)" }} gap={{ base: 6, lg: wide ? 10 : 6 }} h="100%">
+      <Flex direction="column" minW={0}>
+        <Flex justify="space-between" align="center" gap={3} mb={5} wrap="wrap">
+          <HStack spacing={3}>
+            <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
+            <span className="tag">{project.category}</span>
+          </HStack>
+          {project.period && <span className="mono-sm">{project.period}</span>}
+        </Flex>
+        <h3 className="project-title">{project.title}</h3>
+        <p className="project-tagline">{project.tagline}</p>
 
-const Projects = () => {
-  return (
-    <Box
-      id="projects"
-      minH="100vh"
-      py={{ base: 16, md: 24 }}
-      bg="#000000"
-      position="relative"
-      overflow="hidden"
-    >
-      {/* Subtle background patterns */}
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        right="0"
-        bottom="0"
-        zIndex={0}
-      >
-        {/* Dot pattern */}
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          right="0"
-          bottom="0"
-          opacity={0.03}
-          backgroundImage="radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.5) 1px, transparent 0)"
-          backgroundSize="50px 50px"
-        />
-        {/* Hexagon pattern (approximated with dots) */}
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          right="0"
-          bottom="0"
-          opacity={0.02}
-          backgroundImage="radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.3) 2px, transparent 0), radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.3) 2px, transparent 0)"
-          backgroundSize="100px 100px"
-        />
-        {/* Subtle gradient */}
-        <Box
-          position="absolute"
-          top="20%"
-          right="10%"
-          w="500px"
-          h="500px"
-          borderRadius="50%"
-          bgGradient="radial(circle, rgba(255, 255, 255, 0.02), transparent)"
-          filter="blur(100px)"
-        />
-      </Box>
-
-      <Container maxW="container.xl" position="relative" zIndex={1}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <VStack spacing={4} mb={16} textAlign="center">
-            <Heading
-              fontSize={{ base: "5xl", md: "7xl", lg: "8xl" }}
-              fontWeight="700"
-              letterSpacing="0.1em"
-              textTransform="uppercase"
-              fontFamily="'Space Grotesk', sans-serif"
-              color="white"
-            >
-              Projects
-            </Heading>
-            <Text
-              color="gray.400"
-              fontSize={{ base: "md", md: "lg" }}
-              maxW="2xl"
-            >
-              Showcasing my best work across various technologies and domains
-            </Text>
-          </VStack>
-        </motion.div>
-
-        <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={8}>
-          {projects.map((project, index) => (
-            <MotionBox
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Box
-                position="relative"
-                borderRadius="2xl"
-                bg="rgba(20, 20, 20, 0.8)"
-                backdropFilter="blur(20px)"
-                border="1px solid"
-                borderColor="rgba(255, 255, 255, 0.2)"
-                p={8}
-                h="100%"
-                display="flex"
-                flexDirection="column"
-                _hover={{
-                  borderColor: "rgba(255, 255, 255, 0.4)",
-                  boxShadow: "0 25px 50px rgba(255, 255, 255, 0.1)",
-                  transform: "translateY(-8px)",
-                }}
-                transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
-              >
-                {/* Gradient Border Top */}
-                <Box
-                  position="absolute"
-                  top={0}
-                  left={0}
-                  right={0}
-                  h="3px"
-                  bgGradient="linear(to-r, #ffffff, #e5e5e5, #d4d4d4, #a3a3a3)"
-                  borderRadius="2xl 2xl 0 0"
-                />
-
-                <VStack align="stretch" spacing={6} flex="1">
-                  {/* Header */}
-                  <HStack justify="space-between" align="flex-start" flexWrap="wrap" gap={4}>
-                    <Badge
-                      px={4}
-                      py={2}
-                      borderRadius="full"
-                      bg="rgba(255, 255, 255, 0.1)"
-                      color="#e5e5e5"
-                      border="1px solid"
-                      borderColor="rgba(255, 255, 255, 0.2)"
-                      fontSize="xs"
-                      fontWeight="700"
-                      textTransform="uppercase"
-                      letterSpacing="wide"
-                    >
-                      {project.category}
-                    </Badge>
-                    {project.period && (
-                      <Text color="gray.500" fontSize="xs" fontWeight="600">
-                        {project.period}
-                      </Text>
-                    )}
-                  </HStack>
-
-                  {/* Title */}
-                  <Heading
-                    fontSize={{ base: "xl", md: "2xl" }}
-                    fontWeight="700"
-                    color="white"
-                    lineHeight="1.3"
-                  >
-                    {project.title}
-                  </Heading>
-
-                  {/* Description */}
-                  <Text
-                    color="gray.300"
-                    lineHeight="1.8"
-                    fontSize={{ base: "sm", md: "md" }}
-                  >
-                    {project.description}
-                  </Text>
-
-                  {/* Highlights */}
-                  <Box flex="1">
-                    <VStack align="stretch" spacing={3}>
-                      {project.highlights.map((highlight, i) => (
-                        <HStack key={i} spacing={3} align="flex-start">
-                          <Box
-                            w="6px"
-                            h="6px"
-                            borderRadius="full"
-                            bg="#ffffff"
-                            mt={2}
-                            flexShrink={0}
-                          />
-                          <Text
-                            color="gray.300"
-                            fontSize={{ base: "xs", md: "sm" }}
-                            lineHeight="1.7"
-                            flex={1}
-                          >
-                            {highlight}
-                          </Text>
-                        </HStack>
-                      ))}
-                    </VStack>
-                  </Box>
-
-                  {/* Technologies */}
-                  <Box>
-                    <HStack spacing={2} flexWrap="wrap">
-                      {project.technologies.map((tech, i) => (
-                        <Tag
-                          key={i}
-                          size="sm"
-                          bg="rgba(255, 255, 255, 0.1)"
-                          color="#e5e5e5"
-                          border="1px solid"
-                          borderColor="rgba(255, 255, 255, 0.2)"
-                          borderRadius="md"
-                          px={3}
-                          py={1}
-                          fontSize="xs"
-                          fontWeight="600"
-                        >
-                          {tech}
-                        </Tag>
-                      ))}
-                    </HStack>
-                  </Box>
-
-                  {/* Action Buttons */}
-                  <HStack spacing={4} pt={2}>
-                    <Link href={project.links.github} isExternal flex="1">
-                      <Button
-                        leftIcon={<FaGithub />}
-                        w="100%"
-                        variant="outline"
-                        borderColor="rgba(255, 255, 255, 0.3)"
-                        color="#ffffff"
-                        bg="transparent"
-                        borderRadius="xl"
-                        py={6}
-                        fontSize="sm"
-                        fontWeight="600"
-                        _hover={{
-                          bg: "rgba(59, 130, 246, 0.15)",
-                          borderColor: "#ffffff",
-                          color: "#ffffff",
-                        }}
-                        transition="all 0.3s ease"
-                      >
-                        View Code
-                      </Button>
-                    </Link>
-                    <Link href={project.links.demo} isExternal flex="1">
-                      <Button
-                        rightIcon={<FaArrowRight />}
-                        w="100%"
-                        bgGradient="linear(to-r, #ffffff, #e5e5e5)"
-                        color="#000000"
-                        borderRadius="xl"
-                        py={6}
-                        fontSize="sm"
-                        fontWeight="600"
-                        _hover={{
-                          bgGradient: "linear(to-r, #e5e5e5, #d4d4d4)",
-                          transform: "translateY(-2px)",
-                          boxShadow: "0 10px 25px rgba(255, 255, 255, 0.3)",
-                        }}
-                        transition="all 0.3s ease"
-                      >
-                        Live Demo
-                      </Button>
-                    </Link>
-                  </HStack>
-                </VStack>
-              </Box>
-            </MotionBox>
-          ))}
-        </SimpleGrid>
-
-        {/* GitHub Link Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
-          <Box
-            mt={16}
-            textAlign="center"
-          >
-            <VStack spacing={6}>
-              <Text
-                color="gray.400"
-                fontSize={{ base: "md", md: "lg" }}
-                maxW="2xl"
-                mx="auto"
-              >
-                Want to see more of my work? Check out my GitHub profile for additional projects and contributions.
-              </Text>
-              <Link href="https://github.com/Saugat1017" isExternal>
-                <Button
-                  leftIcon={<FaGithub />}
-                  size="lg"
-                  bgGradient="linear(to-r, #ffffff, #e5e5e5)"
-                  color="#000000"
-                  borderRadius="xl"
-                  px={8}
-                  py={6}
-                  fontSize="md"
-                  fontWeight="700"
-                  letterSpacing="0.05em"
-                  textTransform="uppercase"
-                  fontFamily="'Space Grotesk', sans-serif"
-                  _hover={{
-                    bgGradient: "linear(to-r, #e5e5e5, #d4d4d4)",
-                    transform: "translateY(-3px)",
-                    boxShadow: "0 15px 35px rgba(255, 255, 255, 0.3)",
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  View All Projects on GitHub
-                </Button>
-              </Link>
-            </VStack>
+        {!wide && project.flow && (
+          <Box className="flow-panel" mt={6}>
+            <div className="flow-label">
+              <LuLayers aria-hidden="true" /> Architecture
+            </div>
+            <Flow nodes={project.flow} vertical />
           </Box>
-        </motion.div>
-      </Container>
-    </Box>
+        )}
+
+        {project.bullets && (
+          <Box mt={6}>
+            <ul className="bullets">
+              {project.bullets.map((b) => (
+                <li key={b.slice(0, 32)}>
+                  <Rich text={b} />
+                </li>
+              ))}
+            </ul>
+          </Box>
+        )}
+
+        <Box mt={6} className="chips">
+          {project.stack.map((t) => (
+            <TechChip key={t} name={t} />
+          ))}
+        </Box>
+
+        <Box mt="auto" pt={7}>
+          <ProjectLinks project={project} />
+        </Box>
+      </Flex>
+
+      {wide && project.flow && (
+        <Box className="flow-panel" alignSelf="center" p={{ base: 4, md: 6 }}>
+          <div className="flow-label">
+            <LuLayers aria-hidden="true" /> Architecture
+          </div>
+          <Flow nodes={project.flow} vertical />
+        </Box>
+      )}
+    </Grid>
+  </SpotlightCard>
+);
+
+/* -------------------------------------------------------------------------- */
+/* Live GitHub activity                                                       */
+/* -------------------------------------------------------------------------- */
+
+type Repo = {
+  name: string;
+  html_url: string;
+  language: string | null;
+  pushed_at: string;
+  fork: boolean;
+};
+
+type GitHubData = {
+  repoCount: number;
+  since: number;
+  languages: [string, number][];
+  recent: Repo[];
+  live: boolean;
+};
+
+const FALLBACK: GitHubData = { repoCount: 25, since: 2021, languages: [], recent: [], live: false };
+const CACHE_KEY = "gh-activity-v1";
+
+const timeAgo = (iso: string) => {
+  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000);
+  if (days < 1) return "today";
+  if (days < 30) return `${days}d ago`;
+  const months = Math.floor(days / 30);
+  if (months < 12) return `${months}mo ago`;
+  return `${Math.floor(months / 12)}y ago`;
+};
+
+const useGitHubActivity = (user: string, enabled: boolean) => {
+  const [data, setData] = useState<GitHubData>(FALLBACK);
+
+  useEffect(() => {
+    if (!enabled) return;
+    try {
+      const cached = sessionStorage.getItem(CACHE_KEY);
+      if (cached) {
+        setData(JSON.parse(cached));
+        return;
+      }
+    } catch {
+      /* storage unavailable — fall through to fetch */
+    }
+
+    const controller = new AbortController();
+    const api = "https://api.github.com";
+    Promise.all([
+      fetch(`${api}/users/${user}`, { signal: controller.signal }).then((r) => (r.ok ? r.json() : Promise.reject(r))),
+      fetch(`${api}/users/${user}/repos?per_page=100&sort=pushed`, { signal: controller.signal }).then((r) =>
+        r.ok ? r.json() : Promise.reject(r)
+      ),
+    ])
+      .then(([userInfo, repos]: [{ public_repos: number; created_at: string }, Repo[]]) => {
+        const own = repos.filter((r) => !r.fork && r.name.toLowerCase() !== user.toLowerCase());
+        const counts = new Map<string, number>();
+        own.forEach((r) => r.language && counts.set(r.language, (counts.get(r.language) ?? 0) + 1));
+        const next: GitHubData = {
+          repoCount: userInfo.public_repos,
+          since: new Date(userInfo.created_at).getFullYear(),
+          languages: [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5),
+          recent: own.slice(0, 4),
+          live: true,
+        };
+        setData(next);
+        try {
+          sessionStorage.setItem(CACHE_KEY, JSON.stringify(next));
+        } catch {
+          /* ignore */
+        }
+      })
+      .catch(() => {
+        /* rate-limited or offline — keep the fallback */
+      });
+
+    return () => controller.abort();
+  }, [user, enabled]);
+
+  return data;
+};
+
+const GitHubActivity = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "200px" });
+  const data = useGitHubActivity(profile.links.githubUser, inView);
+  const maxCount = Math.max(1, ...data.languages.map(([, n]) => n));
+
+  return (
+    <Reveal>
+      <Box ref={ref} mt={5}>
+        <SpotlightCard p={{ base: 6, md: 8 }}>
+          <Grid templateColumns={{ base: "minmax(0,1fr)", lg: "minmax(0,0.9fr) minmax(0,1fr) minmax(0,1fr)" }} gap={{ base: 8, lg: 10 }} alignItems="start">
+            <Box>
+              <HStack spacing={3} mb={4}>
+                <span className="icon-tile">
+                  <FaGithub aria-hidden="true" />
+                </span>
+                <span className="eyebrow">{data.live ? "Live from GitHub" : "On GitHub"}</span>
+              </HStack>
+              <Text fontSize="5xl" fontWeight={600} letterSpacing="-0.04em" lineHeight={1}>
+                {data.repoCount}
+              </Text>
+              <Text mt={2} color="var(--text-muted)" fontSize="sm">
+                public repositories · building in public since {data.since}
+              </Text>
+              <Box mt={6}>
+                <a className="btn btn-sm btn-ghost" href={profile.links.github} target="_blank" rel="noopener noreferrer">
+                  <FaGithub aria-hidden="true" /> @{profile.links.githubUser}
+                  <LuArrowUpRight className="shift" aria-hidden="true" />
+                </a>
+              </Box>
+            </Box>
+
+            <Box>
+              <Text className="eyebrow" mb={4}>
+                Top languages · repos
+              </Text>
+              {data.languages.length > 0 ? (
+                <div className="bar-list">
+                  {data.languages.map(([lang, count], i) => (
+                    <div className="bar-row" key={lang} title={`${lang}: ${count} repos`}>
+                      <span className="bar-label">{lang}</span>
+                      <div className="bar-track">
+                        <motion.div
+                          className="bar-fill"
+                          style={{ width: `${(count / maxCount) * 100}%` }}
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: 1 }}
+                          transition={{ duration: 0.9, delay: i * 0.08, ease: EASE }}
+                        />
+                      </div>
+                      <span className="bar-value">{count}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <Text color="var(--text-muted)" fontSize="sm" lineHeight={1.7}>
+                  Python, Java, TypeScript and more — browse the full list on my profile.
+                </Text>
+              )}
+            </Box>
+
+            <Box>
+              <Text className="eyebrow" mb={4}>
+                Recently pushed
+              </Text>
+              {data.recent.length > 0 ? (
+                <Box display="grid" gap={2}>
+                  {data.recent.map((repo) => (
+                    <a key={repo.name} className="repo-row" href={repo.html_url} target="_blank" rel="noopener noreferrer">
+                      <HStack spacing={3} minW={0}>
+                        <LuGitBranch aria-hidden="true" style={{ flexShrink: 0, color: "var(--text-faint)" }} />
+                        <Text fontSize="sm" noOfLines={1}>
+                          {repo.name}
+                        </Text>
+                      </HStack>
+                      <span className="mono-sm" style={{ whiteSpace: "nowrap" }}>
+                        {timeAgo(repo.pushed_at)}
+                      </span>
+                    </a>
+                  ))}
+                </Box>
+              ) : (
+                <Text color="var(--text-muted)" fontSize="sm" lineHeight={1.7}>
+                  Recent activity loads live from the GitHub API.
+                </Text>
+              )}
+            </Box>
+          </Grid>
+        </SpotlightCard>
+      </Box>
+    </Reveal>
   );
 };
+
+/* -------------------------------------------------------------------------- */
+
+const Projects = () => (
+  <Section id="projects">
+    <SectionHeading
+      index="03"
+      eyebrow="Projects"
+      title={
+        <>
+          Things I've <span className="serif grad-text">built</span>.
+        </>
+      }
+      subtitle="Distributed systems, ML-powered products and full-stack apps — each with the architecture behind it."
+    />
+
+    <Grid templateColumns={{ base: "minmax(0,1fr)", lg: "repeat(2, minmax(0,1fr))" }} gap={5}>
+      {featuredProjects.map((project, i) => (
+        <GridItem key={project.id} colSpan={{ base: 1, lg: i === 0 ? 2 : 1 }}>
+          <Reveal delay={i === 0 ? 0 : (i - 1) * 0.08} style={{ height: "100%" }}>
+            <FeaturedCard project={project} index={i} wide={i === 0} />
+          </Reveal>
+        </GridItem>
+      ))}
+    </Grid>
+
+    <Reveal>
+      <Text className="eyebrow" mt={16} mb={5}>
+        More projects
+      </Text>
+    </Reveal>
+    <Grid templateColumns={{ base: "minmax(0,1fr)", md: "repeat(2, minmax(0,1fr))", xl: "repeat(4, minmax(0,1fr))" }} gap={4}>
+      {moreProjects.map((project, i) => (
+        <Reveal key={project.id} delay={i * 0.06} style={{ height: "100%" }}>
+          <SpotlightCard as="article" className="card-lift" p={6} h="100%" display="flex" flexDirection="column">
+            <Flex justify="space-between" align="center" mb={4}>
+              <span className="tag">{project.category}</span>
+              <HStack spacing={1}>
+                {project.links.code && (
+                  <a className="icon-btn" style={{ width: 34, height: 34 }} href={project.links.code} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} source code`}>
+                    <FaGithub />
+                  </a>
+                )}
+                {project.links.live && (
+                  <a className="icon-btn" style={{ width: 34, height: 34 }} href={project.links.live} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} live site`}>
+                    <LuExternalLink />
+                  </a>
+                )}
+              </HStack>
+            </Flex>
+            <h3 className="mini-title">{project.title}</h3>
+            <Text mt={2} fontSize="sm" color="var(--text-muted)" lineHeight={1.7}>
+              {project.tagline}
+            </Text>
+            <Box mt="auto" pt={5} className="chips">
+              {project.stack.map((t) => (
+                <TechChip key={t} name={t} />
+              ))}
+            </Box>
+          </SpotlightCard>
+        </Reveal>
+      ))}
+    </Grid>
+
+    <GitHubActivity />
+  </Section>
+);
 
 export default Projects;

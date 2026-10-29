@@ -1,198 +1,259 @@
-import { useState } from 'react';
-import { Box, IconButton, Input, VStack, Text, Flex, useDisclosure } from '@chakra-ui/react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaRobot, FaTimes, FaPaperPlane } from 'react-icons/fa';
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { LuDownload, LuMessageCircle, LuSend, LuX } from "react-icons/lu";
+import {
+  about,
+  careerGoals,
+  experience,
+  featuredProjects,
+  moreProjects,
+  profile,
+  skillGroups,
+} from "../data/profile";
+
+type Message = {
+  text: string;
+  isBot: boolean;
+  action?: { label: string; href: string; download?: string };
+};
+
+const strip = (s: string) => s.replace(/\*\*/g, "");
+const job = (id: string) => experience.find((j) => j.id === id) ?? experience[0];
+
+const intents: { keywords: string[]; reply: () => Omit<Message, "isBot"> }[] = [
+  {
+    keywords: ["hire", "hiring", "available", "looking", "open to", "job search", "opportunit"],
+    reply: () => ({
+      text: `${profile.firstName} has accepted a full-time Software Engineer offer at State Farm and starts after graduating in Dec 2026, so he's not actively job searching — but he's happy to connect. Email ${profile.email} or find him on LinkedIn.`,
+    }),
+  },
+  {
+    keywords: ["state farm", "statefarm", "intern", "offer", "full-time", "full time", "current"],
+    reply: () => {
+      const sf = job("state-farm");
+      return {
+        text: `${sf.role} at ${sf.org} (${sf.team}), ${sf.period} — and he has accepted a full-time offer to stay on after graduating in Dec 2026.\n\n${sf.bullets
+          .slice(0, 4)
+          .map((b) => `• ${strip(b)}`)
+          .join("\n")}`,
+      };
+    },
+  },
+  {
+    keywords: ["research", "paper", "jetson", "edge", "tensorrt", "vision transformer", "vit", "deit", "lab"],
+    reply: () => {
+      const r = job("edge-ai-research");
+      return { text: `${r.role}, ${r.org} — ${r.team} (${r.note}).\n\n${r.bullets.map((b) => `• ${strip(b)}`).join("\n")}` };
+    },
+  },
+  {
+    keywords: ["goal", "next", "future", "plan", "career", "aspir", "role", "industr"],
+    reply: () => ({
+      text: `Target roles: ${careerGoals.targetRoles.map((r) => r.title).join("; ")}.\n\nNext steps:\n${careerGoals.roadmap
+        .map((s) => `• ${s.phase} (${s.when}): ${s.title}`)
+        .join("\n")}`,
+    }),
+  },
+  {
+    keywords: ["experience", "work", "worked", "jobs"],
+    reply: () => ({
+      text: `Experience:\n${experience.map((j) => `• ${j.role} — ${j.org} (${j.period})`).join("\n")}`,
+    }),
+  },
+  {
+    keywords: ["project", "built", "build", "github", "repo"],
+    reply: () => ({
+      text: `Featured projects:\n${featuredProjects
+        .map((p) => `• ${p.title} — ${p.tagline}`)
+        .join("\n")}\n\nAlso: ${moreProjects.map((p) => p.title).join(", ")}.`,
+    }),
+  },
+  {
+    keywords: ["skill", "tech", "stack", "language", "framework", "tool", "know"],
+    reply: () => ({
+      text: skillGroups.map((g) => `• ${g.title}: ${g.items.join(", ")}`).join("\n"),
+    }),
+  },
+  {
+    keywords: ["education", "school", "university", "degree", "gpa", "graduat", "uta", "college", "course"],
+    reply: () => {
+      const e = about.education;
+      return {
+        text: `${e.degree} at ${e.school} (${e.period}), GPA ${e.gpa}. Honors: ${e.honors.join(", ")}.\n\nCoursework includes ${e.coursework.slice(0, 6).join(", ")} and more.`,
+      };
+    },
+  },
+  {
+    keywords: ["lead", "tutor", "leadership", "mvp", "lrc"],
+    reply: () => ({ text: job("lrc-lead").bullets.map((b) => `• ${strip(b)}`).join("\n") }),
+  },
+  {
+    keywords: ["resume", "cv", "pdf", "download"],
+    reply: () => ({
+      text: "Here's Saugat's one-page resume — experience, research, projects and skills.",
+      action: { label: "Download resume", href: profile.resume.pdf, download: profile.resume.fileName },
+    }),
+  },
+  {
+    keywords: ["contact", "email", "reach", "linkedin", "connect", "message", "talk"],
+    reply: () => ({
+      text: `• Email: ${profile.email}\n• LinkedIn: linkedin.com/in/saugat-bhatta-01a595217\n• GitHub: github.com/${profile.links.githubUser}\n• Based in ${profile.location}`,
+    }),
+  },
+  {
+    keywords: ["hi", "hello", "hey", "yo", "sup"],
+    reply: () => ({ text: "Hey! Ask me about Saugat's work at State Farm, his research, projects, skills or what's next." }),
+  },
+];
+
+const getReply = (question: string): Omit<Message, "isBot"> => {
+  const q = ` ${question.toLowerCase()} `;
+  const match = intents.find((intent) =>
+    intent.keywords.some((k) => (k.length <= 3 ? new RegExp(`\\b${k}\\b`).test(q) : q.includes(k)))
+  );
+  return (
+    match?.reply() ?? {
+      text: "I can answer questions about Saugat's experience, State Farm role, research, projects, skills, education, career goals, resume or contact info.",
+    }
+  );
+};
+
+const suggestions = ["State Farm", "Research", "Projects", "Skills", "Career goals", "Resume", "Contact"];
 
 const ChatBot = () => {
-  const { isOpen, onToggle } = useDisclosure();
-  const [messages, setMessages] = useState<Array<{ text: string; isBot: boolean }>>([
-    { text: "Hi! I'm Saugat's AI assistant. Ask me about his education, skills, projects, or experience!", isBot: true }
+  const [isOpen, setIsOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [typing, setTyping] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      text: `Hi! I'm ${profile.firstName}'s assistant. Ask about his work at State Farm, his edge AI research, projects or what's next.`,
+      isBot: true,
+    },
   ]);
-  const [input, setInput] = useState('');
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  useEffect(() => {
+    bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages, typing]);
 
-    setMessages(prev => [...prev, { text: input, isBot: false }]);
-    setInput('');
+  useEffect(() => {
+    if (isOpen) inputRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setIsOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen]);
 
-    // Simulate bot response
-    setTimeout(() => {
-      const response = getBotResponse(input);
-      setMessages(prev => [...prev, { text: response, isBot: true }]);
-    }, 1000);
-  };
-
-  const getBotResponse = (question: string) => {
-    const lowerQuestion = question.toLowerCase();
-    
-    if (lowerQuestion.includes('education')) {
-      return "Saugat is currently pursuing a Bachelor of Science in Computer Science at the University of Texas at Arlington, expected to graduate in December 2026. He maintains a CGPA of 3.73 and has been recognized on the Honor Roll and Freshman Distinction Roll.";
-    }
-    
-    if (lowerQuestion.includes('skills') || lowerQuestion.includes('technologies')) {
-      return "Saugat is skilled in:\n• Languages: Java, Python, C/C++, SQL, JavaScript, HTML/CSS, Go, R\n• Frameworks: Spring Boot, React, Node.js, Flask, FastAPI, Android SDK\n• Data Tools: MySQL, SQLite, Apache Kafka, AWS Glue ETL\n• Cloud & Tools: AWS (RDS), Docker, Git, CI/CD Pipelines\n• ML/AI: Hugging Face, scikit-learn, PyTorch, NLP";
-    }
-    
-    if (lowerQuestion.includes('projects')) {
-      return "Here are Saugat's notable projects:\n1. MavThread - Full-stack (Python) university discussion platform (React, Spring Boot, AWS RDS)\n2. Fitness Tracker App - Android app with GPS and analytics (Java, Android SDK)\n3. Farm Data Management System - C-based trading system\n4. Dallas AI - Emotional eating support platform with ML models (87% accuracy)\n5. OURCS@DFW Research - Transformer-based summarization research";
-    }
-    
-    if (lowerQuestion.includes('experience') || lowerQuestion.includes('work')) {
-      return "Saugat's experience includes:\n• Dallas AI Summer Program (Jun 2025 - Aug 2025) - Built full-stack (Python) AI platform\n• OURCS@DFW Research Assistant at UT Arlington (Feb 2025 - Mar 2025)\n• Computer Lab Assistant at SUNY Oswego (Aug 2022 - Dec 2022) - 92% resolution rate";
-    }
-
-    if (lowerQuestion.includes('certificates') || lowerQuestion.includes('certifications')) {
-      return "Saugat has earned:\n• CodePath: Intermediate Technical Interview Prep\n• Amazon: Application Development Certificate\n• Paycom: Technology Summer Engagement Program\n• Volunteer: IT Systems Monitoring – ASNEngr Program (NYC)";
-    }
-
-    if (lowerQuestion.includes('contact') || lowerQuestion.includes('hire') || lowerQuestion.includes('email') || lowerQuestion.includes('linkedin') || lowerQuestion.includes('github')) {
-      return "Get in touch with Saugat:\n• Email: saugatbhatta1234@gmail.com\n• GitHub: github.com/Saugat1017\n• LinkedIn: linkedin.com/in/saugat-bhatta-01a595217\n• Website: saugatdev.com\n• Location: Irving, Texas";
-    }
-
-    return "I can tell you about Saugat's education, skills, projects, experience, or certifications. What would you like to know?";
+  const send = (text: string) => {
+    const question = text.trim();
+    if (!question || typing) return;
+    setMessages((prev) => [...prev, { text: question, isBot: false }]);
+    setInput("");
+    setTyping(true);
+    window.setTimeout(() => {
+      setMessages((prev) => [...prev, { ...getReply(question), isBot: true }]);
+      setTyping(false);
+    }, 650);
   };
 
   return (
-    <Box position="fixed" bottom={0} right={0} zIndex={9999}>
-      <IconButton
-        aria-label="Chat"
-        icon={<FaRobot />}
-        position="fixed"
-        bottom="2rem"
-        right="2rem"
-        borderRadius="full"
-        size="lg"
-        bgGradient="linear(135deg, #ffffff, #e5e5e5)"
-        color="#000000"
-        _hover={{
-          transform: 'scale(1.1)',
-          bgGradient: "linear(135deg, #e5e5e5, #d4d4d4)",
-          boxShadow: "0 8px 25px rgba(255, 255, 255, 0.3)",
-        }}
-        onClick={onToggle}
-        zIndex={9999}
-        border="2px solid"
-        borderColor="rgba(0, 0, 0, 0.2)"
-      />
-
+    <>
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.3 }}
+            className="chat-panel"
+            role="dialog"
+            aria-label={`Chat with ${profile.firstName}'s assistant`}
+            initial={{ opacity: 0, y: 20, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.3 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              position: 'fixed',
-              bottom: '6rem',
-              right: '2rem',
-              zIndex: 9999,
-            }}
+            exit={{ opacity: 0, y: 20, scale: 0.96 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformOrigin: "bottom right" }}
           >
-            <Box
-              width="300px"
-              height="400px"
-              bg="rgba(0, 0, 0, 0.95)"
-              borderRadius="xl"
-              overflow="hidden"
-              border="2px solid"
-              borderColor="rgba(255, 255, 255, 0.2)"
-              backdropFilter="blur(10px)"
-              boxShadow="0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 255, 255, 0.1)"
+            <div className="chat-header">
+              <span className="logo-mark" aria-hidden="true">
+                {profile.initials}
+              </span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontWeight: 600, fontSize: "0.95rem" }}>Ask about {profile.firstName}</div>
+                <div className="muted-sm" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <span className="pulse-dot" style={{ width: 6, height: 6 }} /> Instant answers
+                </div>
+              </div>
+              <button type="button" className="icon-btn" style={{ width: 34, height: 34 }} onClick={() => setIsOpen(false)} aria-label="Close chat">
+                <LuX />
+              </button>
+            </div>
+
+            <div className="chat-body" ref={bodyRef} aria-live="polite">
+              {messages.map((msg, i) => (
+                <motion.div
+                  key={i}
+                  className={`chat-msg ${msg.isBot ? "bot" : "user"}`}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  {msg.text}
+                  {msg.action && (
+                    <div>
+                      <a className="chat-action" href={msg.action.href} download={msg.action.download}>
+                        <LuDownload aria-hidden="true" /> {msg.action.label}
+                      </a>
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+              {typing && (
+                <div className="chat-typing" aria-label="Assistant is typing">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              )}
+            </div>
+
+            <div className="chat-suggestions">
+              {suggestions.map((s) => (
+                <button type="button" key={s} onClick={() => send(s)}>
+                  {s}
+                </button>
+              ))}
+            </div>
+
+            <form
+              className="chat-input-row"
+              onSubmit={(e) => {
+                e.preventDefault();
+                send(input);
+              }}
             >
-              <Flex 
-                p={3} 
-                bgGradient="linear(135deg, #ffffff, #e5e5e5)"
-                color="#000000"
-                justify="space-between" 
-                align="center"
-              >
-                <Text fontWeight="bold">Chat with AI Assistant</Text>
-                <IconButton
-                  aria-label="Close"
-                  icon={<FaTimes />}
-                  size="sm"
-                  variant="ghost"
-                  color="#000000"
-                  onClick={onToggle}
-                />
-              </Flex>
-
-              <VStack 
-                h="calc(100% - 110px)" 
-                p={4} 
-                spacing={4} 
-                overflowY="auto"
-                css={{
-                  '&::-webkit-scrollbar': {
-                    width: '4px',
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    background: 'rgba(0, 0, 0, 0.1)',
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    background: 'rgba(255, 255, 255, 0.3)',
-                    borderRadius: '2px',
-                  },
-                }}
-              >
-                {messages.map((msg, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ width: '100%' }}
-                  >
-                    <Box
-                      alignSelf={msg.isBot ? 'flex-start' : 'flex-end'}
-                      bg={msg.isBot ? 'rgba(255, 255, 255, 0.1)' : 'rgba(229, 229, 229, 0.2)'}
-                      color="white"
-                      p={3}
-                      borderRadius="lg"
-                      maxW="80%"
-                      marginLeft={msg.isBot ? 0 : 'auto'}
-                      whiteSpace="pre-line"
-                      border="1px solid"
-                      borderColor={msg.isBot ? 'rgba(255, 255, 255, 0.1)' : 'rgba(229, 229, 229, 0.2)'}
-                    >
-                      {msg.text}
-                    </Box>
-                  </motion.div>
-                ))}
-              </VStack>
-
-              <Flex p={3} borderTop="1px solid" borderColor="rgba(255, 255, 255, 0.1)" bg="rgba(0, 0, 0, 0.8)">
-                <Input
-                  placeholder="Type a message..."
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                  bg="rgba(255, 255, 255, 0.1)"
-                  border="1px solid"
-                  borderColor="rgba(255, 255, 255, 0.2)"
-                  color="white"
-                  _placeholder={{ color: 'rgba(255, 255, 255, 0.5)' }}
-                  mr={2}
-                />
-                <IconButton
-                  aria-label="Send"
-                  icon={<FaPaperPlane />}
-                  onClick={handleSend}
-                  bgGradient="linear(135deg, #ffffff, #e5e5e5)"
-                  color="#000000"
-                  _hover={{
-                    transform: 'scale(1.05)',
-                    bgGradient: "linear(135deg, #e5e5e5, #d4d4d4)",
-                  }}
-                />
-              </Flex>
-            </Box>
+              <input
+                ref={inputRef}
+                className="chat-input"
+                placeholder="Ask a question…"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                aria-label="Your question"
+              />
+              <button type="submit" className="chat-send" disabled={!input.trim() || typing} aria-label="Send">
+                <LuSend />
+              </button>
+            </form>
           </motion.div>
         )}
       </AnimatePresence>
-    </Box>
+
+      <button
+        type="button"
+        className="chat-fab"
+        onClick={() => setIsOpen((o) => !o)}
+        aria-label={isOpen ? "Close chat" : `Ask about ${profile.firstName}`}
+        aria-expanded={isOpen}
+      >
+        {isOpen ? <LuX /> : <LuMessageCircle />}
+      </button>
+    </>
   );
 };
 

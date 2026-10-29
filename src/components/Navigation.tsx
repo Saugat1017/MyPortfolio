@@ -1,118 +1,160 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Flex, Link } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from "react";
+import {
+  Box,
+  Container,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerOverlay,
+  Flex,
+  HStack,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { LuDownload, LuMenu, LuSearch } from "react-icons/lu";
+import { navItems, profile, sectionIds } from "../data/profile";
+import { scrollToSection, useActiveSection } from "../hooks/useActiveSection";
 
-const Navigation: React.FC = () => {
-  const [activeSection, setActiveSection] = useState('Home');
-  
-  const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Education', href: '#journey' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#expertise' },
-    { name: 'Contact', href: '#contact' },
-  ];
+const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.userAgent);
+export const paletteShortcut = isMac ? "⌘K" : "Ctrl K";
+
+const Navigation = ({ onOpenPalette }: { onOpenPalette: () => void }) => {
+  const [scrolled, setScrolled] = useState(false);
+  const active = useActiveSection(sectionIds);
+  const drawer = useDisclosure();
+  const pendingTarget = useRef<string | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = navItems.map(item => {
-        const id = item.href.substring(1);
-        return { name: item.name, element: document.getElementById(id) };
-      });
-
-      const scrollPosition = window.scrollY + 100;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section.element && section.element.offsetTop <= scrollPosition) {
-          setActiveSection(section.name);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  return (
-    <Box
-      as="nav"
-      position="fixed"
-      w="100%"
-      bg="rgba(0, 0, 0, 0.9)"
-      className="blur-bg"
-      zIndex={1000}
-      py={4}
-    >
-      <Flex
-        maxW="container.xl"
-        mx="auto"
-        px={6}
-        align="center"
-        justify="space-between"
-      >
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Link
-            href="#home"
-            fontSize="xl"
-            fontWeight="700"
-            color="white"
-            _hover={{ textDecoration: 'none' }}
-            transition="color 0.3s ease"
-            fontFamily="'Space Grotesk', sans-serif"
-            letterSpacing="0.1em"
-            textTransform="uppercase"
-          >
-            SB
-          </Link>
-        </motion.div>
+  const handleMobileNav = (event: React.MouseEvent, id: string) => {
+    event.preventDefault();
+    pendingTarget.current = id;
+    drawer.onClose();
+  };
 
-        <Flex gap={8} display={{ base: 'none', md: 'flex' }}>
-          {navItems.map((item, index) => (
-            <motion.div
-              key={item.name}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+  return (
+    <Box as="header" className={`nav${scrolled ? " scrolled" : ""}`}>
+      <Container maxW="6xl" px={{ base: 5, md: 8 }}>
+        <Flex h={{ base: "64px", md: "72px" }} align="center" justify="space-between" gap={4}>
+          <a href="#home" className="logo" aria-label={`${profile.name}, back to top`}>
+            <span className="logo-mark">{profile.initials}</span>
+            <Box as="span" display={{ base: "none", sm: "inline" }}>
+              {profile.name}
+            </Box>
+          </a>
+
+          <Box as="nav" aria-label="Primary" display={{ base: "none", lg: "block" }}>
+            <ul className="nav-links">
+              {navItems.map((item) => {
+                const isActive = active === item.id;
+                return (
+                  <li key={item.id}>
+                    <a
+                      href={`#${item.id}`}
+                      className={`nav-link${isActive ? " active" : ""}`}
+                      aria-current={isActive ? "location" : undefined}
+                    >
+                      {isActive && (
+                        <motion.span
+                          layoutId="nav-pill"
+                          className="nav-pill"
+                          transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                        />
+                      )}
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </Box>
+
+          <HStack spacing={2}>
+            <Box display={{ base: "none", md: "block" }}>
+              <button type="button" className="nav-cmd" onClick={onOpenPalette} aria-label="Open command menu">
+                <LuSearch aria-hidden="true" />
+                <span className="kbd">{paletteShortcut}</span>
+              </button>
+            </Box>
+            <a
+              href={profile.resume.pdf}
+              download={profile.resume.fileName}
+              className="btn btn-sm btn-primary"
             >
-              <Link
-                href={item.href}
-                color={activeSection === item.name ? '#ffffff' : '#d4d4d4'}
-                fontSize="sm"
-                fontWeight={activeSection === item.name ? '700' : '500'}
-                letterSpacing="0.1em"
-                textTransform="uppercase"
-                fontFamily="'Space Grotesk', sans-serif"
-                _hover={{ 
-                  textDecoration: 'none',
-                  color: '#ffffff',
-                }}
-                transition="all 0.3s ease"
-                position="relative"
+              <LuDownload aria-hidden="true" />
+              Resume
+            </a>
+            <Box display={{ base: "block", lg: "none" }}>
+              <button
+                type="button"
+                className="icon-btn"
+                onClick={drawer.onOpen}
+                aria-label="Open menu"
+                style={{ width: 38, height: 38 }}
               >
-                {item.name.toUpperCase()}
-                {activeSection === item.name && (
-                  <Box
-                    position="absolute"
-                    bottom="-4px"
-                    left="0"
-                    right="0"
-                    h="2px"
-                    bgGradient="linear(to-r, #ffffff, #e5e5e5, #d4d4d4)"
-                    borderRadius="full"
-                  />
-                )}
-              </Link>
-            </motion.div>
-          ))}
+                <LuMenu />
+              </button>
+            </Box>
+          </HStack>
         </Flex>
-      </Flex>
+      </Container>
+
+      <Drawer
+        isOpen={drawer.isOpen}
+        onClose={drawer.onClose}
+        placement="right"
+        size="full"
+        returnFocusOnClose={false}
+        onCloseComplete={() => {
+          if (pendingTarget.current) {
+            scrollToSection(pendingTarget.current);
+            pendingTarget.current = null;
+          }
+        }}
+      >
+        <DrawerOverlay bg="rgba(3,4,6,0.6)" backdropFilter="blur(6px)" />
+        <DrawerContent bg="#0b0c10" color="var(--text)">
+          <DrawerCloseButton top={4} right={5} size="lg" aria-label="Close menu" />
+          <DrawerBody px={6} pt={20} pb={10} display="flex" flexDirection="column">
+            <nav aria-label="Mobile">
+              {navItems.map((item, i) => (
+                <motion.a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className="mobile-link"
+                  onClick={(e) => handleMobileNav(e, item.id)}
+                  initial={{ opacity: 0, x: 24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 + i * 0.05, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <span>{String(i + 1).padStart(2, "0")}</span>
+                  {item.label}
+                </motion.a>
+              ))}
+              <motion.a
+                href="#resume"
+                className="mobile-link"
+                onClick={(e) => handleMobileNav(e, "resume")}
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.05 + navItems.length * 0.05, duration: 0.5 }}
+              >
+                <span>{String(navItems.length + 1).padStart(2, "0")}</span>
+                Resume
+              </motion.a>
+            </nav>
+            <Box mt="auto" pt={10} className="mono-sm">
+              {profile.email}
+            </Box>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </Box>
   );
 };
