@@ -1,7 +1,8 @@
 import { Fragment, useRef, type ReactNode } from "react";
 import { Box, Container, type BoxProps } from "@chakra-ui/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { techIcons } from "../../data/profile";
-import { Reveal } from "./motion";
+import { EASE, Reveal, SplitHeading } from "./motion";
 
 /** Renders `**bold**` segments of a string as <strong>. */
 export const Rich = ({ text }: { text: string }) => (
@@ -16,10 +17,11 @@ export const Rich = ({ text }: { text: string }) => (
   </>
 );
 
-type SectionProps = { id: string; children: ReactNode } & BoxProps;
+type SectionProps = { id: string; alt?: boolean; children: ReactNode } & BoxProps;
 
-export const Section = ({ id, children, ...rest }: SectionProps) => (
-  <Box as="section" id={id} position="relative" py={{ base: 20, md: 28 }} {...rest}>
+/** `alt` gives the section a slightly lighter band, alternating as you scroll. */
+export const Section = ({ id, alt = false, children, ...rest }: SectionProps) => (
+  <Box as="section" id={id} className={alt ? "band-alt" : undefined} position="relative" py={{ base: 20, md: 28 }} {...rest}>
     <Container maxW="6xl" px={{ base: 5, md: 8 }} position="relative">
       {children}
     </Container>
@@ -29,23 +31,38 @@ export const Section = ({ id, children, ...rest }: SectionProps) => (
 type SectionHeadingProps = {
   index: string;
   eyebrow: string;
-  title: ReactNode;
+  /** Wrap accent words in *asterisks*, e.g. "Where I've *shipped*." */
+  title: string;
   subtitle?: ReactNode;
 };
 
-export const SectionHeading = ({ index, eyebrow, title, subtitle }: SectionHeadingProps) => (
-  <Reveal>
-    <Box mb={{ base: 10, md: 14 }}>
-      <div className="eyebrow">
-        <span className="eyebrow-index">{index}</span>
-        <span className="eyebrow-line" />
-        {eyebrow}
-      </div>
-      <h2 className="section-title">{title}</h2>
-      {subtitle && <p className="section-subtitle">{subtitle}</p>}
+export const SectionHeading = ({ index, eyebrow, title, subtitle }: SectionHeadingProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const numberY = useTransform(scrollYProgress, [0, 1], [70, -70]);
+
+  return (
+    <Box ref={ref} className="section-head" mb={{ base: 10, md: 14 }} sx={{ isolation: "isolate" }}>
+      <motion.span className="section-num" aria-hidden="true" style={{ zIndex: -1, y: reduceMotion ? 0 : numberY }}>
+        {index}
+      </motion.span>
+      <Reveal y={16}>
+        <div className="eyebrow">
+          <span className="eyebrow-index">{index}</span>
+          <span className="eyebrow-line" />
+          {eyebrow}
+        </div>
+      </Reveal>
+      <SplitHeading text={title} className="section-title" />
+      {subtitle && (
+        <Reveal delay={0.2} y={16}>
+          <p className="section-subtitle">{subtitle}</p>
+        </Reveal>
+      )}
     </Box>
-  </Reveal>
-);
+  );
+};
 
 /** Card with a cursor-following glow and border highlight. */
 export const SpotlightCard = ({ className = "", children, ...rest }: BoxProps) => {
@@ -90,10 +107,17 @@ export const Flow = ({ nodes, vertical = false, stackOnMobile = false }: FlowPro
       const Icon = node.tech ? techIcons[node.tech] : undefined;
       return (
         <Fragment key={node.label}>
-          <span className="flow-node" role="listitem">
+          <motion.span
+            className="flow-node"
+            role="listitem"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, delay: i * 0.12, ease: EASE }}
+          >
             {Icon && <Icon aria-hidden="true" />}
             {node.label}
-          </span>
+          </motion.span>
           {i < nodes.length - 1 && (
             <span
               className="flow-link"

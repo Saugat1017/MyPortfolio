@@ -3,16 +3,25 @@ import { Box, Flex, HStack, Text } from "@chakra-ui/react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { LuArrowUpRight, LuCpu } from "react-icons/lu";
 import { earlierExperience, experience, type Job } from "../data/profile";
-import { Reveal } from "./ui/motion";
+import { Rise } from "./ui/motion";
 import { Flow, Rich, Section, SectionHeading, SpotlightCard, TechChip } from "./ui/primitives";
 
 const JobCard = ({ job }: { job: Job }) => (
-  <Reveal className="timeline-item">
-    <span className={`timeline-dot${job.current ? " is-current" : ""}`} aria-hidden="true" />
+  <div className="timeline-item">
+    {/* Dot lights up once the reader scrolls past it */}
+    <motion.span
+      className={`timeline-dot${job.current ? " is-current" : ""}`}
+      aria-hidden="true"
+      initial={{ backgroundColor: "#4a443c", scale: 0.75 }}
+      whileInView={{ backgroundColor: "#d4915f", scale: 1 }}
+      viewport={{ once: true, margin: "0px 0px -45% 0px" }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+    />
+    <Rise>
     <SpotlightCard as="article" p={{ base: 5, md: 8 }}>
       <Flex justify="space-between" align="flex-start" gap={4} wrap="wrap">
         <HStack spacing={4} align="flex-start" minW={0}>
-          <span className="org-mark" style={{ background: job.markGradient }} aria-hidden="true">
+          <span className="org-mark" style={{ background: job.markColor }} aria-hidden="true">
             {job.mark}
           </span>
           <Box minW={0}>
@@ -91,7 +100,8 @@ const JobCard = ({ job }: { job: Job }) => (
         )}
       </Flex>
     </SpotlightCard>
-  </Reveal>
+    </Rise>
+  </div>
 );
 
 const Experience = () => {
@@ -100,15 +110,11 @@ const Experience = () => {
   const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
 
   return (
-    <Section id="experience">
+    <Section id="experience" alt>
       <SectionHeading
         index="02"
         eyebrow="Experience"
-        title={
-          <>
-            Where I've <span className="serif grad-text">shipped</span>.
-          </>
-        }
+        title="Where I've *shipped*."
         subtitle="From enterprise ML platforms at State Farm to on-device research in the lab — plus the team I lead on campus."
       />
 
@@ -121,7 +127,7 @@ const Experience = () => {
         ))}
       </div>
 
-      <Reveal>
+      <Rise>
         <Box mt={16}>
           <Text className="eyebrow" mb={4}>
             Earlier
@@ -142,7 +148,7 @@ const Experience = () => {
             </div>
           ))}
         </Box>
-      </Reveal>
+      </Rise>
     </Section>
   );
 };

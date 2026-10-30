@@ -114,15 +114,15 @@ const CommandPalette = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
         pending.current = null;
       }}
     >
-      <ModalOverlay bg="rgba(3,4,6,0.6)" backdropFilter="blur(6px)" />
+      <ModalOverlay bg="rgba(20, 18, 16,0.6)" backdropFilter="blur(6px)" />
       <ModalContent
         mt="12vh"
         mx={4}
-        bg="rgba(13,14,19,0.96)"
+        bg="rgba(40, 36, 32,0.96)"
         border="1px solid var(--border-strong)"
         borderRadius="18px"
         overflow="hidden"
-        boxShadow="0 40px 100px -20px rgba(0,0,0,0.9), 0 0 80px -30px rgba(139,123,255,0.5)"
+        boxShadow="0 40px 100px -20px rgba(0,0,0,0.9)"
         onKeyDown={handleKeyDown}
       >
         <div className="cmd-input-row">

@@ -1,18 +1,14 @@
 import { Flex, Grid, HStack, Text } from "@chakra-ui/react";
 import { skillGroups } from "../data/profile";
-import { Reveal } from "./ui/motion";
+import { Rise } from "./ui/motion";
 import { Section, SectionHeading, SpotlightCard, TechChip } from "./ui/primitives";
 
 const Skills = () => (
-  <Section id="skills">
+  <Section id="skills" alt>
     <SectionHeading
       index="04"
       eyebrow="Skills"
-      title={
-        <>
-          The <span className="serif grad-text">toolkit</span>.
-        </>
-      }
+      title="The *toolkit*."
       subtitle="The languages, frameworks and platforms I use to take ideas from a notebook to production."
     />
 
@@ -20,7 +16,7 @@ const Skills = () => (
       {skillGroups.map((group, i) => {
         const Icon = group.icon;
         return (
-          <Reveal key={group.title} delay={(i % 3) * 0.08} style={{ height: "100%" }}>
+          <Rise key={group.title} index={i % 3} style={{ height: "100%" }}>
             <SpotlightCard p={7} h="100%">
               <Flex justify="space-between" align="flex-start" mb={5}>
                 <HStack spacing={3}>
@@ -40,7 +36,7 @@ const Skills = () => (
                 ))}
               </div>
             </SpotlightCard>
-          </Reveal>
+          </Rise>
         );
       })}
     </Grid>

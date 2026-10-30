@@ -1,6 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Box, Container, Grid, HStack } from "@chakra-ui/react";
-import { motion, useReducedMotion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 import { FaAws } from "react-icons/fa";
 import { SiPytorch } from "react-icons/si";
 import { LuArrowDown, LuArrowRight, LuDownload, LuGithub, LuLinkedin, LuMail, LuMapPin } from "react-icons/lu";
@@ -42,39 +50,101 @@ const TypeRotator = ({ words }: { words: string[] }) => {
 
   return (
     <span className="typed" aria-hidden="true">
-      <span className="grad-text">{reduceMotion ? words[index] : text}</span>
+      {reduceMotion ? words[index] : text}
       <span className="caret" />
     </span>
   );
 };
 
-const Portrait = () => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.94, y: 24 }}
-    animate={{ opacity: 1, scale: 1, y: 0 }}
-    transition={{ duration: 1.1, delay: 0.35, ease: EASE }}
-  >
-    <div className="portrait">
-      <div className="portrait-glow" aria-hidden="true" />
-      <div className="portrait-frame">
-        <img className="portrait-img" src={profile.photo} alt={`Portrait of ${profile.name}`} width={1536} height={1024} />
-      </div>
-      <div className="float-chip a" aria-hidden="true">
-        <SiPytorch /> PyTorch · TensorRT
-      </div>
-      <div className="float-chip b" aria-hidden="true">
-        <FaAws /> AWS · Terraform
-      </div>
-      <div className="float-chip c" aria-hidden="true">
-        <span className="pulse-dot" /> Building an MCP server
-      </div>
-    </div>
-  </motion.div>
-);
+const chips: { cls: string; icon: ReactNode; label: string }[] = [
+  { cls: "a", icon: <SiPytorch />, label: "PyTorch · TensorRT" },
+  { cls: "b", icon: <FaAws />, label: "AWS · Terraform" },
+  { cls: "c", icon: <span className="pulse-dot" />, label: "Building an MCP server" },
+];
+
+const Portrait = ({ progress }: { progress: MotionValue<number> }) => {
+  const reduceMotion = useReducedMotion();
+
+  // Tilt toward the cursor
+  const tiltX = useMotionValue(0);
+  const tiltY = useMotionValue(0);
+  const rotateX = useSpring(tiltX, { stiffness: 150, damping: 18 });
+  const rotateY = useSpring(tiltY, { stiffness: 150, damping: 18 });
+
+  // Drift away as the hero scrolls out
+  const y = useTransform(progress, [0, 1], [0, 160]);
+  const scale = useTransform(progress, [0, 1], [1, 0.8]);
+  const rotate = useTransform(progress, [0, 1], [0, -10]);
+
+  const handleMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    tiltY.set(((event.clientX - rect.left) / rect.width - 0.5) * 16);
+    tiltX.set(-((event.clientY - rect.top) / rect.height - 0.5) * 16);
+  };
+  const resetTilt = () => {
+    tiltX.set(0);
+    tiltY.set(0);
+  };
+
+  return (
+    <motion.div className="portrait-stage" style={reduceMotion ? undefined : { y, scale, rotate }}>
+      <motion.div
+        className="portrait"
+        onMouseMove={handleMove}
+        onMouseLeave={resetTilt}
+        style={{ rotateX, rotateY, transformPerspective: 1000 }}
+        initial={{ scale: 0.45, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 110, damping: 11, mass: 0.9, delay: 0.25 }}
+      >
+        <div className="portrait-glow" aria-hidden="true" />
+        <svg className="portrait-orbit" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="49.5" style={{ strokeWidth: 0.2, strokeDasharray: "0.4 1.4" }} />
+        </svg>
+        <div className="portrait-ring-spin" aria-hidden="true">
+          <div className="portrait-ring" />
+        </div>
+        <div className="portrait-circle">
+          <img src={profile.photo} alt={`Portrait of ${profile.name}`} width={1536} height={1024} />
+        </div>
+
+        {chips.map((chip, i) => (
+          <motion.div
+            key={chip.cls}
+            className={`orbit-chip ${chip.cls}`}
+            aria-hidden="true"
+            initial={{ opacity: 0, scale: 0.4 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 15, delay: 0.95 + i * 0.15 }}
+          >
+            <div className="float-chip">
+              {chip.icon}
+              {chip.label}
+            </div>
+          </motion.div>
+        ))}
+
+        <motion.div
+          className="portrait-tag"
+          initial={{ opacity: 0, y: 14, x: "-50%" }}
+          animate={{ opacity: 1, y: 0, x: "-50%" }}
+          transition={{ delay: 1.4, duration: 0.7, ease: EASE }}
+        >
+          <span className="pulse-dot" /> CS at UT Arlington · <em>Class of ’26</em>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+};
 
 const Hero = () => {
   const ref = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
   const nameWords = profile.name.split(" ");
+
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
 
   const handleMove = (event: React.MouseEvent<HTMLElement>) => {
     const el = ref.current;
@@ -88,23 +158,25 @@ const Hero = () => {
     <section id="home" ref={ref} className="hero" onMouseMove={handleMove}>
       <div className="hero-bg" aria-hidden="true">
         <div className="hero-grid" />
-        <div className="aurora aurora-1" />
-        <div className="aurora aurora-2" />
-        <div className="aurora aurora-3" />
+        <div className="glow glow-1" />
+        <div className="glow glow-2" />
+        <div className="glow glow-3" />
         <div className="hero-spotlight" />
         <div className="hero-fade" />
       </div>
 
       <Container maxW="6xl" px={{ base: 5, md: 8 }} position="relative" zIndex={1}>
         <Grid
-          templateColumns={{ base: "minmax(0,1fr)", lg: "minmax(0,1.3fr) minmax(0,0.7fr)" }}
-          gap={{ base: 10, lg: 16 }}
+          templateColumns={{ base: "minmax(0,1fr)", lg: "minmax(0,1.15fr) minmax(0,0.85fr)" }}
+          gap={{ base: 10, lg: 14 }}
           alignItems="center"
         >
-          <Box>
+          <motion.div style={reduceMotion ? undefined : { y: textY, opacity: textOpacity }}>
             <motion.div {...fadeUp(0.05)}>
               <HStack spacing={3}>
-                <Box as="img" src={profile.photo} alt="" className="mobile-avatar" display={{ base: "block", lg: "none" }} />
+                <Box className="mobile-avatar" display={{ base: "block", lg: "none" }}>
+                  <img src={profile.photo} alt="" />
+                </Box>
                 <a href="#goals" className="status-pill">
                   <span className="status-badge">
                     <span className="pulse-dot" />
@@ -127,7 +199,7 @@ const Hero = () => {
                   key={word}
                   className="hero-word"
                   aria-hidden="true"
-                  initial={{ opacity: 0, y: "0.45em", filter: "blur(14px)" }}
+                  initial={{ opacity: 0, y: "0.45em", filter: "blur(12px)" }}
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{ duration: 1, delay: 0.15 + i * 0.12, ease: EASE }}
                 >
@@ -183,10 +255,10 @@ const Hero = () => {
                 {profile.location}
               </span>
             </motion.div>
-          </Box>
+          </motion.div>
 
           <Box display={{ base: "none", lg: "block" }}>
-            <Portrait />
+            <Portrait progress={scrollYProgress} />
           </Box>
         </Grid>
 

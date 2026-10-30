@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Grid, HStack, Text } from "@chakra-ui/react";
 import { LuArrowUpRight, LuCheck, LuCopy, LuGithub, LuLinkedin, LuMail, LuMapPin } from "react-icons/lu";
 import { profile } from "../data/profile";
-import { Magnetic, Reveal } from "./ui/motion";
+import { Magnetic, Rise, SplitHeading } from "./ui/motion";
 import { Section } from "./ui/primitives";
 
 const Contact = () => {
@@ -20,7 +20,7 @@ const Contact = () => {
 
   return (
     <Section id="contact" pb={{ base: 16, md: 20 }}>
-      <Reveal>
+      <Rise>
         <div className="contact-card">
           <div className="eyebrow">
             <span className="eyebrow-index">07</span>
@@ -29,9 +29,7 @@ const Contact = () => {
           </div>
           <Grid templateColumns={{ base: "minmax(0,1fr)", lg: "minmax(0,1.2fr) minmax(0,0.8fr)" }} gap={{ base: 10, lg: 16 }} mt={8} alignItems="end">
             <Box>
-              <h2 className="contact-title">
-                Let's <span className="serif grad-text">connect</span>.
-              </h2>
+              <SplitHeading text="Let's *connect*." className="contact-title" />
               <Text mt={6} maxW="34rem" color="var(--text-muted)" fontSize={{ base: "md", md: "lg" }} lineHeight={1.75}>
                 I'm joining State Farm full-time, so I'm not looking for new roles — but I love talking about ML platforms,
                 edge AI research and helping students break into tech. My inbox is open.
@@ -74,7 +72,7 @@ const Contact = () => {
             </Box>
           </Grid>
         </div>
-      </Reveal>
+      </Rise>
     </Section>
   );
 };

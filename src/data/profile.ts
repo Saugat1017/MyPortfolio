@@ -44,6 +44,7 @@ import {
 import {
   LuBot,
   LuBrain,
+  LuBrainCircuit,
   LuCloud,
   LuCodeXml,
   LuCpu,
@@ -52,11 +53,11 @@ import {
   LuGauge,
   LuHandHeart,
   LuLayers,
+  LuMessageSquareText,
   LuNetwork,
   LuRuler,
   LuServer,
   LuShieldCheck,
-  LuSparkles,
   LuTerminal,
   LuWorkflow,
   LuZap,
@@ -148,7 +149,7 @@ export const techIcons: Record<string, IconType> = {
   "Hugging Face": SiHuggingface,
   "scikit-learn": SiScikitlearn,
   MCP: LuBot,
-  LLMs: LuSparkles,
+  LLMs: LuMessageSquareText,
   FastAPI: SiFastapi,
   Flask: SiFlask,
   "Spring Boot": SiSpringboot,
@@ -247,7 +248,7 @@ export type Badge = { label: string; tone: "green" | "violet" | "amber" | "neutr
 export type Job = {
   id: string;
   mark: string;
-  markGradient: string;
+  markColor: string;
   role: string;
   org: string;
   team?: string;
@@ -267,7 +268,7 @@ export const experience: Job[] = [
   {
     id: "state-farm",
     mark: "SF",
-    markGradient: "linear-gradient(135deg, #fda4af, #f0abfc)",
+    markColor: "var(--clay)",
     role: "Software Engineer Intern",
     org: "State Farm",
     team: "Property & Casualty Modeling",
@@ -294,7 +295,7 @@ export const experience: Job[] = [
   {
     id: "edge-ai-research",
     mark: "UTA",
-    markGradient: "linear-gradient(135deg, #c4b5fd, #93c5fd)",
+    markColor: "var(--slate)",
     role: "Undergraduate Researcher",
     org: "UT Arlington",
     team: "Architecture Optimization for Edge AI",
@@ -325,7 +326,7 @@ export const experience: Job[] = [
   {
     id: "dallas-ai",
     mark: "DAI",
-    markGradient: "linear-gradient(135deg, #67e8f9, #86efac)",
+    markColor: "var(--sage)",
     role: "AI Summer Program",
     org: "Dallas AI",
     location: "Dallas, TX",
@@ -345,7 +346,7 @@ export const experience: Job[] = [
   {
     id: "lrc-lead",
     mark: "LRC",
-    markGradient: "linear-gradient(135deg, #fde68a, #fca5a5)",
+    markColor: "var(--sand)",
     role: "LRC Tutors Team Lead (LEAD Team)",
     org: "UT Arlington",
     team: "Mathematics",
@@ -582,7 +583,7 @@ export const careerGoals = {
     {
       title: "AI Infrastructure & Applied AI",
       description: "Retrieval, LLM services and MCP integrations that bring AI into real engineering workflows.",
-      icon: LuSparkles,
+      icon: LuBrainCircuit,
     },
     {
       title: "Efficient & Edge AI",

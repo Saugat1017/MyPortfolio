@@ -1,28 +1,31 @@
 /* Design tokens + base. Fonts are loaded in index.html. */
 :root {
-  --bg: #07080b;
-  --bg-elev: #0d0e13;
-  --surface: rgba(255, 255, 255, 0.03);
-  --surface-2: rgba(255, 255, 255, 0.055);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.15);
+  /* Warm espresso surfaces */
+  --bg: #201d1a;
+  --bg-alt: #262320;
+  --bg-elev: #2b2723;
+  --surface: rgba(241, 233, 216, 0.03);
+  --surface-2: rgba(241, 233, 216, 0.055);
+  --border: rgba(241, 233, 216, 0.09);
+  --border-strong: rgba(241, 233, 216, 0.17);
 
-  --text: #eceef2;
-  --text-muted: #a3a9b6;
-  --text-faint: #7d8492;
+  /* Cream ink */
+  --text: #f1e9d8;
+  --text-muted: #b9ae99;
+  --text-faint: #978d78;
 
-  --violet: #a78bfa;
-  --indigo: #8b7bff;
-  --blue: #60a5fa;
-  --cyan: #22d3ee;
-  --green: #34d399;
-  --amber: #fbbf24;
+  /* Accents: copper leads, sage + sand support */
+  --accent: #d4915f;
+  --accent-soft: #e2ad85;
+  --sage: #a3b48f;
+  --sand: #d1aa63;
+  --clay: #c98468;
+  --slate: #8ea2b5;
 
-  --grad: linear-gradient(90deg, #a78bfa 0%, #60a5fa 50%, #22d3ee 100%);
-
-  --font-sans: "Geist", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-sans: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --radius: 20px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -54,12 +57,12 @@ a {
 }
 
 ::selection {
-  background: rgba(139, 123, 255, 0.35);
-  color: #fff;
+  background: rgba(212, 145, 95, 0.4);
+  color: var(--text);
 }
 
 :focus-visible {
-  outline: 2px solid var(--violet);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 8px;
 }
@@ -71,12 +74,12 @@ a {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(241, 233, 216, 0.14);
   border-radius: 10px;
   border: 2px solid var(--bg);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(241, 233, 216, 0.24);
 }
 
 .sr-only {

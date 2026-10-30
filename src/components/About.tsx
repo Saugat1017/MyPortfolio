@@ -11,8 +11,8 @@ import {
   LuUsers,
 } from "react-icons/lu";
 import { about, profile } from "../data/profile";
-import { Reveal } from "./ui/motion";
-import { Rich, Section, SectionHeading, SpotlightCard } from "./ui/primitives";
+import { Rise, ScrollText } from "./ui/motion";
+import { Section, SectionHeading, SpotlightCard } from "./ui/primitives";
 
 const useLocalTime = (timeZone: string) => {
   const [now, setNow] = useState(() => new Date());
@@ -41,23 +41,17 @@ const About = () => {
       <SectionHeading
         index="01"
         eyebrow="About"
-        title={
-          <>
-            Turning ML research into <span className="serif grad-text">reliable software</span>.
-          </>
-        }
+        title="Turning ML research into *reliable software*."
       />
 
       <Grid templateColumns={{ base: "minmax(0,1fr)", md: "repeat(2, minmax(0,1fr))", lg: "repeat(6, minmax(0,1fr))" }} gap={5}>
         {/* Bio */}
         <GridItem colSpan={{ base: 1, md: 2, lg: 4 }} rowSpan={{ lg: 2 }}>
-          <Reveal style={{ height: "100%" }}>
+          <Rise style={{ height: "100%" }}>
             <SpotlightCard p={{ base: 6, md: 9 }} h="100%" display="flex" flexDirection="column">
-              <Box display="grid" gap={5} fontSize={{ base: "md", md: "lg" }} lineHeight={1.75} color="var(--text-muted)" sx={{ strong: { color: "var(--text)", fontWeight: 500 } }}>
+              <Box display="grid" gap={5} fontSize={{ base: "lg", md: "xl" }} lineHeight={1.65} color="var(--text)" sx={{ strong: { color: "var(--accent-soft)", fontWeight: 600 } }}>
                 {about.paragraphs.map((p) => (
-                  <Text key={p.slice(0, 24)}>
-                    <Rich text={p} />
-                  </Text>
+                  <ScrollText key={p.slice(0, 24)} text={p} />
                 ))}
               </Box>
               <Box mt={8}>
@@ -83,15 +77,15 @@ const About = () => {
                 </span>
               </Flex>
             </SpotlightCard>
-          </Reveal>
+          </Rise>
         </GridItem>
 
         {/* Now */}
         <GridItem colSpan={{ base: 1, lg: 2 }}>
-          <Reveal delay={0.08} style={{ height: "100%" }}>
+          <Rise index={1} style={{ height: "100%" }}>
             <SpotlightCard p={7} h="100%">
               <CardLabel icon={LuBriefcase}>Now</CardLabel>
-              <Text fontSize="xl" fontWeight={600} letterSpacing="-0.02em">
+              <Text fontFamily="var(--font-display)" fontSize="2xl" fontWeight={500} letterSpacing="-0.015em" lineHeight={1.2}>
                 Software Engineer at State Farm
               </Text>
               <Text mt={2} color="var(--text-muted)" fontSize="sm" lineHeight={1.7}>
@@ -103,15 +97,15 @@ const About = () => {
                 </span>
               </HStack>
             </SpotlightCard>
-          </Reveal>
+          </Rise>
         </GridItem>
 
         {/* Research */}
         <GridItem colSpan={{ base: 1, lg: 2 }}>
-          <Reveal delay={0.16} style={{ height: "100%" }}>
+          <Rise index={2} style={{ height: "100%" }}>
             <SpotlightCard p={7} h="100%">
               <CardLabel icon={LuFlaskConical}>Research</CardLabel>
-              <Text fontSize="xl" fontWeight={600} letterSpacing="-0.02em">
+              <Text fontFamily="var(--font-display)" fontSize="2xl" fontWeight={500} letterSpacing="-0.015em" lineHeight={1.2}>
                 Edge AI, in real time
               </Text>
               <Text mt={2} color="var(--text-muted)" fontSize="sm" lineHeight={1.7}>
@@ -121,17 +115,17 @@ const About = () => {
                 Read more <LuArrowUpRight aria-hidden="true" />
               </a>
             </SpotlightCard>
-          </Reveal>
+          </Rise>
         </GridItem>
 
         {/* Education */}
         <GridItem colSpan={{ base: 1, md: 2, lg: 4 }}>
-          <Reveal style={{ height: "100%" }}>
+          <Rise style={{ height: "100%" }}>
             <SpotlightCard p={{ base: 6, md: 8 }} h="100%">
               <Flex justify="space-between" align="flex-start" gap={6} wrap="wrap">
                 <Box>
                   <CardLabel icon={LuGraduationCap}>Education</CardLabel>
-                  <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={600} letterSpacing="-0.02em">
+                  <Text fontFamily="var(--font-display)" fontSize={{ base: "2xl", md: "3xl" }} fontWeight={500} letterSpacing="-0.015em" lineHeight={1.15}>
                     {education.degree}
                   </Text>
                   <Text color="var(--text-muted)" mt={1}>
@@ -171,12 +165,12 @@ const About = () => {
                 {education.previous}
               </Text>
             </SpotlightCard>
-          </Reveal>
+          </Rise>
         </GridItem>
 
         {/* Leadership */}
         <GridItem colSpan={{ base: 1, md: 2, lg: 2 }}>
-          <Reveal delay={0.08} style={{ height: "100%" }}>
+          <Rise index={1} style={{ height: "100%" }}>
             <SpotlightCard p={7} h="100%" display="flex" flexDirection="column">
               <CardLabel icon={LuUsers}>Leadership</CardLabel>
               <Text fontSize="5xl" fontWeight={600} letterSpacing="-0.04em" lineHeight={1}>
@@ -191,7 +185,7 @@ const About = () => {
                 </span>
               </HStack>
             </SpotlightCard>
-          </Reveal>
+          </Rise>
         </GridItem>
       </Grid>
     </Section>

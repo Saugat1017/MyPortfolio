@@ -6,6 +6,8 @@ Personal portfolio for Saugat Bhatta, software engineer (ML platforms, cloud aut
 
 Hero · Tech marquee · About · Experience · Projects (with live GitHub activity) · Skills · Career goals & what's next · Resume (preview + PDF download) · Contact
 
+Design: warm espresso + cream palette with a copper accent; Fraunces (headings), DM Sans (body), IBM Plex Mono (labels). Scroll effects include word-by-word heading reveals, scroll-scrubbed card entrances, a scroll-lit bio, velocity-driven marquees and hero parallax.
+
 Extras: ⌘K / Ctrl+K command menu, a chat assistant that answers questions from the site's content, scroll-linked timeline, cursor-spotlight cards, and full `prefers-reduced-motion` support.
 
 ## Getting started
@@ -19,7 +21,7 @@ npm run preview  # serve the production build
 
 ## Updating content
 
-Almost everything lives in **`src/data/profile.ts`**: experience, projects, skills, career goals, stats and links. Every section, the chat assistant and the ⌘K menu read from it, so an edit there updates the whole site. Wrap words in `**double asterisks**` to bold them in bullet points.
+Almost everything lives in **`src/data/profile.ts`**: experience, projects, skills, career goals, stats and links. Every section, the chat assistant and the ⌘K menu read from it, so an edit there updates the whole site. Wrap words in `**double asterisks**` to bold them in bullet points, and in `*single asterisks*` inside section titles (e.g. `"Where I've *shipped*."`) to give them the copper italic accent.
 
 To replace the resume:
 

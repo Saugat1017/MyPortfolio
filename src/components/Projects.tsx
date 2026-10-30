@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { FaGithub } from "react-icons/fa";
 import { LuArrowUpRight, LuExternalLink, LuGitBranch, LuLayers } from "react-icons/lu";
 import { featuredProjects, moreProjects, profile, type Project } from "../data/profile";
-import { EASE, Reveal } from "./ui/motion";
+import { EASE, Rise } from "./ui/motion";
 import { Flow, Rich, Section, SectionHeading, SpotlightCard, TechChip } from "./ui/primitives";
 
 const ProjectLinks = ({ project }: { project: Project }) => (
@@ -171,7 +171,7 @@ const GitHubActivity = () => {
   const maxCount = Math.max(1, ...data.languages.map(([, n]) => n));
 
   return (
-    <Reveal>
+    <Rise>
       <Box ref={ref} mt={5}>
         <SpotlightCard p={{ base: 6, md: 8 }}>
           <Grid templateColumns={{ base: "minmax(0,1fr)", lg: "minmax(0,0.9fr) minmax(0,1fr) minmax(0,1fr)" }} gap={{ base: 8, lg: 10 }} alignItems="start">
@@ -254,7 +254,7 @@ const GitHubActivity = () => {
           </Grid>
         </SpotlightCard>
       </Box>
-    </Reveal>
+    </Rise>
   );
 };
 
@@ -265,32 +265,28 @@ const Projects = () => (
     <SectionHeading
       index="03"
       eyebrow="Projects"
-      title={
-        <>
-          Things I've <span className="serif grad-text">built</span>.
-        </>
-      }
+      title="Things I've *built*."
       subtitle="Distributed systems, ML-powered products and full-stack apps — each with the architecture behind it."
     />
 
     <Grid templateColumns={{ base: "minmax(0,1fr)", lg: "repeat(2, minmax(0,1fr))" }} gap={5}>
       {featuredProjects.map((project, i) => (
         <GridItem key={project.id} colSpan={{ base: 1, lg: i === 0 ? 2 : 1 }}>
-          <Reveal delay={i === 0 ? 0 : (i - 1) * 0.08} style={{ height: "100%" }}>
+          <Rise index={i === 0 ? 0 : i - 1} style={{ height: "100%" }}>
             <FeaturedCard project={project} index={i} wide={i === 0} />
-          </Reveal>
+          </Rise>
         </GridItem>
       ))}
     </Grid>
 
-    <Reveal>
+    <Rise>
       <Text className="eyebrow" mt={16} mb={5}>
         More projects
       </Text>
-    </Reveal>
+    </Rise>
     <Grid templateColumns={{ base: "minmax(0,1fr)", md: "repeat(2, minmax(0,1fr))", xl: "repeat(4, minmax(0,1fr))" }} gap={4}>
       {moreProjects.map((project, i) => (
-        <Reveal key={project.id} delay={i * 0.06} style={{ height: "100%" }}>
+        <Rise key={project.id} index={i % 4} style={{ height: "100%" }}>
           <SpotlightCard as="article" className="card-lift" p={6} h="100%" display="flex" flexDirection="column">
             <Flex justify="space-between" align="center" mb={4}>
               <span className="tag">{project.category}</span>
@@ -317,7 +313,7 @@ const Projects = () => (
               ))}
             </Box>
           </SpotlightCard>
-        </Reveal>
+        </Rise>
       ))}
     </Grid>
 
