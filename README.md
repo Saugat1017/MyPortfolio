@@ -6,7 +6,7 @@ Personal portfolio for Saugat Bhatta, software engineer (ML platforms, cloud aut
 
 Hero · Tech marquee · About · Experience · Projects (with live GitHub activity) · Skills · Career goals & what's next · Resume (preview + PDF download) · Contact
 
-Design: warm espresso + cream palette with a copper accent; Fraunces (headings), DM Sans (body), IBM Plex Mono (labels). Scroll effects include word-by-word heading reveals, scroll-scrubbed card entrances, a scroll-lit bio, velocity-driven marquees and hero parallax.
+Design: "Cream + Terracotta" palette (cream #F7F3EC, surface #EAE2D7, terracotta #BC6246, charcoal #292D2A, sage + sand supporting tones; all text pairs pass WCAG AA) with a dark charcoal contact panel; Fraunces (headings), DM Sans (body), IBM Plex Mono (labels). Scroll effects include word-by-word heading reveals, scroll-scrubbed card entrances, a scroll-lit bio, velocity-driven marquees and hero parallax.
 
 Extras: ⌘K / Ctrl+K command menu, a chat assistant that answers questions from the site's content, scroll-linked timeline, cursor-spotlight cards, and full `prefers-reduced-motion` support.
 

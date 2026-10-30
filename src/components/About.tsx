@@ -49,7 +49,7 @@ const About = () => {
         <GridItem colSpan={{ base: 1, md: 2, lg: 4 }} rowSpan={{ lg: 2 }}>
           <Rise style={{ height: "100%" }}>
             <SpotlightCard p={{ base: 6, md: 9 }} h="100%" display="flex" flexDirection="column">
-              <Box display="grid" gap={5} fontSize={{ base: "lg", md: "xl" }} lineHeight={1.65} color="var(--text)" sx={{ strong: { color: "var(--accent-soft)", fontWeight: 600 } }}>
+              <Box display="grid" gap={5} fontSize={{ base: "lg", md: "xl" }} lineHeight={1.65} color="var(--text)" sx={{ strong: { color: "var(--accent-ink)", fontWeight: 600 } }}>
                 {about.paragraphs.map((p) => (
                   <ScrollText key={p.slice(0, 24)} text={p} />
                 ))}

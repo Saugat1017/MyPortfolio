@@ -118,8 +118,8 @@ const Navigation = ({ onOpenPalette }: { onOpenPalette: () => void }) => {
           }
         }}
       >
-        <DrawerOverlay bg="rgba(20, 18, 16,0.6)" backdropFilter="blur(6px)" />
-        <DrawerContent bg="#26231f" color="var(--text)">
+        <DrawerOverlay bg="rgba(41, 45, 42, 0.35)" backdropFilter="blur(6px)" />
+        <DrawerContent bg="var(--card)" color="var(--text)">
           <DrawerCloseButton top={4} right={5} size="lg" aria-label="Close menu" />
           <DrawerBody px={6} pt={20} pb={10} display="flex" flexDirection="column">
             <nav aria-label="Mobile">

@@ -12,8 +12,8 @@ const JobCard = ({ job }: { job: Job }) => (
     <motion.span
       className={`timeline-dot${job.current ? " is-current" : ""}`}
       aria-hidden="true"
-      initial={{ backgroundColor: "#4a443c", scale: 0.75 }}
-      whileInView={{ backgroundColor: "#d4915f", scale: 1 }}
+      initial={{ backgroundColor: "#d6ccbd", scale: 0.75 }}
+      whileInView={{ backgroundColor: "#bc6246", scale: 1 }}
       viewport={{ once: true, margin: "0px 0px -45% 0px" }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
     />

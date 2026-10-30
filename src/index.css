@@ -1,26 +1,42 @@
-/* Design tokens + base. Fonts are loaded in index.html. */
+/* Design tokens + base. Fonts are loaded in index.html.
+   Palette: Cream + Terracotta (editorial) with sage + sand supporting tones. */
 :root {
-  /* Warm espresso surfaces */
-  --bg: #201d1a;
-  --bg-alt: #262320;
-  --bg-elev: #2b2723;
-  --surface: rgba(241, 233, 216, 0.03);
-  --surface-2: rgba(241, 233, 216, 0.055);
-  --border: rgba(241, 233, 216, 0.09);
-  --border-strong: rgba(241, 233, 216, 0.17);
+  /* Surfaces */
+  --bg: #f7f3ec;
+  --bg-rgb: 247, 243, 236;
+  --bg-alt: #efe8dd;
+  --surface: #eae2d7;
+  --card: #fcfaf6;
+  --card-rgb: 252, 250, 246;
 
-  /* Cream ink */
-  --text: #f1e9d8;
-  --text-muted: #b9ae99;
-  --text-faint: #978d78;
+  /* Ink (charcoal). Translucent tints use rgba(var(--ink-rgb), a). */
+  --ink-rgb: 41, 45, 42;
+  --text: #292d2a;
+  --text-muted: #55574f;
+  --text-faint: #66675e;
+  --secondary: #77786f;
+  --border: rgba(41, 45, 42, 0.1);
+  --border-strong: rgba(41, 45, 42, 0.2);
 
-  /* Accents: copper leads, sage + sand support */
-  --accent: #d4915f;
-  --accent-soft: #e2ad85;
-  --sage: #a3b48f;
-  --sand: #d1aa63;
-  --clay: #c98468;
-  --slate: #8ea2b5;
+  /* Terracotta accent: base for fills + large type, deeper shades for small text and buttons (WCAG AA) */
+  --accent: #bc6246;
+  --accent-rgb: 188, 98, 70;
+  --accent-strong: #a85236;
+  --accent-ink: #9e4a2f;
+  --accent-soft: #9e4a2f;
+  --on-accent: #fcfaf6;
+
+  /* Supporting earth tones */
+  --sage: #9caf88;
+  --sage-rgb: 156, 175, 136;
+  --sage-ink: #4c6142;
+  --sand: #c9a25e;
+  --sand-rgb: 201, 162, 94;
+  --sand-ink: #7f6125;
+  --clay: #e6b39e;
+  --slate: #bfcad4;
+
+  --shadow-rgb: 70, 45, 30;
 
   --font-sans: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
@@ -57,12 +73,12 @@ a {
 }
 
 ::selection {
-  background: rgba(212, 145, 95, 0.4);
+  background: rgba(188, 98, 70, 0.25);
   color: var(--text);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-strong);
   outline-offset: 3px;
   border-radius: 8px;
 }
@@ -74,12 +90,12 @@ a {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(241, 233, 216, 0.14);
+  background: rgba(41, 45, 42, 0.18);
   border-radius: 10px;
   border: 2px solid var(--bg);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(241, 233, 216, 0.24);
+  background: rgba(41, 45, 42, 0.3);
 }
 
 .sr-only {

@@ -1,7 +1,7 @@
 import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
 
 const config: ThemeConfig = {
-  initialColorMode: "dark",
+  initialColorMode: "light",
   useSystemColorMode: false,
 };
 
@@ -14,23 +14,23 @@ export const theme = extendTheme({
   },
   colors: {
     brand: {
-      50: "#fbf3ea",
-      100: "#f3dfcb",
-      200: "#e9c4a3",
-      300: "#e2ad85",
-      400: "#d4915f",
-      500: "#c47a46",
-      600: "#a66236",
-      700: "#7f4a2a",
-      800: "#58331e",
-      900: "#321d11",
+      50: "#fbf1ec",
+      100: "#f3dcd1",
+      200: "#e6b39e",
+      300: "#d98a6f",
+      400: "#bc6246",
+      500: "#a85236",
+      600: "#9e4a2f",
+      700: "#7c3a25",
+      800: "#5a2a1b",
+      900: "#371a10",
     },
   },
   styles: {
     global: {
       "html, body": {
-        bg: "#201d1a",
-        color: "#f1e9d8",
+        bg: "#f7f3ec",
+        color: "#292d2a",
       },
     },
   },

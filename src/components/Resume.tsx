@@ -86,8 +86,8 @@ const Resume = () => {
       </Grid>
 
       <Modal isOpen={viewer.isOpen} onClose={viewer.onClose} size="5xl" isCentered>
-        <ModalOverlay bg="rgba(20, 18, 16,0.75)" backdropFilter="blur(8px)" />
-        <ModalContent bg="#26231f" border="1px solid var(--border-strong)" borderRadius="20px" overflow="hidden" mx={4}>
+        <ModalOverlay bg="rgba(41, 45, 42, 0.35)" backdropFilter="blur(8px)" />
+        <ModalContent bg="var(--card)" border="1px solid var(--border-strong)" borderRadius="20px" overflow="hidden" mx={4}>
           <ModalHeader display="flex" alignItems="center" gap={3} pr={14} py={3} borderBottom="1px solid var(--border)" fontSize="md" fontWeight={500}>
             {fileName}
             <HStack ml="auto" spacing={2}>
